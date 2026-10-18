@@ -36,13 +36,40 @@ ScaffoldingReadMe.txt
 # NuGet Symbol Packages
 *.snupkg
 
-# dotenv environment variables file
-.env
+# dotenv environment and override files
+*.env
+*.env.*
+.envrc
+.envrc.*
+.direnv/
+
+# Local credential and agent-runtime state
+/.aws/
+/.codex/
+/.agents/
 
 # Others
 ~$*
 *~
 CodeCoverage/
+
+# Polyvalent local state and generated previews
+/var/
+/artifacts/
+*.db
+*.db-*
+*.db.backup-*
+*.sqlite
+*.sqlite-*
+*.sqlite.backup-*
+*.sqlite3
+*.sqlite3-*
+*.sqlite3.backup-*
+/captures/
+
+# Public web working output (the reviewed reference artifact stays tracked)
+/web/node_modules/
+/web/dist/
 
 # MSBuild Binary and Structured Log
 *.binlog

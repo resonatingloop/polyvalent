@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Polyvalent.Domain/Polyvalent.Domain.csproj" />
+    <ProjectReference Include="../Polyvalent.Application/Polyvalent.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations/*.sql" />
+    <EmbeddedResource Include="../../data/seed/v1/*.json" Link="Seed/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

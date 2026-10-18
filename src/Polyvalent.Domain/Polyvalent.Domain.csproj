@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>renderer-independent integer identity, evidence, and mathematical evaluation</Description>
+  </PropertyGroup>
+</Project>

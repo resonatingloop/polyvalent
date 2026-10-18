@@ -2,7 +2,7 @@
 
 > **continuity role:** durable intent
 > **status:** current
-> **last verified:** 2026-10-17
+> **last verified:** 2026-10-18
 > **owns:** purpose, users, scope, non-goals, constraints, and success
 > **update when:** project direction changes, not when implementation merely advances
 
@@ -38,6 +38,9 @@ the repository contains two surfaces over one canonical corpus:
   share it;
 - preserve the witness, qualifier, source, coverage, and epistemic register of
   a claim rather than flattening them into a boolean tag;
+- give each integer sourced, revisioned profile entries for mathematical,
+  scientific, historical, or cultural lore that does not honestly form a
+  graph edge;
 - support private authored constellations among several integers without
   presenting them as exhaustive mathematical classes;
 - make the private gui a dense rolodex and research record with collapsible
@@ -65,18 +68,28 @@ the repository contains two surfaces over one canonical corpus:
 ## conceptual model
 
 - an **integer** is the stable object around which records and views gather;
-- a **property definition** names a reusable way an integer may qualify;
-- an **attestation** records that a particular integer satisfies a property,
-  together with qualifiers, witnesses, sources, and publication state;
+- a **property version** names a reusable way an integer may qualify and the
+  typed evidence contract by which that qualification can be accepted;
+- a **claim revision** records that a particular integer satisfies a property,
+  together with its qualifier, witness, provenance, review state, and lineage;
+- a **source** identifies an intellectual or published work, a **capture** fixes
+  a retrieved instance, and a **citation** records how particular evidence uses
+  it;
+- an **evaluation or import run** records the inputs, versions, outcome, and
+  claims produced by a reproducible population action;
 - a **coverage claim** records which integer range was completely evaluated by
   a particular computation or bounded import;
+- a **profile entry** is sourced, revisioned contextual lore about one integer
+  and does not create a relation by default;
 - a **constellation** is an authored, potentially many-member relation whose
   meaning is carried by its account, member roles, and provenance rather than
   by an exhaustive predicate;
 - a **public projection** is the explicitly selected subset of claims and safe
   evidence available to the web artifact.
 
-the physical schema is intentionally not chosen here.
+sqlite is the accepted canonical local store. exact implemented tables and
+migrations belong to the accepted first-slice spec and the data project rather
+than this durable brief.
 
 ## experience and visual lineage
 
@@ -102,9 +115,23 @@ enter tracked fixtures or public artifacts.
 
 ## current phase
 
-the project is pre-implementation. the next phase must settle framework,
-database ownership, public artifact generation, and the initial property pack
-in a draft first-slice spec. only the owner may accept that spec.
+the accepted first slice is implemented locally: a .net domain and sqlite
+ledger, avalonia research rolodex, explicit static publisher, deterministic
+reference corpus, and react public explorer now form one tested vertical path.
+[`specs/001-first-slice.md`](specs/001-first-slice.md) remains active until its
+final owner-visible browser and native desktop acceptance is recorded.
+
+deployment, suggestion delivery, session-held integers, lenses, and private
+constellations remain later slices rather than hidden extensions of this one.
+
+## future apertures
+
+- session-held integers that can recognize and announce a newly encountered
+  relation during one visitor's exploration;
+- optional thematic lenses, such as an occult lens, that surface selected
+  public significance without fabricating edges among every marked integer;
+- private constellations and direct authored integer relations once their
+  authoring and publication boundaries receive a dedicated slice.
 
 ## success
 

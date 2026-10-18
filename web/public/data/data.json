@@ -1,0 +1,7482 @@
+{
+  "schemaVersion": "1",
+  "releaseId": "reference-v1",
+  "generatedAtUtc": "2026-10-18T00:00:00.0000000\u002B00:00",
+  "properties": [
+    {
+      "slug": "decimal-friedman-number",
+      "name": "decimal friedman number",
+      "definition": "an integer expressible nontrivially from all of its decimal digits exactly once using permitted arithmetic operations.",
+      "aliases": [
+        "friedman number",
+        "nice friedman number",
+        "good friedman number"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "source-asserted-bounded",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "Erich Friedman \u2014 Math Magic, August 2000",
+          "locator": null,
+          "role": "definition",
+          "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+        },
+        {
+          "label": "OEIS A036057",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A036057"
+        },
+        {
+          "label": "OEIS A080035",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A080035"
+        }
+      ]
+    },
+    {
+      "slug": "decimal-narcissistic-number",
+      "name": "decimal narcissistic number",
+      "definition": "a nonnegative integer equal to the sum of its decimal digits, each raised to the number of digits.",
+      "aliases": [
+        "armstrong number",
+        "pluperfect digital invariant"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A005188",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A005188"
+        }
+      ]
+    },
+    {
+      "slug": "decimal-palindrome",
+      "name": "decimal palindrome",
+      "definition": "a nonnegative integer whose base-ten digits read identically in reverse.",
+      "aliases": [
+        "palindromic number"
+      ],
+      "graphMode": "none",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A002113",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A002113"
+        }
+      ]
+    },
+    {
+      "slug": "prime",
+      "name": "prime",
+      "definition": "a positive integer greater than one with exactly two positive divisors.",
+      "aliases": [],
+      "graphMode": "none",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A000040",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A000040"
+        }
+      ]
+    },
+    {
+      "slug": "triangular-number",
+      "name": "triangular number",
+      "definition": "an integer of the form n(n \u002B 1) / 2 for a positive integer n.",
+      "aliases": [
+        "triangle number"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A000217",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A000217"
+        }
+      ]
+    }
+  ],
+  "integers": [
+    {
+      "value": "1",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "1^1 = 1"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 1: 1 \u00D7 (1 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "2",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "2^1 = 2"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "2 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "3",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "3^1 = 3"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "3 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 2: 2 \u00D7 (2 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "4",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "4^1 = 4"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "4 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "5",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "5^1 = 5"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "5 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "6",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "6^1 = 6"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "6 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 3: 3 \u00D7 (3 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "7",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "7^1 = 7"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "7 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "8",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "8^1 = 8"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "8 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "9",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "9^1 = 9"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "9 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "10",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 4: 4 \u00D7 (4 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "11",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "11 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "13",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "15",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 5: 5 \u00D7 (5 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "17",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "19",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "21",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 6: 6 \u00D7 (6 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "22",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "22 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "23",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "25",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "5 ^ 2"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "28",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 7: 7 \u00D7 (7 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "29",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "31",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "33",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "33 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "36",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 8: 8 \u00D7 (8 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "37",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "41",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "43",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "44",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "44 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "45",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 9: 9 \u00D7 (9 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "47",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "53",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "55",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "55 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 10: 10 \u00D7 (10 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "59",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "61",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "66",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "66 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 11: 11 \u00D7 (11 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "67",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "71",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "73",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "77",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "77 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "78",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 12: 12 \u00D7 (12 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "79",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "83",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "88",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "88 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "89",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "91",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 13: 13 \u00D7 (13 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "97",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "99",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "99 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "101",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "101 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "103",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "105",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 14: 14 \u00D7 (14 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "107",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "109",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "111",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "111 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "113",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "120",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 15: 15 \u00D7 (15 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "121",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "11 ^ 2"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "121 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "125",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "5 ^ (1 \u002B 2)"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "126",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "21 \u00D7 6"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "127",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": true
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": " \u2212 1 \u002B 2 ^ 7"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "128",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "2 ^ (8 \u2212 1)"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "131",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "131 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "136",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 16: 16 \u00D7 (16 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "137",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": [
+        {
+          "slug": "fine-structure-near-integer",
+          "title": "the almost-integer",
+          "category": "scientific context",
+          "epistemicRegister": "sourced scientific fact",
+          "body": "the inverse fine-structure constant is close to 137 rather than exactly 137; its measured value continues beyond the integer.",
+          "citations": [
+            {
+              "label": "NIST inverse fine-structure constant",
+              "locator": null,
+              "role": "measurement",
+              "url": "https://physics.nist.gov/cgi-bin/cuu/Value?alphinv"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "139",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "141",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "141 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "149",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "151",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "151 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "153",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "3 \u00D7 51"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        },
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "1^3 \u002B 5^3 \u002B 3^3 = 153"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 17: 17 \u00D7 (17 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "157",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "161",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "161 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "163",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "167",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "171",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "171 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 18: 18 \u00D7 (18 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "173",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "179",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "181",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "181 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "190",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 19: 19 \u00D7 (19 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "191",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "191 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "193",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "197",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "199",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "202",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "202 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "210",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 20: 20 \u00D7 (20 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "211",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "212",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "212 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "216",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "6 ^ (2 \u002B 1)"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "222",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "222 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "223",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "227",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "229",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "231",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 21: 21 \u00D7 (21 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "232",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "232 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "233",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "239",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "241",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "242",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "242 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "251",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "252",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "252 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "253",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 22: 22 \u00D7 (22 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "257",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "262",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "262 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "263",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "269",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "271",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "272",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "272 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "276",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 23: 23 \u00D7 (23 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "277",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "281",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "282",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "282 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "283",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "289",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "(8 \u002B 9) ^ 2"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "292",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "292 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "293",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "300",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 24: 24 \u00D7 (24 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "303",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "303 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "307",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "311",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "313",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "313 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "317",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "323",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "323 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "325",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 25: 25 \u00D7 (25 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "331",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "333",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "333 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "337",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "343",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": true
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "(3 \u002B 4) ^ 3"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        },
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "343 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "347",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "7 ^ 3 \u002B 4"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "349",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "351",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 26: 26 \u00D7 (26 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "353",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "353 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "359",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "363",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "363 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "367",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "370",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "3^3 \u002B 7^3 \u002B 0^3 = 370"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "371",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "3^3 \u002B 7^3 \u002B 1^3 = 371"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "373",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "373 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "378",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 27: 27 \u00D7 (27 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "379",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "383",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "383 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "389",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "393",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "393 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "397",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "401",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "404",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "404 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "406",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 28: 28 \u00D7 (28 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "407",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "4^3 \u002B 0^3 \u002B 7^3 = 407"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "409",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "414",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "414 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "419",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "421",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "424",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "424 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "431",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "433",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "434",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "434 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "435",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 29: 29 \u00D7 (29 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "439",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "443",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "444",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "444 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "449",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "454",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "454 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "457",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "461",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "463",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "464",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "464 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "465",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 30: 30 \u00D7 (30 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "467",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "474",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "474 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "479",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "484",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "484 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "487",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "491",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "494",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "494 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "496",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 31: 31 \u00D7 (31 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "499",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "503",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "505",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "505 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "509",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "515",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "515 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "521",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "523",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "525",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "525 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "528",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 32: 32 \u00D7 (32 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "535",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "535 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "541",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "545",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "545 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "547",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "555",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "555 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "557",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "561",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 33: 33 \u00D7 (33 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "563",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "565",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "565 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "569",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "571",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "575",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "575 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "577",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "585",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "585 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "587",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "593",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "595",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "595 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 34: 34 \u00D7 (34 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "599",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "601",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "606",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "606 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "607",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "613",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "616",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "616 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "617",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "619",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "625",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "5 ^ (6 \u2212 2)"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "626",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "626 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "630",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 35: 35 \u00D7 (35 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "631",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "636",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "636 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "641",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "643",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "646",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "646 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "647",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "653",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "656",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "656 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "659",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "661",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "666",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "666 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 36: 36 \u00D7 (36 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "673",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "676",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "676 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "677",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "683",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "686",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "686 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "688",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "8 \u00D7 86"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "691",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "696",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "696 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "701",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "703",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 37: 37 \u00D7 (37 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "707",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "707 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "709",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "717",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "717 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "719",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "727",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "727 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "733",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "736",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": true
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "7 \u002B 3 ^ 6"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "737",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "737 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "739",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "741",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 38: 38 \u00D7 (38 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "743",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "747",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "747 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "751",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "757",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "757 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "761",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "767",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "767 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "769",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "773",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "777",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "777 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "780",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 39: 39 \u00D7 (39 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "787",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "787 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "797",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "797 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "808",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "808 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "809",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "811",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "818",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "818 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "820",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 40: 40 \u00D7 (40 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "821",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "823",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "827",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "828",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "828 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "829",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "838",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "838 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "839",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "848",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "848 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "853",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "857",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "858",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "858 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "859",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "861",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 41: 41 \u00D7 (41 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "863",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "868",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "868 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "877",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "878",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "878 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "881",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "883",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "887",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "888",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "888 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "898",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "898 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "903",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 42: 42 \u00D7 (42 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "907",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "909",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "909 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "911",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "919",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "919 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "929",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "929 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "937",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "939",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "939 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "941",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "946",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 43: 43 \u00D7 (43 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "947",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "949",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "949 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "953",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "959",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "959 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "967",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "969",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "969 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "971",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "977",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "979",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "979 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "983",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "989",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "989 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "990",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 44: 44 \u00D7 (44 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "991",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "997",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "999",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "999 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1001",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1001 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1009",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1013",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1019",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1021",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1022",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "2 ^ 10 \u2212 2"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1024",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "(4 \u2212 2) ^ 10"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1031",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1033",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1035",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 45: 45 \u00D7 (45 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1039",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1049",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1051",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1061",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1063",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1069",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1081",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 46: 46 \u00D7 (46 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1087",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1091",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1093",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1097",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1103",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1109",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1111",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1111 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1117",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1123",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1128",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 47: 47 \u00D7 (47 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1129",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1151",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1153",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1163",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1171",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1176",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 48: 48 \u00D7 (48 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1181",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1187",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1193",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1201",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1206",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "6 \u00D7 201"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1213",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1217",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1221",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1221 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1223",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1225",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 49: 49 \u00D7 (49 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1229",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1231",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1237",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1249",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1255",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "5 \u00D7 251"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1259",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1260",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "21 \u00D7 60"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1275",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 50: 50 \u00D7 (50 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1277",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1279",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1283",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1285",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": true
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "(1 \u002B 2 ^ 8) \u00D7 5"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1289",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1291",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1296",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "16 \u00D7 9 ^ 2"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1297",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1301",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1303",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1307",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1319",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1321",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1326",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 51: 51 \u00D7 (51 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1327",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1331",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1331 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1361",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1367",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1373",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1378",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 52: 52 \u00D7 (52 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1381",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1395",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "15 \u00D7 93"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1399",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1409",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1423",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1427",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1429",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1431",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 53: 53 \u00D7 (53 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1433",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1435",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "41 \u00D7 35"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1439",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1441",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1441 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1447",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1451",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1453",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1459",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1471",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1481",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1483",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1485",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 54: 54 \u00D7 (54 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1487",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1489",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1493",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1499",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1503",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "3 \u00D7 501"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1511",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1523",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1530",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "3 \u00D7 510"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1531",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1540",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 55: 55 \u00D7 (55 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1543",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1549",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1551",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1551 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1553",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1559",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1567",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1571",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1579",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1583",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1596",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 56: 56 \u00D7 (56 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1597",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1601",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1607",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1609",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1613",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1619",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1621",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1627",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1634",
+      "claims": [
+        {
+          "propertySlug": "decimal-narcissistic-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_power_sum",
+            "schemaVersion": 1,
+            "displayText": "1^4 \u002B 6^4 \u002B 3^4 \u002B 4^4 = 1634"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1637",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1653",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 57: 57 \u00D7 (57 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1657",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1661",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1661 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1663",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1667",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1669",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1693",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1697",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1699",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1709",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1711",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 58: 58 \u00D7 (58 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1721",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1723",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1733",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1741",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1747",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1753",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1759",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1770",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 59: 59 \u00D7 (59 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1771",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1771 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1777",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1783",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1787",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1789",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1792",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "7 \u00D7 2 ^ (9 \u2212 1)"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1801",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1811",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1823",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1827",
+      "claims": [
+        {
+          "propertySlug": "decimal-friedman-number",
+          "qualifier": {
+            "orderly": false
+          },
+          "witness": {
+            "kind": "digit_expression",
+            "schemaVersion": 1,
+            "displayText": "21 \u00D7 87"
+          },
+          "citations": [
+            {
+              "label": "Erich Friedman \u2014 Math Magic, August 2000",
+              "locator": null,
+              "role": "witness",
+              "url": "https://erich-friedman.github.io/mathmagic/0800.html"
+            },
+            {
+              "label": "OEIS A036057",
+              "locator": null,
+              "role": "membership",
+              "url": "https://oeis.org/A036057"
+            }
+          ]
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1830",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 60: 60 \u00D7 (60 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1831",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1847",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1861",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1867",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1871",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1873",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1877",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1879",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1881",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1881 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1889",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1891",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 61: 61 \u00D7 (61 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1901",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1907",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1913",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1931",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1933",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1949",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1951",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1953",
+      "claims": [
+        {
+          "propertySlug": "triangular-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_index",
+            "schemaVersion": 1,
+            "displayText": "term 62: 62 \u00D7 (62 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1973",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1979",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1987",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1991",
+      "claims": [
+        {
+          "propertySlug": "decimal-palindrome",
+          "qualifier": {},
+          "witness": {
+            "kind": "digit_symmetry",
+            "schemaVersion": 1,
+            "displayText": "1991 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1993",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1997",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1999",
+      "claims": [
+        {
+          "propertySlug": "prime",
+          "qualifier": {},
+          "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    }
+  ]
+}

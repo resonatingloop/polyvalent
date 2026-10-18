@@ -1,0 +1,240 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Polyvalent.Desktop.ViewModels"
+        xmlns:app="using:Polyvalent.Application"
+        x:Class="Polyvalent.Desktop.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="polyvalent · private research ledger"
+        Width="1380"
+        Height="880"
+        MinWidth="1060"
+        MinHeight="700">
+  <Grid RowDefinitions="54,*,34">
+    <Border Grid.Row="0" Background="#0C0D12" BorderBrush="#2B2E38" BorderThickness="0,0,0,1">
+      <Grid Margin="20,0" ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+          <TextBlock Classes="display" FontSize="22" Text="polyvalent" />
+          <TextBlock Classes="eyebrow" VerticalAlignment="Center" Text="PRIVATE LEDGER / ROLODEX" />
+        </StackPanel>
+        <TextBlock Grid.Column="2" Classes="mono" FontSize="11" Text="{Binding StagingMessage}" />
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="1" Margin="16" ColumnDefinitions="236,12,*,12,344">
+      <Border Grid.Column="0" Classes="plate">
+        <Grid RowDefinitions="Auto,Auto,18,Auto,*,Auto">
+          <TextBlock Classes="eyebrow" Text="INDEX / INTEGER" />
+          <Grid Grid.Row="1" Margin="0,10,0,0" ColumnDefinitions="*,Auto">
+            <TextBox Text="{Binding SearchText}" PlaceholderText="canonical integer" AutomationProperties.Name="integer search" />
+            <Button Grid.Column="1" Margin="8,0,0,0" Command="{Binding OpenCommand}" Content="open" />
+          </Grid>
+          <Grid Grid.Row="3" ColumnDefinitions="*,8,*">
+            <Button Command="{Binding PreviousCommand}" Content="← prior" />
+            <Button Grid.Column="2" Command="{Binding NextCommand}" Content="next →" />
+          </Grid>
+          <StackPanel Grid.Row="4" Margin="0,22,0,0" Spacing="8">
+            <TextBlock Classes="eyebrow" Text="PROPERTY VOCABULARY" />
+            <ItemsControl ItemsSource="{Binding Properties}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="app:PropertyOption">
+                  <Border Classes="inset" Padding="9" Margin="0,0,0,5">
+                    <StackPanel>
+                      <TextBlock FontWeight="SemiBold" Text="{Binding DisplayName}" />
+                      <TextBlock Classes="mono" FontSize="10" Text="{Binding Slug}" />
+                    </StackPanel>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+          <TextBlock Grid.Row="5" Classes="mono" FontSize="9" TextWrapping="Wrap" Text="{Binding DatabasePath}" />
+        </Grid>
+      </Border>
+
+      <Border Grid.Column="2" Classes="plate" Padding="22">
+        <Grid RowDefinitions="Auto,18,*">
+          <Grid ColumnDefinitions="*,Auto">
+            <StackPanel>
+              <TextBlock Classes="eyebrow" Text="RESEARCH OBJECT / ACTIVE RECORD" />
+              <TextBlock Classes="display" FontSize="82" LineHeight="78" Text="{Binding SelectedInteger}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+              <TextBlock Classes="mono" FontSize="10" HorizontalAlignment="Right" Text="OPEN WORLD" />
+              <TextBlock Foreground="#7FC9A5" Text="positive · covered negative · unknown" />
+            </StackPanel>
+          </Grid>
+
+          <ScrollViewer Grid.Row="2"
+                        HorizontalScrollBarVisibility="Disabled"
+                        HorizontalContentAlignment="Stretch">
+            <StackPanel HorizontalAlignment="Stretch" Spacing="12">
+              <Expander HorizontalAlignment="Stretch" IsExpanded="True" Header="property states &amp; evidence">
+                <ListBox ItemsSource="{Binding Claims}" SelectedItem="{Binding SelectedClaim}">
+                  <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="app:ClaimView">
+                      <Border Classes="inset">
+                        <StackPanel Spacing="7">
+                          <Grid ColumnDefinitions="210,*,Auto">
+                            <StackPanel>
+                              <TextBlock FontWeight="SemiBold" Text="{Binding PropertyName}" TextWrapping="Wrap" />
+                              <TextBlock Classes="mono" FontSize="10" Text="{Binding PropertySlug}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="12,0">
+                              <TextBlock Text="{Binding Witness.DisplayText}" TextWrapping="Wrap" />
+                              <TextBlock Classes="mono" FontSize="10" Text="{Binding QualifierJson}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                              <TextBlock Foreground="#D39A72" HorizontalAlignment="Right" Text="{Binding State}" />
+                              <TextBlock Classes="mono" FontSize="10" HorizontalAlignment="Right" Text="{Binding RevisionStatus}" />
+                              <TextBlock Classes="mono" FontSize="10" HorizontalAlignment="Right" Text="{Binding Origin}" />
+                              <TextBlock Classes="mono" FontSize="9" HorizontalAlignment="Right" Foreground="#A78BFA" Text="{Binding StagingLabel}" />
+                            </StackPanel>
+                          </Grid>
+                          <TextBlock Classes="mono" FontSize="10" Foreground="#8E91A0" Text="{Binding PrivateNotes}" TextWrapping="Wrap" />
+                          <ItemsControl ItemsSource="{Binding Citations}">
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate x:DataType="app:CitationView">
+                                <Grid Margin="0,2,0,0" ColumnDefinitions="*,Auto">
+                                  <StackPanel>
+                                    <TextBlock FontSize="11" Text="{Binding Label}" TextWrapping="Wrap" />
+                                    <TextBlock Classes="mono" FontSize="9" Foreground="#79B9AD" Text="{Binding Url}" TextWrapping="Wrap" />
+                                  </StackPanel>
+                                  <StackPanel Grid.Column="1" Margin="12,0,0,0" HorizontalAlignment="Right">
+                                    <TextBlock Classes="mono" FontSize="9" HorizontalAlignment="Right" Text="{Binding Role}" />
+                                    <TextBlock Classes="mono" FontSize="9" Foreground="#A78BFA" HorizontalAlignment="Right" Text="{Binding PublicationLabel}" />
+                                  </StackPanel>
+                                </Grid>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                        </StackPanel>
+                      </Border>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+              </Expander>
+
+              <Expander HorizontalAlignment="Stretch" IsExpanded="True" Header="profile entries / contextual lore">
+                <ListBox ItemsSource="{Binding ProfileEntries}" SelectedItem="{Binding SelectedProfile}">
+                  <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="app:ProfileEntryView">
+                      <Border Classes="inset">
+                        <StackPanel Spacing="5">
+                          <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Classes="display" FontSize="20" Text="{Binding Title}" />
+                            <TextBlock Grid.Column="1" Classes="mono" FontSize="10" Text="{Binding Status}" />
+                          </Grid>
+                          <TextBlock Foreground="#A78BFA" Text="{Binding Category}" />
+                          <TextBlock TextWrapping="Wrap" Text="{Binding Body}" />
+                          <TextBlock Classes="mono" FontSize="10" Text="{Binding EpistemicRegister}" />
+                          <TextBlock Classes="mono" FontSize="10" Foreground="#8E91A0" Text="{Binding PrivateNotes}" TextWrapping="Wrap" />
+                          <TextBlock Classes="mono" FontSize="9" Foreground="#A78BFA" Text="{Binding StagingLabel}" />
+                          <ItemsControl ItemsSource="{Binding Citations}">
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate x:DataType="app:CitationView">
+                                <Grid Margin="0,2,0,0" ColumnDefinitions="*,Auto">
+                                  <StackPanel>
+                                    <TextBlock FontSize="11" Text="{Binding Label}" TextWrapping="Wrap" />
+                                    <TextBlock Classes="mono" FontSize="9" Foreground="#79B9AD" Text="{Binding Url}" TextWrapping="Wrap" />
+                                  </StackPanel>
+                                  <TextBlock Grid.Column="1" Classes="mono" FontSize="9" Margin="12,0,0,0" Foreground="#A78BFA" Text="{Binding PublicationLabel}" />
+                                </Grid>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                        </StackPanel>
+                      </Border>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+              </Expander>
+
+              <Expander HorizontalAlignment="Stretch" Header="selected revision operations">
+                <Border Classes="inset">
+                  <StackPanel Spacing="9">
+                    <TextBlock Classes="eyebrow" Text="CLAIM REVISION" />
+                    <WrapPanel Orientation="Horizontal">
+                      <Button Margin="0,0,7,7" Command="{Binding AcceptSelectedClaimCommand}" Content="accept draft" />
+                      <Button Margin="0,0,7,7" Command="{Binding WithdrawSelectedClaimCommand}" Content="withdraw draft" />
+                      <Button Classes="accent" Margin="0,0,7,7" Command="{Binding StageSelectedClaimCommand}" Content="stage exact claim" />
+                    </WrapPanel>
+                    <TextBlock Classes="eyebrow" Margin="0,8,0,0" Text="PROFILE REVISION" />
+                    <WrapPanel Orientation="Horizontal">
+                      <Button Margin="0,0,7,7" Command="{Binding PrepareProfileRevisionCommand}" Content="revise into draft" />
+                      <Button Margin="0,0,7,7" Command="{Binding AcceptSelectedProfileCommand}" Content="accept draft" />
+                      <Button Margin="0,0,7,7" Command="{Binding WithdrawSelectedProfileCommand}" Content="withdraw draft" />
+                      <Button Classes="accent" Margin="0,0,7,7" Command="{Binding StageSelectedProfileCommand}" Content="stage exact profile" />
+                    </WrapPanel>
+                  </StackPanel>
+                </Border>
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </Grid>
+      </Border>
+
+      <Border Grid.Column="4" Classes="plate" Padding="14">
+        <ScrollViewer>
+          <StackPanel Spacing="12">
+            <TextBlock Classes="eyebrow" Text="AUTHORING BENCH / PRIVATE" />
+
+            <Expander IsExpanded="True" Header="new property claim draft">
+              <StackPanel Margin="0,8,0,0" Spacing="7">
+                <TextBox Text="{Binding DraftPropertySlug}" PlaceholderText="property slug" />
+                <TextBox Text="{Binding DraftQualifierJson}" PlaceholderText="qualifier json" />
+                <TextBox Text="{Binding DraftWitnessExpression}" PlaceholderText="friedman expression, when needed" />
+                <TextBox MinHeight="62" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding DraftPrivateNotes}" PlaceholderText="private notes" />
+                <WrapPanel Orientation="Horizontal">
+                  <Button Margin="0,0,7,7" Command="{Binding CreateClaimDraftCommand}" Content="write private draft" />
+                  <Button Margin="0,0,7,7" Command="{Binding LoadSelectedClaimDraftCommand}" Content="load selected draft" />
+                  <Button Classes="accent" Margin="0,0,7,7" Command="{Binding SaveSelectedClaimDraftCommand}" Content="save draft edits" />
+                </WrapPanel>
+              </StackPanel>
+            </Expander>
+
+            <Expander Header="source &amp; citation bench">
+              <StackPanel Margin="0,8,0,0" Spacing="7">
+                <TextBox Text="{Binding SourceSlug}" PlaceholderText="source-slug" />
+                <TextBox Text="{Binding SourceTitle}" PlaceholderText="source title" />
+                <TextBox Text="{Binding SourceAuthor}" PlaceholderText="author / institution" />
+                <TextBox Text="{Binding SourceUrl}" PlaceholderText="https://…" />
+                <TextBox Text="{Binding SourceLicense}" PlaceholderText="license metadata" />
+                <Button Command="{Binding CreateSourceCommand}" Content="create source" />
+                <Border Height="1" Background="#2D303B" Margin="0,5" />
+                <TextBox Text="{Binding CitationSourceId}" PlaceholderText="source id" />
+                <TextBox Text="{Binding CitationLabel}" PlaceholderText="public citation label" />
+                <TextBox Text="{Binding CitationRole}" PlaceholderText="role" />
+                <TextBox Text="{Binding CitationLocator}" PlaceholderText="locator" />
+                <CheckBox IsChecked="{Binding CitationPublicSafe}" Content="approve citation for public staging" />
+                <Grid ColumnDefinitions="*,8,*">
+                  <Button Command="{Binding CiteSelectedClaimCommand}" Content="cite claim" />
+                  <Button Grid.Column="2" Command="{Binding CiteSelectedProfileCommand}" Content="cite profile" />
+                </Grid>
+              </StackPanel>
+            </Expander>
+
+            <Expander Header="new profile entry draft">
+              <StackPanel Margin="0,8,0,0" Spacing="7">
+                <TextBox Text="{Binding ProfileSlug}" PlaceholderText="entry-slug" />
+                <TextBox Text="{Binding ProfileTitle}" PlaceholderText="title" />
+                <TextBox Text="{Binding ProfileCategory}" PlaceholderText="category" />
+                <TextBox Text="{Binding ProfileRegister}" PlaceholderText="epistemic register" />
+                <TextBox MinHeight="100" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ProfileBody}" PlaceholderText="plain-text public-capable body" />
+                <TextBox MinHeight="62" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ProfilePrivateNotes}" PlaceholderText="private notes" />
+                <WrapPanel Orientation="Horizontal">
+                  <Button Margin="0,0,7,7" Command="{Binding CreateProfileDraftCommand}" Content="write profile draft" />
+                  <Button Margin="0,0,7,7" Command="{Binding LoadSelectedProfileDraftCommand}" Content="load selected draft" />
+                  <Button Classes="accent" Margin="0,0,7,7" Command="{Binding SaveSelectedProfileDraftCommand}" Content="save draft edits" />
+                </WrapPanel>
+              </StackPanel>
+            </Expander>
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
+
+    <Border Grid.Row="2" Background="#0C0D12" BorderBrush="#2B2E38" BorderThickness="0,1,0,0">
+      <TextBlock Margin="18,0" VerticalAlignment="Center" Classes="mono" FontSize="11" Text="{Binding StatusMessage}" />
+    </Border>
+  </Grid>
+</Window>

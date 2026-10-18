@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Polyvalent.Domain/Polyvalent.Domain.csproj" />
+    <Project Path="src/Polyvalent.Application/Polyvalent.Application.csproj" />
+    <Project Path="src/Polyvalent.Data/Polyvalent.Data.csproj" />
+    <Project Path="src/Polyvalent.Desktop/Polyvalent.Desktop.csproj" />
+    <Project Path="src/Polyvalent.Publisher/Polyvalent.Publisher.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Polyvalent.Domain.Tests/Polyvalent.Domain.Tests.csproj" />
+    <Project Path="tests/Polyvalent.Data.Tests/Polyvalent.Data.Tests.csproj" />
+    <Project Path="tests/Polyvalent.Publication.Tests/Polyvalent.Publication.Tests.csproj" />
+    <Project Path="tests/Polyvalent.Desktop.Tests/Polyvalent.Desktop.Tests.csproj" />
+  </Folder>
+</Solution>

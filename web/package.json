@@ -1,0 +1,31 @@
+{
+  "name": "polyvalent-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check:artifact": "node scripts/check-public-artifact.mjs",
+    "check:boundary": "node scripts/check-public-boundary.mjs",
+    "check": "npm run typecheck && npm run test && npm run check:artifact && npm run check:boundary && npm run build"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.4",
+    "vitest": "5.0.4"
+  }
+}
