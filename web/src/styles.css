@@ -1,16 +1,16 @@
 :root {
   color-scheme: dark;
-  --ink: #090a0d;
-  --ink-raised: #101217;
-  --ink-soft: #16181f;
-  --paper: #eee7d8;
-  --paper-dim: #aaa596;
-  --rule: #343740;
-  --rule-bright: #555863;
-  --ember: #d76c4d;
-  --ember-dim: #743d35;
-  --iris: #9984c7;
-  --verdigris: #74aa9a;
+  --ink: #080b0c;
+  --ink-raised: #0d1213;
+  --ink-soft: #111718;
+  --paper: #f0e6d2;
+  --paper-dim: #9ca7a2;
+  --rule: #283331;
+  --rule-bright: #465653;
+  --ember: #e47f52;
+  --ember-dim: #824a38;
+  --iris: #aa95df;
+  --verdigris: #78dfca;
   --serif: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
   --sans: "Inter", "Avenir Next", "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
@@ -32,8 +32,9 @@ body {
   min-height: 100vh;
   color: var(--paper);
   background:
-    radial-gradient(circle at 78% 2%, rgba(153, 132, 199, 0.11), transparent 28rem),
-    radial-gradient(circle at 8% 48%, rgba(215, 108, 77, 0.07), transparent 32rem),
+    radial-gradient(circle at 76% 36%, rgba(34, 89, 81, 0.15), transparent 34rem),
+    radial-gradient(circle at 9% 54%, rgba(130, 79, 48, 0.08), transparent 32rem),
+    radial-gradient(circle at 92% 4%, rgba(170, 149, 223, 0.045), transparent 22rem),
     var(--ink);
   font-family: var(--sans);
   line-height: 1.5;
@@ -57,7 +58,7 @@ a {
 }
 
 a:hover {
-  color: #fff7e7;
+  color: #fff4dc;
   text-decoration-color: var(--ember);
 }
 
@@ -90,8 +91,8 @@ a:hover {
   opacity: 0.42;
   mix-blend-mode: soft-light;
   background:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 5px);
+    repeating-linear-gradient(90deg, rgba(171, 190, 183, 0.02) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.09) 0 1px, transparent 1px 5px);
 }
 
 .site-header,
@@ -203,7 +204,7 @@ a:hover {
   position: absolute;
   top: 5.5rem;
   right: 0;
-  color: rgba(238, 231, 216, 0.08);
+  color: rgba(171, 190, 183, 0.08);
   font-family: var(--mono);
   font-size: clamp(3rem, 8vw, 9rem);
   letter-spacing: -0.08em;
@@ -260,13 +261,13 @@ a:hover {
   position: absolute;
   content: "";
   inset: 7%;
-  border: 1px solid rgba(153, 132, 199, 0.34);
+  border: 1px solid rgba(170, 149, 223, 0.4);
   border-radius: 50%;
 }
 
 .hero-orbit::after {
   inset: 28%;
-  border-color: rgba(215, 108, 77, 0.45);
+  border-color: rgba(228, 127, 82, 0.5);
 }
 
 .orbit {
@@ -284,7 +285,7 @@ a:hover {
   height: 10px;
   border-radius: 50%;
   background: var(--ember);
-  box-shadow: 0 0 24px rgba(215, 108, 77, 0.9);
+  box-shadow: 0 0 24px rgba(228, 127, 82, 0.9);
 }
 
 .orbit span {
@@ -394,14 +395,14 @@ a:hover {
 .view-switch button:hover,
 .view-switch button[aria-pressed="true"] {
   border-color: var(--ember);
-  background: #261918;
+  background: #221a17;
   transform: translateY(-1px);
 }
 
 .form-error {
   min-height: 1.25rem;
   margin: 0.45rem 0 0;
-  color: #efa18b;
+  color: #f0a487;
   font-family: var(--mono);
   font-size: 0.72rem;
 }
@@ -468,13 +469,13 @@ a:hover {
 .dispatch-card:hover,
 .dispatch-card:focus-visible {
   color: var(--paper);
-  background: #191922;
+  background: #131b1b;
   transform: translateY(-6px);
 }
 
 .dispatch-card.primary {
   background:
-    linear-gradient(145deg, rgba(215, 108, 77, 0.13), transparent 55%),
+    linear-gradient(145deg, rgba(228, 127, 82, 0.14), transparent 55%),
     var(--ink-raised);
 }
 
@@ -547,7 +548,7 @@ a:hover {
   position: absolute;
   content: "";
   inset: -8px;
-  border: 1px dotted rgba(215, 108, 77, 0.4);
+  border: 1px dotted rgba(228, 127, 82, 0.45);
   border-radius: 50%;
 }
 
@@ -601,7 +602,7 @@ a:hover {
 
 .relations-column {
   background:
-    linear-gradient(rgba(153, 132, 199, 0.03), rgba(153, 132, 199, 0)),
+    linear-gradient(rgba(34, 89, 81, 0.08), rgba(34, 89, 81, 0)),
     var(--ink-raised);
 }
 
@@ -651,8 +652,8 @@ a:hover {
   margin-top: 0.35rem;
   padding: 0.45rem 0.65rem;
   border-left: 2px solid var(--ember);
-  color: #f0c8b9;
-  background: #161316;
+  color: #f1c9b5;
+  background: #171513;
   font-family: var(--mono);
   font-size: 0.78rem;
 }
@@ -677,7 +678,7 @@ a:hover {
   padding: 1.8rem;
   border: 1px solid var(--rule);
   background:
-    linear-gradient(110deg, rgba(153, 132, 199, 0.08), transparent 45%),
+    linear-gradient(110deg, rgba(170, 149, 223, 0.09), transparent 45%),
     var(--ink-raised);
 }
 
@@ -749,10 +750,10 @@ a:hover {
   overflow: hidden;
   border: 1px solid var(--rule);
   background:
-    radial-gradient(circle at center, rgba(153, 132, 199, 0.08), transparent 47%),
-    repeating-linear-gradient(0deg, transparent 0 31px, rgba(255, 255, 255, 0.022) 31px 32px),
-    repeating-linear-gradient(90deg, transparent 0 31px, rgba(255, 255, 255, 0.018) 31px 32px),
-    #0c0e12;
+    radial-gradient(circle at center, rgba(34, 89, 81, 0.14), transparent 49%),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(171, 190, 183, 0.025) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, rgba(171, 190, 183, 0.02) 31px 32px),
+    #090f10;
 }
 
 .relation-graph {
@@ -762,13 +763,13 @@ a:hover {
 }
 
 .graph-lines line {
-  stroke: rgba(153, 132, 199, 0.39);
+  stroke: rgba(170, 149, 223, 0.46);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .graph-center circle {
-  fill: #221719;
+  fill: #241a17;
   stroke: var(--ember);
   stroke-width: 1.5;
 }
@@ -784,13 +785,13 @@ a:hover {
 }
 
 .graph-property rect {
-  fill: #17151d;
+  fill: #17161e;
   stroke: var(--iris);
   stroke-width: 1;
 }
 
 .graph-property text {
-  fill: #d7cced;
+  fill: #ded2f5;
   font: 10px var(--mono);
 }
 
@@ -811,7 +812,7 @@ a:hover {
 .graph-integer:hover circle,
 .relation-graph a:focus-visible .graph-property rect,
 .relation-graph a:focus-visible .graph-integer circle {
-  fill: #332128;
+  fill: #33231e;
   stroke: var(--ember);
 }
 
@@ -881,7 +882,7 @@ a:hover {
 }
 
 .relation-evidence code {
-  color: #d7cced;
+  color: #ded2f5;
   font-family: var(--mono);
   font-size: 0.68rem;
   white-space: normal;
@@ -960,7 +961,7 @@ a:hover {
 
 .graph-badge.shared-membership {
   border-color: var(--ember-dim);
-  color: #e9a791;
+  color: #efad91;
 }
 
 .member-grid {
@@ -986,7 +987,7 @@ a:hover {
 
 .member-grid a:hover,
 .member-grid a:focus-visible {
-  background: #211a1e;
+  background: #221b18;
 }
 
 .member-grid strong {
