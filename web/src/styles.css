@@ -11,6 +11,10 @@
   --ember-dim: #824a38;
   --iris: #aa95df;
   --verdigris: #78dfca;
+  --chassis: #06090a;
+  --plate-edge: rgba(171, 190, 183, 0.18);
+  --plate-glint: rgba(240, 230, 210, 0.06);
+  --plate-shadow: rgba(0, 0, 0, 0.68);
   --serif: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
   --sans: "Inter", "Avenir Next", "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
@@ -408,16 +412,11 @@ a:hover {
 }
 
 .dispatch-grid {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr 1fr;
-  gap: 1px;
   padding: 5rem 0;
-  background: var(--rule);
 }
 
 .section-rule,
 .dispatch-grid > h2 {
-  grid-column: 1 / -1;
   background: var(--ink);
 }
 
@@ -455,28 +454,79 @@ a:hover {
   line-height: 1;
 }
 
+.dispatch-plates {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr;
+  gap: clamp(0.45rem, 0.6vw, 0.65rem);
+  padding: clamp(0.45rem, 0.6vw, 0.65rem);
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, rgba(240, 230, 210, 0.025), transparent 9rem),
+    var(--chassis);
+  box-shadow:
+    inset 0 1px 0 var(--plate-glint),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.82),
+    0 2rem 5rem rgba(0, 0, 0, 0.24);
+}
+
 .dispatch-card {
+  --dispatch-wash: rgba(34, 89, 81, 0.05);
+  position: relative;
   min-height: 290px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.7rem;
-  background: var(--ink-raised);
+  overflow: hidden;
+  border: 1px solid var(--plate-edge);
+  background:
+    linear-gradient(145deg, var(--dispatch-wash), transparent 55%),
+    repeating-linear-gradient(8deg, rgba(240, 230, 210, 0.01) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(97deg, rgba(120, 223, 202, 0.008) 0 1px, transparent 1px 12px),
+    var(--ink-raised);
+  box-shadow:
+    inset 1px 1px 0 var(--plate-glint),
+    inset -1px -1px 0 var(--plate-shadow),
+    inset 0 0 2.5rem rgba(0, 0, 0, 0.12),
+    0 0.8rem 2rem rgba(0, 0, 0, 0.18);
   text-decoration: none;
-  transition: background 240ms var(--ease), transform 240ms var(--ease);
+  transition: border-color 240ms var(--ease), box-shadow 240ms var(--ease), transform 240ms var(--ease);
+}
+
+.dispatch-card::before {
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(216, 208, 191, 0.045);
+}
+
+.dispatch-card::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle 2.5px at 7px 7px, rgba(240, 230, 210, 0.2) 0 0.6px, rgba(0, 0, 0, 0.62) 1.2px 2px, transparent 2.2px),
+    radial-gradient(circle 2.5px at calc(100% - 7px) 7px, rgba(240, 230, 210, 0.2) 0 0.6px, rgba(0, 0, 0, 0.62) 1.2px 2px, transparent 2.2px),
+    radial-gradient(circle 2.5px at 7px calc(100% - 7px), rgba(240, 230, 210, 0.12) 0 0.6px, rgba(0, 0, 0, 0.68) 1.2px 2px, transparent 2.2px),
+    radial-gradient(circle 2.5px at calc(100% - 7px) calc(100% - 7px), rgba(240, 230, 210, 0.12) 0 0.6px, rgba(0, 0, 0, 0.68) 1.2px 2px, transparent 2.2px);
 }
 
 .dispatch-card:hover,
 .dispatch-card:focus-visible {
   color: var(--paper);
-  background: #131b1b;
+  border-color: var(--rule-bright);
+  box-shadow:
+    inset 1px 1px 0 rgba(240, 230, 210, 0.08),
+    inset -1px -1px 0 var(--plate-shadow),
+    inset 0 0 3rem rgba(120, 223, 202, 0.04),
+    0 1.2rem 2.8rem rgba(0, 0, 0, 0.28);
   transform: translateY(-6px);
 }
 
 .dispatch-card.primary {
-  background:
-    linear-gradient(145deg, rgba(228, 127, 82, 0.14), transparent 55%),
-    var(--ink-raised);
+  --dispatch-wash: rgba(228, 127, 82, 0.14);
 }
 
 .dispatch-number {
@@ -587,23 +637,74 @@ a:hover {
 }
 
 .number-layout {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1.18fr);
-  gap: 1px;
-  background: var(--rule);
+  gap: clamp(0.5rem, 0.7vw, 0.75rem);
+  padding: clamp(0.5rem, 0.7vw, 0.75rem);
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, rgba(240, 230, 210, 0.025), transparent 12rem),
+    var(--chassis);
+  box-shadow:
+    inset 0 1px 0 var(--plate-glint),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.82),
+    0 2.5rem 6rem rgba(0, 0, 0, 0.32);
 }
 
 .profile-column,
 .relations-column {
+  position: relative;
   min-width: 0;
   padding: 3.5rem clamp(1.2rem, 3vw, 3.8rem);
-  background: var(--ink);
+  overflow: hidden;
+  border: 1px solid var(--plate-edge);
+  box-shadow:
+    inset 1px 1px 0 var(--plate-glint),
+    inset -1px -1px 0 var(--plate-shadow),
+    inset 0 0 3rem rgba(0, 0, 0, 0.12),
+    0 1rem 2.5rem rgba(0, 0, 0, 0.2);
+}
+
+.profile-column {
+  background:
+    repeating-linear-gradient(8deg, rgba(240, 230, 210, 0.01) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(97deg, rgba(120, 223, 202, 0.008) 0 1px, transparent 1px 12px),
+    radial-gradient(ellipse 130% 55% at 0% 0%, rgba(255, 255, 255, 0.028), transparent 58%),
+    linear-gradient(90deg, rgba(120, 223, 202, 0.014), transparent 38%, rgba(0, 0, 0, 0.12)),
+    var(--ink-raised);
 }
 
 .relations-column {
   background:
-    linear-gradient(rgba(34, 89, 81, 0.08), rgba(34, 89, 81, 0)),
+    repeating-linear-gradient(8deg, rgba(240, 230, 210, 0.009) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(97deg, rgba(120, 223, 202, 0.008) 0 1px, transparent 1px 13px),
+    radial-gradient(circle at 76% 16%, rgba(34, 89, 81, 0.16), transparent 44%),
+    linear-gradient(155deg, rgba(17, 25, 25, 0.97), rgba(8, 13, 14, 0.98) 68%),
     var(--ink-raised);
+}
+
+.profile-column::before,
+.relations-column::before {
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(216, 208, 191, 0.045);
+}
+
+.profile-column::after,
+.relations-column::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle 2.5px at 7px 7px, rgba(240, 230, 210, 0.2) 0 0.6px, rgba(0, 0, 0, 0.62) 1.2px 2px, transparent 2.2px),
+    radial-gradient(circle 2.5px at calc(100% - 7px) 7px, rgba(240, 230, 210, 0.2) 0 0.6px, rgba(0, 0, 0, 0.62) 1.2px 2px, transparent 2.2px),
+    radial-gradient(circle 2.5px at 7px calc(100% - 7px), rgba(240, 230, 210, 0.12) 0 0.6px, rgba(0, 0, 0, 0.68) 1.2px 2px, transparent 2.2px),
+    radial-gradient(circle 2.5px at calc(100% - 7px) calc(100% - 7px), rgba(240, 230, 210, 0.12) 0 0.6px, rgba(0, 0, 0, 0.68) 1.2px 2px, transparent 2.2px);
 }
 
 .affiliation-stack {
@@ -747,13 +848,28 @@ a:hover {
 }
 
 .graph-shell {
+  position: relative;
   overflow: hidden;
-  border: 1px solid var(--rule);
+  border: 1px solid #34413f;
   background:
     radial-gradient(circle at center, rgba(34, 89, 81, 0.14), transparent 49%),
     repeating-linear-gradient(0deg, transparent 0 31px, rgba(171, 190, 183, 0.025) 31px 32px),
     repeating-linear-gradient(90deg, transparent 0 31px, rgba(171, 190, 183, 0.02) 31px 32px),
     #090f10;
+  box-shadow:
+    inset 0 0 0 5px rgba(0, 0, 0, 0.2),
+    inset 0 1.5rem 3.5rem rgba(0, 0, 0, 0.34),
+    inset 0 -1px 0 rgba(240, 230, 210, 0.025),
+    0 1px 0 rgba(240, 230, 210, 0.025);
+}
+
+.graph-shell::after {
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  content: "";
+  border: 1px solid rgba(171, 190, 183, 0.045);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.42);
 }
 
 .relation-graph {
@@ -1162,6 +1278,10 @@ a:hover {
     grid-template-columns: 1fr;
   }
 
+  .number-layout {
+    gap: 0.55rem;
+  }
+
   .relations-column {
     border-top: 1px solid var(--rule);
   }
@@ -1221,8 +1341,10 @@ a:hover {
     margin-top: 0.75rem;
   }
 
-  .dispatch-grid {
+  .dispatch-plates {
     grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding: 0.35rem;
   }
 
   .dispatch-grid > h2 {
@@ -1258,10 +1380,18 @@ a:hover {
   }
 
   .profile-column,
-  .relations-column,
+  .relations-column {
+    padding: 2.5rem 1rem;
+  }
+
   .property-grid > section,
   .property-ledger {
     padding: 2.5rem 0;
+  }
+
+  .number-layout {
+    gap: 0.35rem;
+    padding: 0.35rem;
   }
 
   .relations-header,

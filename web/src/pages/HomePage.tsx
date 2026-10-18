@@ -28,21 +28,23 @@ export function HomePage({ index }: { index: CorpusIndex }) {
       <section className="dispatch-grid" aria-labelledby="dispatch-heading">
         <div className="section-rule"><span>public dispatch / {index.corpus.releaseId}</span></div>
         <h2 id="dispatch-heading">three apertures into the corpus</h2>
-        <Link className="dispatch-card primary" href="/integer/153">
-          <span className="dispatch-number">153</span>
-          <span className="dispatch-label">a crowded little hinge</span>
-          <span className="dispatch-note">triangular · narcissistic · friedman</span>
-        </Link>
-        <Link className="dispatch-card" href="/integer/343">
-          <span className="dispatch-number">343</span>
-          <span className="dispatch-label">the orderly acquaintance</span>
-          <span className="dispatch-note">palindromic · nice friedman</span>
-        </Link>
-        <Link className="dispatch-card" href="/integer/137">
-          <span className="dispatch-number">137</span>
-          <span className="dispatch-label">profile lore, no forced edge</span>
-          <span className="dispatch-note">scientific context · sourced</span>
-        </Link>
+        <div className="dispatch-plates">
+          <Link className="dispatch-card primary" href="/integer/153">
+            <span className="dispatch-number">153</span>
+            <span className="dispatch-label">a crowded little hinge</span>
+            <span className="dispatch-note">triangular · narcissistic · friedman</span>
+          </Link>
+          <Link className="dispatch-card" href="/integer/343">
+            <span className="dispatch-number">343</span>
+            <span className="dispatch-label">the orderly acquaintance</span>
+            <span className="dispatch-note">palindromic · nice friedman</span>
+          </Link>
+          <Link className="dispatch-card" href="/integer/137">
+            <span className="dispatch-number">137</span>
+            <span className="dispatch-label">profile lore, no forced edge</span>
+            <span className="dispatch-note">scientific context · sourced</span>
+          </Link>
+        </div>
       </section>
 
       <section className="how-it-works">
