@@ -1,7 +1,7 @@
 # development and recovery
 
 > **continuity role:** operational runbook
-> **status:** current for the accepted first slice
+> **status:** current for the accepted first slice and pages delivery boundary
 > **last verified:** 2026-10-18
 > **owns:** setup, local data, seed, launch, publication preview, validation, and recovery
 > **update when:** any command, path, prerequisite, migration, or recovery step changes
@@ -27,6 +27,7 @@ its constituent commands are:
 
 ```text
 ./scripts/check-private-boundary.sh
+node ./scripts/check-pages-workflow.mjs
 dotnet restore Polyvalent.slnx
 dotnet build Polyvalent.slnx -c Release --no-restore
 dotnet format Polyvalent.slnx --verify-no-changes --no-restore
@@ -127,9 +128,41 @@ the production build is written to ignored `web/dist/`:
 npm --prefix web run build
 ```
 
-the build is static. a host must provide history-api fallback to `index.html`
-for direct requests to integer and property routes. hosting is not configured by
-this slice.
+the build is static. root-hosted local builds use `/`; deployment supplies its
+own pages base path without changing local routes.
+
+## github pages deployment
+
+the repository-owned workflow is `.github/workflows/deploy-pages.yml`. before
+its first run, open repository settings → pages and set **source** to **github
+actions**. that repository setting is an owner-operated external transition;
+the workflow does not attempt to enable pages itself.
+
+the workflow runs after a push to `main` that changes `web/`, the workflow, its
+boundary checks, or `.gitignore`. it can also be started manually from the
+actions tab. its two jobs preserve a narrow authority split:
+
+1. `build` checks out tracked source without persistent git credentials, reads
+   the configured pages base path, verifies the private git boundary and public
+   artifact/runtime boundary, proves the workflow still uses pinned actions and
+   a `web/dist`-only upload, installs the locked web dependencies, and builds the
+   static site;
+2. the build copies `index.html` to `404.html` so a direct integer or property
+   url can boot the client router on github pages;
+3. only `web/dist` is uploaded as the pages artifact;
+4. `deploy` receives pages and oidc write authority but never checks out the
+   repository or opens the private ledger.
+
+the action uses no repository secret and never runs `Polyvalent.Publisher`.
+github's reported base path keeps assets, release fetches, links, and client
+routing valid both at `/polyvalent/` and at a later configured custom domain.
+
+deployment is proven only by a successful github actions run followed by direct
+browser checks of `/`, `/integer/153`, and
+`/property/decimal-friedman-number`. local builds do not prove repository
+settings, pages availability, tls, or the live route fallback. rollback means a
+fresh pages deployment from a reviewed commit containing the desired immutable
+public artifact; it never edits the canonical ledger or a sealed release.
 
 ## generate a publication preview
 
@@ -202,9 +235,9 @@ matches `data.json`, and the private ledger contains the matching sealed release
 row. quarantine a complete-looking directory without a sealed row; it may be an
 orphan from a machine interruption. do not infer deployment from generation.
 
-rollback at a future host means selecting a previously reviewed immutable
-release, not editing its files or rewriting canonical history. deployment and
-host rollback remain outside this slice.
+host rollback means selecting a previously reviewed immutable release, not
+editing its files or rewriting canonical history. for github pages, deploy a
+reviewed commit containing that release through the same workflow.
 
 ## source and seed maintenance
 

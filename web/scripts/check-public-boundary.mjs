@@ -21,15 +21,27 @@ const forbidden = [
   /\.env\b/i,
 ];
 const fetchTargets = [];
+let fetchCalls = 0;
 for (const file of files) {
   const source = await readFile(file, "utf8");
+  const boundarySource = source.replaceAll("import.meta.env.BASE_URL", "import.meta.BASE_URL");
   for (const pattern of forbidden) {
-    if (pattern.test(source)) throw new Error(`${file.pathname} contains forbidden public-boundary token ${pattern}`);
+    if (pattern.test(boundarySource)) throw new Error(`${file.pathname} contains forbidden public-boundary token ${pattern}`);
   }
-  for (const match of source.matchAll(/fetch\(\s*["']([^"']+)["']/g)) fetchTargets.push(match[1]);
+  fetchCalls += source.match(/\bfetch\s*\(/g)?.length ?? 0;
+  for (const match of source.matchAll(/fetch\(\s*["']([^"']+)["']/g)) {
+    fetchTargets.push(match[1].replace(/^\//, ""));
+  }
+  for (const match of source.matchAll(/fetch\(\s*`\$\{import\.meta\.env\.BASE_URL\}([^`$]+)`/g)) {
+    fetchTargets.push(match[1]);
+  }
 }
 
-const allowedFetchTargets = new Set(["/data/data.json", "/data/manifest.json"]);
+if (fetchTargets.length !== fetchCalls) {
+  throw new Error(`public runtime contains ${fetchCalls - fetchTargets.length} non-static fetch target(s)`);
+}
+
+const allowedFetchTargets = new Set(["data/data.json", "data/manifest.json"]);
 for (const target of fetchTargets) {
   if (!allowedFetchTargets.has(target)) throw new Error(`unexpected public runtime fetch target: ${target}`);
 }

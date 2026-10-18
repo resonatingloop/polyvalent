@@ -121,8 +121,11 @@ reference corpus, and react public explorer now form one tested vertical path.
 [`specs/001-first-slice.md`](specs/001-first-slice.md) remains active until its
 final owner-visible browser and native desktop acceptance is recorded.
 
-deployment, suggestion delivery, session-held integers, lenses, and private
-constellations remain later slices rather than hidden extensions of this one.
+the public visual pass is owner-accepted and a bounded github pages delivery
+workflow now carries only the reviewed static web artifact. live deployment is
+a separate external transition. suggestion delivery, session-held integers,
+lenses, and private constellations remain later slices rather than hidden
+extensions of this one.
 
 ## future apertures
 

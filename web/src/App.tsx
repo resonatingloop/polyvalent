@@ -20,8 +20,12 @@ export function App() {
   useEffect(() => {
     let active = true;
     Promise.all([
-      fetch("/data/data.json").then(assertResponse).then((response) => response.arrayBuffer()),
-      fetch("/data/manifest.json").then(assertResponse).then((response) => response.json() as Promise<PublicManifest>),
+      fetch(`${import.meta.env.BASE_URL}data/data.json`)
+        .then(assertResponse)
+        .then((response) => response.arrayBuffer()),
+      fetch(`${import.meta.env.BASE_URL}data/manifest.json`)
+        .then(assertResponse)
+        .then((response) => response.json() as Promise<PublicManifest>),
     ]).then(async ([dataBytes, manifest]) => {
       if (!active) return;
       const corpus = await openRelease(dataBytes, manifest);

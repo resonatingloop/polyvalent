@@ -1,0 +1,82 @@
+name: deploy public page
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - web/**
+      - scripts/check-private-boundary.sh
+      - scripts/check-pages-workflow.mjs
+      - .gitignore
+      - .github/workflows/deploy-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - name: check out the reviewed source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: configure github pages
+        id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+
+      - name: set up node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: verify the private git boundary
+        run: |
+          ./scripts/check-private-boundary.sh
+          node ./scripts/check-pages-workflow.mjs
+
+      - name: install locked public dependencies
+        run: npm ci
+        working-directory: web
+
+      - name: verify the public source and release artifact
+        run: npm run typecheck && npm run test && npm run check:artifact && npm run check:boundary
+        working-directory: web
+
+      - name: build for the configured pages path
+        run: npm run build -- --base "${{ steps.pages.outputs.base_path }}/"
+        working-directory: web
+
+      - name: add the history-route fallback
+        run: cp dist/index.html dist/404.html
+        working-directory: web
+
+      - name: upload only the static public build
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: deploy to github pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5

@@ -1,7 +1,7 @@
 # polyvalent
 
 > **continuity role:** operational front door
-> **status:** implemented locally; owner visual acceptance pending
+> **status:** implemented locally; public visual pass accepted; pages delivery prepared
 > **last verified:** 2026-10-18
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
@@ -18,7 +18,8 @@ different surfaces:
 
 the public runtime has no database, backend, administrative route, or write
 path. private changes do nothing publicly until the owner runs the publisher;
-generation still does not deploy anything.
+generation still does not deploy anything. github pages delivery is a separate,
+checked repository action over the committed public release.
 
 ## quickest successful use
 
@@ -34,10 +35,10 @@ from the repository root, run the complete local proof:
 ./scripts/check.sh
 ```
 
-the script verifies the private git boundary; restores, builds, format-checks,
-and tests the .net solution; installs the locked web dependencies; verifies the
-committed public artifact and runtime boundary; builds the site; and checks the
-diff for whitespace errors.
+the script verifies the private git and pages-workflow boundaries; restores,
+builds, format-checks, and tests the .net solution; installs the locked web
+dependencies; verifies the committed public artifact and runtime boundary;
+builds the site; and checks the diff for whitespace errors.
 
 to open the public reference release:
 
@@ -81,12 +82,15 @@ private sqlite ledger
                                       │
                                       ▼
                            static react/vite site
+                                      │
+                                      ▼
+                         checked github pages artifact
 ```
 
 [`docs/architecture.md`](docs/architecture.md) owns the dependency direction,
 data model, lifecycle, and publication firewall. [`docs/development.md`](docs/development.md)
-owns exact setup, seed, launch, preview, migration, backup, and restore
-procedures.
+owns exact setup, seed, launch, preview, deployment, migration, backup, and
+restore procedures.
 
 ## first corpus
 
@@ -118,6 +122,19 @@ sidecars, migration backups, preview releases, node modules, and compiled
 output are ignored as defense in depth. the reviewed deterministic artifact
 under `web/public/data/` is the only tracked release.
 
+## public deployment
+
+[`deploy-pages.yml`](.github/workflows/deploy-pages.yml) deploys the public site
+to github pages after relevant pushes to `main`, and also supports explicit
+manual dispatch. it checks the private git boundary and public release seam,
+builds for the pages-provided base path, and uploads only `web/dist`.
+
+the repository owner must select **github actions** once under settings → pages
+before the first run can deploy. no private database, untracked publisher
+preview, repository secret, or `.env` file participates in the workflow. see
+[`docs/development.md`](docs/development.md#github-pages-deployment) for the
+operator path and rollback boundary.
+
 ## documentation authority
 
 | document | role | status | owns |
@@ -137,7 +154,7 @@ than applying filename precedence.
 
 ## intentionally absent
 
-- deployment, hosting, analytics, and production monitoring;
+- a custom domain, analytics, and production monitoring;
 - the public suggestion form and email delivery;
 - session-held integers and encounter pings;
 - public thematic lenses;

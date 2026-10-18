@@ -19,9 +19,10 @@ not, by itself, authorization to weaken the contract.
 | accepted rationale and supersession | `DECISIONS.md` | append-only decision entries |
 | active transition | `specs/001-first-slice.md` | accepted 2026-10-18 |
 
-the accepted first slice now supplies implementation and project-owned proof for
-its in-scope invariants. deferred features retain prose-only proof until a later
-accepted slice gives them a representation.
+the accepted first slice and explicitly authorized pages-delivery follow-up now
+supply implementation and project-owned proof for their in-scope invariants.
+deferred features retain prose-only proof until a later accepted slice gives
+them a representation.
 
 ## invariants
 
@@ -43,6 +44,7 @@ accepted slice gives them a representation.
 | `narrative-001` | sourced contextual lore is represented as a revisioned profile entry attached to one integer and creates no graph relation unless a later explicit model says otherwise. | narrative model and projection | seeded `137` profile, release projection, and zero-relation rendered smoke |
 | `publication-002` | private edits and staging never change public state; only an explicit successful generation creates a complete immutable release, and generation never implies deployment. | publisher and release ledger | deterministic, fail-closed, overwrite, exact citation-item, and immutable-release tests |
 | `publication-003` | the public runtime consumes only a versioned public artifact and has no canonical-database, desktop, private-api, or write capability. | web data adapter and dependency inventory | runtime digest check, artifact scan, and public-boundary check |
+| `delivery-001` | public deployment builds only from tracked, reviewed public inputs and uploads only the checked static web output; it never opens the private ledger or runs the publisher. | github pages workflow | private git-boundary check, public artifact/runtime checks, `check-pages-workflow.mjs`, and pages artifact scope |
 
 ## conceptual data boundary
 
@@ -79,6 +81,8 @@ private research claim
   -> optional explicit staging of an exact accepted revision
   -> sanitization and boundary validation
   -> complete immutable versioned public release
+  -> reviewed tracked public artifact
+  -> checked static pages artifact
   -> public web consumption
 
 public suggestion
@@ -142,7 +146,7 @@ from this local suite.
 
 ## intentionally unspecified
 
-- deployment host, email provider, and anti-abuse mechanism;
+- custom domain, email provider, and anti-abuse mechanism;
 - private constellation representation and any public lens vocabulary;
 - automatic source synchronization or general evaluator plugin system;
 - application-level database encryption;

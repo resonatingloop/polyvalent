@@ -467,3 +467,55 @@ consequences:
 evidence:
 
 - owner-confirmed design discussion on 2026-10-17.
+
+## d-013 — github pages receives only the checked static public build
+
+- date: 2026-10-18
+- status: accepted
+- supersedes: none
+- related authorization: owner-directed bounded deployment workflow on
+  2026-10-18
+
+context:
+
+the public explorer needs a delivery mechanism without granting a hosted runtime
+access to the private ledger, teaching the publisher to deploy, or collapsing a
+generated immutable release into live state.
+
+decision:
+
+use a github actions workflow with separate build and deploy jobs. relevant
+pushes to `main` and explicit manual dispatches verify the repository privacy
+boundary and public artifact/runtime boundary, build vite against the base path
+reported by github pages, add a static client-route fallback, and upload only
+`web/dist`. the deploy job receives pages and oidc write authority but does not
+check out the repository. action dependencies are pinned to full commit hashes.
+
+alternatives considered:
+
+- publish the repository root or a branch containing generated output: rejected
+  because it widens the artifact and duplicates mutable delivery state;
+- build a fresh public release from the private database in ci: rejected because
+  deployment must not acquire canonical data access or become an implicit
+  publication action;
+- use hash routes: rejected because direct integer and property urls should keep
+  their existing public shape;
+- hard-code `/polyvalent/`: rejected because the pages-reported base path also
+  supports a later custom-domain setting without a source edit.
+
+consequences:
+
+- release generation, tracked-artifact review, repository push, and live pages
+  deployment remain distinct observable transitions;
+- the workflow requires the owner to select github actions as the pages source
+  before its first successful deployment;
+- direct nested routes boot through `404.html`; only a live pages check can prove
+  provider routing and transport behavior;
+- rollback is another checked deployment from a reviewed commit, never mutation
+  of the canonical ledger or a sealed release.
+
+evidence:
+
+- owner authorization on 2026-10-18;
+- local route-helper tests, project-path production build, artifact inspection,
+  and repository-owned boundary checks.

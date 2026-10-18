@@ -1,7 +1,7 @@
 # architecture
 
 > **continuity role:** implemented representation map
-> **status:** current for the accepted first slice
+> **status:** current for the accepted first slice and pages delivery boundary
 > **last verified:** 2026-10-18
 > **owns:** dependency direction, data boundaries, lifecycle, and publication seam
 > **update when:** a layer, durable representation, or trust boundary changes
@@ -27,11 +27,17 @@ desktop   publisher  │
              │        │
              ▼        │
        react web ─────┘ meaning only; no code reference
+             │
+             ▼
+      pages artifact
+             │
+             ▼
+       github pages
 ```
 
-the final arrow is conceptual: the web application has types for the public
-wire format but no .net reference. its only runtime input is
-`/data/manifest.json` plus `/data/data.json`.
+the horizontal meaning-only arrow is conceptual: the web application has types
+for the public wire format but no .net reference. its only runtime input is
+`data/manifest.json` plus `data/data.json` beneath the active deployment base.
 
 ## project responsibilities
 
@@ -43,6 +49,7 @@ wire format but no .net reference. its only runtime input is
 | `Polyvalent.Desktop` | private rolodex interaction over application services | graph spectacle, public artifact generation, deployment |
 | `Polyvalent.Publisher` | explicit command boundary for initialization, seed, and release generation | network access or deployment |
 | `web` | static public search, profiles, property dossiers, relation derivation, and accessible svg | sqlite, private api, authoring, mathematical evaluation |
+| pages workflow | checked static build and github pages delivery | publisher execution, database access, repository secrets, or non-web artifact upload |
 
 the dependency graph is intentionally one-way. another resonance repository is
 neither a package dependency nor a runtime data source.
@@ -141,6 +148,20 @@ parsing `data.json`, and then checks release and schema identity. the committed
 artifact also receives an independent node-based digest and forbidden-field
 scan during every web check.
 
+## static delivery boundary
+
+github pages delivery begins from tracked repository state, not from the private
+ledger or an owner preview directory. a read-only build job verifies the git
+privacy boundary, public release digest, public dependency inventory, static
+fetch allowlist, types, and tests. it then builds against the base path reported
+by github pages, adds an `index.html`-equivalent `404.html` client-routing shell,
+and uploads only `web/dist`.
+
+a second job has pages and oidc write authority but no checkout step. it can
+deploy only the static artifact produced by the successful build job. this
+keeps release generation, tracked-artifact review, repository push, and live
+deployment as separately observable transitions.
+
 ## public relation derivation
 
 the public artifact stores memberships, never pairwise social edges. the web
@@ -173,7 +194,8 @@ not change the selected integer because selection lives in the view model.
 the database path resolver accepts an explicit database, an explicit data
 directory, `POLYVALENT_DATA_DIR`, or the platform-local application-data
 directory in that order. neither executable reads `.env`. this slice introduces
-no secret and no provider integration.
+no application secret. the pages workflow uses only github's job-scoped token
+with per-job least privilege; no provider client enters either application.
 
 the local database is permission-restricted on unix but is not encrypted at the
 application layer. the operating-system account and publication firewall are
@@ -183,5 +205,5 @@ therefore part of the privacy model.
 
 the following require later accepted slices rather than opportunistic schema or
 ui growth: public suggestion delivery, session-held integers, thematic lenses,
-private constellations, arbitrary property-definition authoring, deployment,
-analytics, and encrypted local storage.
+private constellations, arbitrary property-definition authoring, custom-domain
+operation, analytics, and encrypted local storage.

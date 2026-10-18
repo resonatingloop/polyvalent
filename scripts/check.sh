@@ -7,6 +7,7 @@ npm_cache="${NPM_CONFIG_CACHE:-/tmp/polyvalent-npm-cache}"
 
 cd "$repository_root"
 ./scripts/check-private-boundary.sh
+node ./scripts/check-pages-workflow.mjs
 NUGET_HTTP_CACHE_PATH="$nuget_cache" dotnet restore Polyvalent.slnx
 NUGET_HTTP_CACHE_PATH="$nuget_cache" dotnet build Polyvalent.slnx -c Release --no-restore
 NUGET_HTTP_CACHE_PATH="$nuget_cache" dotnet format Polyvalent.slnx --verify-no-changes --no-restore
