@@ -2,7 +2,7 @@
 
 > **continuity role:** operational checkpoint
 > **status:** current
-> **last verified:** 2026-10-18
+> **last verified:** 2026-10-19
 > **owns:** verified current state, active work, known gaps, and next useful action
 > **update when:** a meaningful stopping point changes any of those facts
 
@@ -23,7 +23,9 @@ enrichment are implemented locally as one vertical instrument:
   properties, `520` materialized integer profiles, and sha-256
   `e7e7a7611f86f77b84b9d9be6e7952e499601c72e8ca27513c7cafc9ac1a4569`;
 - a static react/vite public ui with search, number profiles, property dossiers,
-  complete explained relation lists, and a bounded accessible bipartite graph;
+  complete explained relation lists, a bounded accessible bipartite graph, and
+  a native in-page continuation seam from the home hero into the public
+  dispatch;
 - a least-privilege github pages workflow that verifies tracked public inputs,
   builds for the configured pages base path, and uploads only the static web
   output;
@@ -103,6 +105,9 @@ interactive browser and native desktop acceptance.
   sentinels fail closed;
 - the public router, links, assets, and release fetches honor the deployment base
   path while root-hosted development remains unchanged;
+- the home-page hero uses a viewport-aware floor, a keyboard-focusable native
+  `#dispatch` link, and the next plate's visible upper seam to disclose that the
+  opening composition continues below the fold without scroll interception;
 - relevant pushes to `main` or an explicit manual dispatch can build and deploy
   only `web/dist` through separate github pages build and deploy jobs.
 
@@ -112,8 +117,8 @@ interactive browser and native desktop acceptance.
   reference-v1 until a later reviewed commit and deployment;
 - the in-app browser bridge rejected its own bundled runtime during the new
   local visual smoke, so interactive rendering of the enriched `137` profile
-  remains an owner-visible check; type, relation, artifact, and production-build
-  proofs passed;
+  and the home-page continuation seam remain owner-visible checks; type,
+  relation, artifact, and production-build proofs passed;
 - no custom domain, analytics, or production monitoring exists;
 - no public suggestion form or email provider exists;
 - no session-held integers, encounter pings, public lenses, private
@@ -131,19 +136,21 @@ interactive browser and native desktop acceptance.
 
 - accepted spec: `specs/001-first-slice.md`;
 - implementation: corpus enrichment complete locally against automated proof;
-- public ui: initial aesthetic pass accepted by the owner;
+- public ui: initial aesthetic pass accepted by the owner; home-page scroll
+  disclosure is implemented locally and awaits rendered acceptance;
 - live site: reference-v1; reference-v2 is not committed, pushed, or deployed;
-- remaining visual acceptance: enriched `137` public profile and the deferred
-  private gui slice;
+- remaining visual acceptance: home-page continuation seam, enriched `137`
+  public profile, and the deferred private gui slice;
 - blockers: none for local use or review.
 
 ## Next useful action
 
-open the local reference-v2 site at `/integer/137`, confirm that `139` is the
-first exact twin-prime acquaintance and that the bounded prime field remains
-legible, then review and commit. a later authorized push will deploy that exact
-tracked artifact through the existing pages workflow. private gui refinement
-remains its own visual slice.
+open the local reference-v2 home page at desktop and narrow widths, confirm that
+the continuation seam discloses the public dispatch without crowding the search,
+then inspect `/integer/137` and confirm that `139` is the first exact twin-prime
+acquaintance. review and commit after those visual checks. a later authorized
+push will deploy that exact tracked artifact through the existing pages
+workflow. private gui refinement remains its own visual slice.
 
 ## Re-entry notes
 

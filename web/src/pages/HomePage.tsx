@@ -23,9 +23,14 @@ export function HomePage({ index }: { index: CorpusIndex }) {
         <div className="hero-search reveal three">
           <SearchForm />
         </div>
+        <a className="hero-continuation reveal four" href="#dispatch">
+          <span>next register</span>
+          <strong>public dispatch</strong>
+          <span className="hero-continuation-mark" aria-hidden="true">↓</span>
+        </a>
       </section>
 
-      <section className="dispatch-grid" aria-labelledby="dispatch-heading">
+      <section id="dispatch" className="dispatch-grid" aria-labelledby="dispatch-heading">
         <div className="section-rule"><span>public dispatch / {index.corpus.releaseId}</span></div>
         <h2 id="dispatch-heading">three apertures into the corpus</h2>
         <div className="dispatch-plates">
