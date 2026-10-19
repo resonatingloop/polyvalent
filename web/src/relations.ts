@@ -114,7 +114,10 @@ export function getRelations(index: CorpusIndex, centerValue: string): IntegerRe
     const rightRarity = Math.min(...right.reasons.map((reason) => index.members.get(reason.property.slug)?.length ?? Infinity));
     const leftQualifierSalience = Math.max(...left.reasons.map((reason) => qualifierSalience(reason.relatedClaim)));
     const rightQualifierSalience = Math.max(...right.reasons.map((reason) => qualifierSalience(reason.relatedClaim)));
+    const leftDirectTwin = directTwinSalience(left.reasons, left.integer.value);
+    const rightDirectTwin = directTwinSalience(right.reasons, right.integer.value);
     return leftRarity - rightRarity
+      || rightDirectTwin - leftDirectTwin
       || rightQualifierSalience - leftQualifierSalience
       || compareIntegers(left.integer.value, right.integer.value);
   });
@@ -125,7 +128,24 @@ export function qualifierLabel(claim: PublicClaim): string | null {
     return "orderly / nice";
   }
 
+  const lowerTwin = claim.qualifier.lowerTwin;
+  const higherTwin = claim.qualifier.higherTwin;
+  const twins = [lowerTwin, higherTwin].filter((value): value is string => typeof value === "string");
+  if (twins.length === 1) {
+    return `twin with ${twins[0]}`;
+  }
+  if (twins.length === 2) {
+    return `twins with ${twins[0]} and ${twins[1]}`;
+  }
+
   return null;
+}
+
+function directTwinSalience(reasons: RelationReason[], relatedValue: string): number {
+  return reasons.some((reason) =>
+    reason.property.slug === "twin-prime"
+    && (reason.centerClaim.qualifier.lowerTwin === relatedValue
+      || reason.centerClaim.qualifier.higherTwin === relatedValue)) ? 1 : 0;
 }
 
 function qualifierSalience(claim: PublicClaim): number {

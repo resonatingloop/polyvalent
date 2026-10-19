@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "releaseId": "reference-v1",
+  "releaseId": "reference-v2",
   "generatedAtUtc": "2026-10-18T00:00:00.0000000\u002B00:00",
   "properties": [
     {
@@ -94,11 +94,86 @@
       ]
     },
     {
+      "slug": "fibonacci-number",
+      "name": "fibonacci number",
+      "definition": "a positive integer appearing in the fibonacci sequence beginning 1, 1, 2, 3, 5.",
+      "aliases": [
+        "fibonacci sequence member"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A000045",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A000045"
+        }
+      ]
+    },
+    {
+      "slug": "perfect-cube",
+      "name": "perfect cube",
+      "definition": "a positive integer equal to the third power of a positive integer.",
+      "aliases": [
+        "cube number"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A000578",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A000578"
+        }
+      ]
+    },
+    {
+      "slug": "perfect-square",
+      "name": "perfect square",
+      "definition": "a positive integer equal to the second power of a positive integer.",
+      "aliases": [
+        "square number"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A000290",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A000290"
+        }
+      ]
+    },
+    {
       "slug": "prime",
       "name": "prime",
       "definition": "a positive integer greater than one with exactly two positive divisors.",
       "aliases": [],
-      "graphMode": "none",
+      "graphMode": "shared-membership",
       "coverage": [
         {
           "minimum": "1",
@@ -140,6 +215,31 @@
           "url": "https://oeis.org/A000217"
         }
       ]
+    },
+    {
+      "slug": "twin-prime",
+      "name": "twin-prime member",
+      "definition": "a prime differing by two from at least one other prime.",
+      "aliases": [
+        "twin prime"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A001097",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A001097"
+        }
+      ]
     }
   ],
   "integers": [
@@ -163,6 +263,36 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "1 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(1) = f(2) = 1"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "1^3 = 1"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "1^2 = 1"
           },
           "citations": []
         },
@@ -203,6 +333,16 @@
           "citations": []
         },
         {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(3) = 2"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
@@ -235,6 +375,16 @@
           "citations": []
         },
         {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(4) = 3"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
@@ -247,6 +397,18 @@
             "kind": "sequence_index",
             "schemaVersion": 1,
             "displayText": "term 2: 2 \u00D7 (2 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "5"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 5"
           },
           "citations": []
         }
@@ -273,6 +435,16 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "4 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^2 = 4"
           },
           "citations": []
         }
@@ -303,9 +475,32 @@
           "citations": []
         },
         {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(5) = 5"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "3",
+            "higherTwin": "7"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twins with 3 and 7"
+          },
           "citations": []
         }
       ],
@@ -375,6 +570,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "5"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 5"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -401,6 +608,26 @@
             "displayText": "8 reads identically in reverse"
           },
           "citations": []
+        },
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(6) = 8"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^3 = 8"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -425,6 +652,16 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "9 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "3^2 = 9"
           },
           "citations": []
         }
@@ -465,6 +702,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "13"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 13"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -473,9 +722,31 @@
       "value": "13",
       "claims": [
         {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(7) = 13"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "11"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 11"
+          },
           "citations": []
         }
       ],
@@ -498,12 +769,40 @@
       "profileEntries": []
     },
     {
+      "value": "16",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "4^2 = 16"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "17",
       "claims": [
         {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "19"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 19"
+          },
           "citations": []
         }
       ],
@@ -517,6 +816,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "17"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 17"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -524,6 +835,16 @@
     {
       "value": "21",
       "claims": [
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(8) = 21"
+          },
+          "citations": []
+        },
         {
           "propertySlug": "triangular-number",
           "qualifier": {},
@@ -592,6 +913,32 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "5^2 = 25"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "27",
+      "claims": [
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "3^3 = 27"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -620,6 +967,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "31"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 31"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -631,6 +990,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "29"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 29"
+          },
           "citations": []
         }
       ],
@@ -653,8 +1024,34 @@
       "profileEntries": []
     },
     {
+      "value": "34",
+      "claims": [
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(9) = 34"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "36",
       "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "6^2 = 36"
+          },
+          "citations": []
+        },
         {
           "propertySlug": "triangular-number",
           "qualifier": {},
@@ -688,6 +1085,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "43"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 43"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -699,6 +1108,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "41"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 41"
+          },
           "citations": []
         }
       ],
@@ -749,6 +1170,22 @@
       "profileEntries": []
     },
     {
+      "value": "49",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "7^2 = 49"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "53",
       "claims": [
         {
@@ -774,6 +1211,16 @@
           "citations": []
         },
         {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(10) = 55"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "triangular-number",
           "qualifier": {},
           "witness": {
@@ -794,6 +1241,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "61"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 61"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -805,6 +1264,44 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "59"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 59"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "64",
+      "claims": [
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "4^3 = 64"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "8^2 = 64"
+          },
           "citations": []
         }
       ],
@@ -856,6 +1353,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "73"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 73"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -867,6 +1376,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "71"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 71"
+          },
           "citations": []
         }
       ],
@@ -917,6 +1438,22 @@
       "profileEntries": []
     },
     {
+      "value": "81",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "9^2 = 81"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "83",
       "claims": [
         {
@@ -947,6 +1484,16 @@
     {
       "value": "89",
       "claims": [
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(11) = 89"
+          },
+          "citations": []
+        },
         {
           "propertySlug": "prime",
           "qualifier": {},
@@ -1001,6 +1548,22 @@
       "profileEntries": []
     },
     {
+      "value": "100",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "10^2 = 100"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "101",
       "claims": [
         {
@@ -1018,6 +1581,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "103"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 103"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1029,6 +1604,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "101"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 101"
+          },
           "citations": []
         }
       ],
@@ -1058,6 +1645,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "109"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 109"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1069,6 +1668,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "107"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 107"
+          },
           "citations": []
         }
       ],
@@ -1155,6 +1766,16 @@
             "displayText": "121 reads identically in reverse"
           },
           "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "11^2 = 121"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1186,6 +1807,16 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "5^3 = 125"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1335,6 +1966,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "139"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 139"
+          },
+          "citations": []
         }
       ],
       "profileEntries": [
@@ -1363,6 +2006,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "137"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 137"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1384,12 +2039,50 @@
       "profileEntries": []
     },
     {
+      "value": "144",
+      "claims": [
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(12) = 144"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "12^2 = 144"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "149",
       "claims": [
         {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "151"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 151"
+          },
           "citations": []
         }
       ],
@@ -1412,6 +2105,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "149"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 149"
+          },
           "citations": []
         }
       ],
@@ -1521,6 +2226,22 @@
       "profileEntries": []
     },
     {
+      "value": "169",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "13^2 = 169"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "171",
       "claims": [
         {
@@ -1566,6 +2287,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "181"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 181"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1587,6 +2320,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "179"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 179"
+          },
           "citations": []
         }
       ],
@@ -1626,6 +2371,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "193"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 193"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1637,6 +2394,34 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "191"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 191"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "196",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "14^2 = 196"
+          },
           "citations": []
         }
       ],
@@ -1650,6 +2435,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "199"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 199"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1661,6 +2458,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "197"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 197"
+          },
           "citations": []
         }
       ],
@@ -1753,6 +2562,16 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "6^3 = 216"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1786,12 +2605,40 @@
       "profileEntries": []
     },
     {
+      "value": "225",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "15^2 = 225"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "227",
       "claims": [
         {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "229"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 229"
+          },
           "citations": []
         }
       ],
@@ -1804,6 +2651,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "227"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 227"
+          },
           "citations": []
         }
       ],
@@ -1845,6 +2704,16 @@
       "value": "233",
       "claims": [
         {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(13) = 233"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
@@ -1861,6 +2730,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "241"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 241"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1872,6 +2753,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "239"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 239"
+          },
           "citations": []
         }
       ],
@@ -1938,6 +2831,22 @@
       "profileEntries": []
     },
     {
+      "value": "256",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "16^2 = 256"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "257",
       "claims": [
         {
@@ -1985,6 +2894,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "271"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 271"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -1996,6 +2917,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "269"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 269"
+          },
           "citations": []
         }
       ],
@@ -2053,6 +2986,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "283"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 283"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2080,6 +3025,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "281"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 281"
+          },
           "citations": []
         }
       ],
@@ -2112,6 +3069,16 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "17^2 = 289"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2196,6 +3163,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "313"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 313"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2217,6 +3196,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "311"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 311"
+          },
           "citations": []
         }
       ],
@@ -2244,6 +3235,22 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "323 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "324",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "18^2 = 324"
           },
           "citations": []
         }
@@ -2343,6 +3350,16 @@
             "displayText": "343 reads identically in reverse"
           },
           "citations": []
+        },
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "7^3 = 343"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2380,6 +3397,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "349"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 349"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2391,6 +3420,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "347"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 347"
+          },
           "citations": []
         }
       ],
@@ -2441,6 +3482,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "361",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "19^2 = 361"
+          },
           "citations": []
         }
       ],
@@ -2523,6 +3580,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "377",
+      "claims": [
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(14) = 377"
+          },
           "citations": []
         }
       ],
@@ -2613,6 +3686,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "400",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "20^2 = 400"
+          },
           "citations": []
         }
       ],
@@ -2714,6 +3803,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "421"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 421"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2725,6 +3826,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "419"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 419"
+          },
           "citations": []
         }
       ],
@@ -2754,6 +3867,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "433"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 433"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2765,6 +3890,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "431"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 431"
+          },
           "citations": []
         }
       ],
@@ -2809,6 +3946,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "441",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "21^2 = 441"
+          },
           "citations": []
         }
       ],
@@ -2890,6 +4043,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "463"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 463"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -2901,6 +4066,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "461"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 461"
+          },
           "citations": []
         }
       ],
@@ -2988,6 +4165,16 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "484 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "22^2 = 484"
           },
           "citations": []
         }
@@ -3103,6 +4290,22 @@
       "profileEntries": []
     },
     {
+      "value": "512",
+      "claims": [
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "8^3 = 512"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "515",
       "claims": [
         {
@@ -3126,6 +4329,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "523"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 523"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3137,6 +4352,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "521"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 521"
+          },
           "citations": []
         }
       ],
@@ -3168,6 +4395,22 @@
             "kind": "sequence_index",
             "schemaVersion": 1,
             "displayText": "term 32: 32 \u00D7 (32 \u002B 1) \u00F7 2"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "529",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "23^2 = 529"
           },
           "citations": []
         }
@@ -3310,6 +4553,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "571"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 571"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3321,6 +4576,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "569"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 569"
+          },
           "citations": []
         }
       ],
@@ -3336,6 +4603,22 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "575 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "576",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "24^2 = 576"
           },
           "citations": []
         }
@@ -3428,6 +4711,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "601"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 601"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3439,6 +4734,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "599"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 599"
+          },
           "citations": []
         }
       ],
@@ -3467,6 +4774,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "610",
+      "claims": [
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(15) = 610"
+          },
           "citations": []
         }
       ],
@@ -3508,6 +4831,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "619"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 619"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3519,6 +4854,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "617"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 617"
+          },
           "citations": []
         }
       ],
@@ -3551,6 +4898,16 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "25^2 = 625"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3623,6 +4980,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "643"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 643"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3634,6 +5003,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "641"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 641"
+          },
           "citations": []
         }
       ],
@@ -3703,6 +5084,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "661"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 661"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3714,6 +5107,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "659"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 659"
+          },
           "citations": []
         }
       ],
@@ -3767,6 +5172,16 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "676 reads identically in reverse"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "26^2 = 676"
           },
           "citations": []
         }
@@ -3973,6 +5388,32 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "729",
+      "claims": [
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "9^3 = 729"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "27^2 = 729"
+          },
           "citations": []
         }
       ],
@@ -4212,6 +5653,22 @@
       "profileEntries": []
     },
     {
+      "value": "784",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "28^2 = 784"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "787",
       "claims": [
         {
@@ -4279,6 +5736,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "811"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 811"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -4290,6 +5759,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "809"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 809"
+          },
           "citations": []
         }
       ],
@@ -4335,6 +5816,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "823"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 823"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -4347,6 +5840,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "821"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 821"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -4358,6 +5863,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "829"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 829"
+          },
           "citations": []
         }
       ],
@@ -4387,6 +5904,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "827"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 827"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -4414,6 +5943,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "841",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "29^2 = 841"
+          },
           "citations": []
         }
       ],
@@ -4455,6 +6000,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "859"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 859"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -4482,6 +6039,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "857"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 857"
+          },
           "citations": []
         }
       ],
@@ -4567,6 +6136,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "883"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 883"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -4578,6 +6159,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "881"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 881"
+          },
           "citations": []
         }
       ],
@@ -4621,6 +6214,22 @@
             "kind": "digit_symmetry",
             "schemaVersion": 1,
             "displayText": "898 reads identically in reverse"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "900",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "30^2 = 900"
           },
           "citations": []
         }
@@ -4840,6 +6449,22 @@
       "profileEntries": []
     },
     {
+      "value": "961",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "31^2 = 961"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "967",
       "claims": [
         {
@@ -4920,6 +6545,22 @@
       "profileEntries": []
     },
     {
+      "value": "987",
+      "claims": [
+        {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(16) = 987"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "989",
       "claims": [
         {
@@ -4992,6 +6633,22 @@
       "profileEntries": []
     },
     {
+      "value": "1000",
+      "claims": [
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "10^3 = 1000"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "1001",
       "claims": [
         {
@@ -5039,6 +6696,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1021"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1021"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5050,6 +6719,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1019"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1019"
+          },
           "citations": []
         }
       ],
@@ -5113,6 +6794,16 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "32^2 = 1024"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5125,6 +6816,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1033"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1033"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5136,6 +6839,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1031"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1031"
+          },
           "citations": []
         }
       ],
@@ -5177,6 +6892,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1051"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1051"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5188,6 +6915,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1049"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1049"
+          },
           "citations": []
         }
       ],
@@ -5201,6 +6940,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1063"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1063"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5212,6 +6963,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1061"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1061"
+          },
           "citations": []
         }
       ],
@@ -5258,12 +7021,40 @@
       "profileEntries": []
     },
     {
+      "value": "1089",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "33^2 = 1089"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "1091",
       "claims": [
         {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1093"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1093"
+          },
           "citations": []
         }
       ],
@@ -5276,6 +7067,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1091"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1091"
+          },
           "citations": []
         }
       ],
@@ -5393,6 +7196,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1153"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1153"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5404,6 +7219,34 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1151"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1151"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1156",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "34^2 = 1156"
+          },
           "citations": []
         }
       ],
@@ -5584,6 +7427,16 @@
       "value": "1225",
       "claims": [
         {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "35^2 = 1225"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "triangular-number",
           "qualifier": {},
           "witness": {
@@ -5604,6 +7457,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1231"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1231"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5615,6 +7480,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1229"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1229"
+          },
           "citations": []
         }
       ],
@@ -5742,6 +7619,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1279"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1279"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5753,6 +7642,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1277"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1277"
+          },
           "citations": []
         }
       ],
@@ -5809,6 +7710,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1291"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1291"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5820,6 +7733,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1289"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1289"
+          },
           "citations": []
         }
       ],
@@ -5852,6 +7777,16 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "36^2 = 1296"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5876,6 +7811,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1303"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1303"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5887,6 +7834,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1301"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1301"
+          },
           "citations": []
         }
       ],
@@ -5912,6 +7871,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1321"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1321"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5923,6 +7894,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1319"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1319"
+          },
           "citations": []
         }
       ],
@@ -5968,6 +7951,16 @@
             "displayText": "1331 reads identically in reverse"
           },
           "citations": []
+        },
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "11^3 = 1331"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -5991,6 +7984,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1369",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "37^2 = 1369"
+          },
           "citations": []
         }
       ],
@@ -6111,6 +8120,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1429"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1429"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6122,6 +8143,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1427"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1427"
+          },
           "citations": []
         }
       ],
@@ -6215,6 +8248,22 @@
       "profileEntries": []
     },
     {
+      "value": "1444",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "38^2 = 1444"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "1447",
       "claims": [
         {
@@ -6234,6 +8283,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1453"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1453"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6245,6 +8306,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1451"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1451"
+          },
           "citations": []
         }
       ],
@@ -6282,6 +8355,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1483"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1483"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6293,6 +8378,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1481"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1481"
+          },
           "citations": []
         }
       ],
@@ -6322,6 +8419,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1489"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1489"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6333,6 +8442,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1487"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1487"
+          },
           "citations": []
         }
       ],
@@ -6400,6 +8521,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1521",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "39^2 = 1521"
+          },
           "citations": []
         }
       ],
@@ -6608,9 +8745,35 @@
       "value": "1597",
       "claims": [
         {
+          "propertySlug": "fibonacci-number",
+          "qualifier": {},
+          "witness": {
+            "kind": "sequence_indices",
+            "schemaVersion": 1,
+            "displayText": "f(17) = 1597"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1600",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "40^2 = 1600"
+          },
           "citations": []
         }
       ],
@@ -6636,6 +8799,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1609"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1609"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6647,6 +8822,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1607"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1607"
+          },
           "citations": []
         }
       ],
@@ -6672,6 +8859,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1621"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1621"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6683,6 +8882,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1619"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1619"
+          },
           "citations": []
         }
       ],
@@ -6792,6 +9003,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1669"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1669"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6803,6 +9026,34 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1667"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1667"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1681",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "41^2 = 1681"
+          },
           "citations": []
         }
       ],
@@ -6828,6 +9079,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1699"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1699"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6839,6 +9102,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1697"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1697"
+          },
           "citations": []
         }
       ],
@@ -6880,6 +9155,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1723"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1723"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -6891,6 +9178,34 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1721"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1721"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1728",
+      "claims": [
+        {
+          "propertySlug": "perfect-cube",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "12^3 = 1728"
+          },
           "citations": []
         }
       ],
@@ -6951,6 +9266,22 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1764",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "42^2 = 1764"
+          },
           "citations": []
         }
       ],
@@ -7020,6 +9351,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1789"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1789"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -7031,6 +9374,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1787"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1787"
+          },
           "citations": []
         }
       ],
@@ -7175,6 +9530,22 @@
       "profileEntries": []
     },
     {
+      "value": "1849",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "43^2 = 1849"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
       "value": "1861",
       "claims": [
         {
@@ -7206,6 +9577,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1873"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1873"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -7217,6 +9600,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1871"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1871"
+          },
           "citations": []
         }
       ],
@@ -7230,6 +9625,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1879"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1879"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -7241,6 +9648,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1877"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1877"
+          },
           "citations": []
         }
       ],
@@ -7334,6 +9753,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1933"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1933"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -7345,6 +9776,34 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1931"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1931"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "1936",
+      "claims": [
+        {
+          "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "44^2 = 1936"
+          },
           "citations": []
         }
       ],
@@ -7358,6 +9817,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1951"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1951"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -7369,6 +9840,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1949"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1949"
+          },
           "citations": []
         }
       ],
@@ -7462,6 +9945,18 @@
           "qualifier": {},
           "witness": null,
           "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "higherTwin": "1999"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1999"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -7473,6 +9968,18 @@
           "propertySlug": "prime",
           "qualifier": {},
           "witness": null,
+          "citations": []
+        },
+        {
+          "propertySlug": "twin-prime",
+          "qualifier": {
+            "lowerTwin": "1997"
+          },
+          "witness": {
+            "kind": "prime_partners",
+            "schemaVersion": 1,
+            "displayText": "twin with 1997"
+          },
           "citations": []
         }
       ],

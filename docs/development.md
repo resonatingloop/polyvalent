@@ -1,7 +1,7 @@
 # development and recovery
 
 > **continuity role:** operational runbook
-> **status:** current for the accepted first slice and pages delivery boundary
+> **status:** current for the accepted first slice, pages delivery, and seed-v2 enrichment
 > **last verified:** 2026-10-18
 > **owns:** setup, local data, seed, launch, publication preview, validation, and recovery
 > **update when:** any command, path, prerequisite, migration, or recovery step changes
@@ -78,10 +78,18 @@ populate the deterministic first corpus and its publication staging:
 dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- seed --data-dir ./var/local
 ```
 
-seeding is idempotent once the property vocabulary exists. a clean result
-reports `2000` integers and `524` accepted claims distributed as `303` prime,
-`62` triangular, `118` decimal palindrome, `14` decimal narcissistic, and `27`
-decimal friedman claims.
+`seed-v2` is idempotent when the existing ledger has its expected successful
+population runs, graph policy, and claim counts. a clean result reports `2000`
+integers and `717` accepted claims distributed as
+`303` prime, `62` triangular, `44` perfect square, `12` perfect cube, `16`
+fibonacci, `121` twin-prime, `118` decimal palindrome, `14` decimal
+narcissistic, and `27` decimal friedman claims.
+
+the command deliberately refuses to rewrite a populated seed-v1 or divergent
+ledger. accepted property versions and claim revisions are immutable, so
+upgrading authored research requires a separately reviewed revision workflow.
+use a fresh `--data-dir` when the desired result is the current reference
+corpus.
 
 the narcissistic run is compared with the bounded a005188 extract. disagreement
 is retained in `comparison_runs`; that property receives no coverage or staging,
@@ -118,8 +126,8 @@ the development server prints its local address. useful routes are:
 
 - `/` for integer search and the three reference apertures;
 - `/integer/153` for the dense relation graph and complete list;
-- `/integer/343` for the orderly/nice friedman witness;
-- `/integer/137` for sourced profile lore without a forced graph edge;
+- `/integer/343` for the cube and orderly/nice friedman witnesses;
+- `/integer/137` for sourced profile lore plus prime and twin-prime relations;
 - `/property/decimal-friedman-number` for the property dossier.
 
 the production build is written to ignored `web/dist/`:
@@ -188,8 +196,8 @@ scan before any later artifact-promotion or deployment change.
 use a fresh database and fresh output outside the tracked tree:
 
 ```text
-dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference.sqlite3 --output /tmp/polyvalent-reference-v1 --release-id reference-v1 --generated-at 2026-10-18T00:00:00Z
-diff -ru web/public/data /tmp/polyvalent-reference-v1
+dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v2.sqlite3 --output /tmp/polyvalent-reference-v2 --release-id reference-v2 --generated-at 2026-10-18T00:00:00Z
+diff -ru web/public/data /tmp/polyvalent-reference-v2
 ```
 
 both `/tmp` targets must be absent before the command. an empty `diff` proves

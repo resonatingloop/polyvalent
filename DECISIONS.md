@@ -519,3 +519,56 @@ evidence:
 - owner authorization on 2026-10-18;
 - local route-helper tests, project-path production build, artifact inspection,
   and repository-owned boundary checks.
+
+## d-014 — dense mathematical affiliation is bounded at the view, not erased
+
+- date: 2026-10-18
+- status: accepted
+- supersedes: the first-slice choice to give `prime` graph mode `none`
+- related authorization: owner-directed corpus enrichment on 2026-10-18
+
+context:
+
+the first slice suppressed prime from the graph to avoid a meaningless cloud.
+once the public interface had a complete list and a bounded graph, suppression
+made an actual shared property disappear from the social ontology. `137` also
+needed enough public mathematical affiliation to make its graph and list real,
+without pretending that its sourced scientific profile entry was an edge.
+
+decision:
+
+make prime graphable by shared membership and keep density control in the
+renderer: the graph shows a deterministic bounded selection and reports what
+it omits, while the list remains complete. add complete deterministic
+`1–2000` populations for perfect squares, perfect cubes, fibonacci numbers, and
+twin-prime members, each with typed witnesses and an oeis property citation.
+twin-prime qualifiers name exact lower or higher partners, and those direct
+partners receive display salience within the broader membership relation.
+
+alternatives considered:
+
+- keep prime invisible: rejected because presentation density is not a sound
+  reason to remove a true published relation;
+- store pairwise twin-prime edges: rejected because checked endpoint qualifiers
+  preserve the exact partner without creating a second source of membership
+  truth;
+- add sparse hand-authored tags: rejected because an incomplete positive set
+  would make missing members epistemically ambiguous inside the seeded range;
+- mutate existing seed-v1 ledgers in place: rejected because their accepted
+  property versions and claims are immutable research records.
+
+consequences:
+
+- the fresh reference corpus is `seed-v2`, with nine properties and `717`
+  accepted claims;
+- populated older ledgers fail closed and remain untouched until an explicit
+  revision workflow is authorized;
+- `137` relates mathematically through prime and twin-prime membership while
+  its fine-structure context remains an independent profile entry;
+- high-degree graphs stay legible without making the complete list dishonest.
+
+evidence:
+
+- owner authorization on 2026-10-18;
+- evaluator, evidence-contract, seed, public-projection, relation-ordering,
+  artifact, and full repository checks.

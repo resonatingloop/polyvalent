@@ -30,7 +30,7 @@ public sealed class MainWindowViewModelTests
             await viewModel.NextCommand.ExecuteAsync(null);
 
             Assert.Equal("154", viewModel.SelectedInteger);
-            Assert.Equal(5, viewModel.Claims.Count);
+            Assert.Equal(9, viewModel.Claims.Count);
             Assert.Contains("record 154 open", viewModel.StatusMessage, StringComparison.Ordinal);
 
             viewModel.DraftPropertySlug = PropertySlugs.Prime;

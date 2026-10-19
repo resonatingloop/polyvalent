@@ -88,6 +88,40 @@ public sealed class PublicReleaseTests
     }
 
     [Fact]
+    public async Task Release_surfaces_the_enriched_137_and_343_profiles_with_provenance()
+    {
+        await using var fixture = TestDatabase.Create();
+        await new CorpusSeeder(fixture.Database).SeedAsync();
+        var output = Path.Combine(fixture.Directory, "release");
+
+        await new PublicReleaseService(fixture.Database).GenerateAsync(
+            output,
+            "enrichment-v1",
+            ReleaseTime);
+        using var data = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(output, "data.json")));
+        var properties = data.RootElement.GetProperty("properties").EnumerateArray().ToArray();
+        var integers = data.RootElement.GetProperty("integers").EnumerateArray().ToArray();
+        var prime = properties.Single(item => item.GetProperty("slug").GetString() == PropertySlugs.Prime);
+        var twinPrime = properties.Single(item => item.GetProperty("slug").GetString() == PropertySlugs.TwinPrime);
+        var oneThirtySeven = integers.Single(item => item.GetProperty("value").GetString() == "137");
+        var threeFortyThree = integers.Single(item => item.GetProperty("value").GetString() == "343");
+        var twinClaim = Claim(oneThirtySeven, PropertySlugs.TwinPrime);
+        var cubeClaim = Claim(threeFortyThree, PropertySlugs.PerfectCube);
+
+        Assert.Equal(9, properties.Length);
+        Assert.Equal("shared-membership", prime.GetProperty("graphMode").GetString());
+        Assert.Equal(
+            PropertySlugs.Prime,
+            Claim(oneThirtySeven, PropertySlugs.Prime).GetProperty("propertySlug").GetString());
+        Assert.Equal("139", twinClaim.GetProperty("qualifier").GetProperty("higherTwin").GetString());
+        Assert.Equal("twin with 139", twinClaim.GetProperty("witness").GetProperty("displayText").GetString());
+        Assert.Equal("7^3 = 343", cubeClaim.GetProperty("witness").GetProperty("displayText").GetString());
+        Assert.Contains(
+            twinPrime.GetProperty("citations").EnumerateArray(),
+            citation => citation.GetProperty("url").GetString() == "https://oeis.org/A001097");
+    }
+
+    [Fact]
     public async Task Private_sentinels_in_selected_notes_source_metadata_and_neighboring_drafts_do_not_leak()
     {
         const string sentinel = "PRIVATE-SENTINEL-9f86d081884c";
@@ -279,8 +313,11 @@ public sealed class PublicReleaseTests
     }
 
     private static JsonElement FriedmanClaim(JsonElement integer) =>
+        Claim(integer, PropertySlugs.DecimalFriedman);
+
+    private static JsonElement Claim(JsonElement integer, string propertySlug) =>
         integer
             .GetProperty("claims")
             .EnumerateArray()
-            .Single(claim => claim.GetProperty("propertySlug").GetString() == PropertySlugs.DecimalFriedman);
+            .Single(claim => claim.GetProperty("propertySlug").GetString() == propertySlug);
 }

@@ -1,7 +1,7 @@
 # architecture
 
 > **continuity role:** implemented representation map
-> **status:** current for the accepted first slice and pages delivery boundary
+> **status:** current for the accepted first slice, pages delivery, and seed-v2 enrichment
 > **last verified:** 2026-10-18
 > **owns:** dependency direction, data boundaries, lifecycle, and publication seam
 > **update when:** a layer, durable representation, or trust boundary changes
@@ -95,7 +95,7 @@ positive claims are materialized. a missing claim is not false by default.
   complete coverage containing the integer;
 - `unknown`: no positive claim and no applicable coverage warrant.
 
-the deterministic properties record deterministic coverage over `1–2000`.
+the eight deterministic properties record deterministic coverage over `1–2000`.
 friedman coverage is explicitly `source-asserted-bounded`. a mismatched source
 comparison is preserved as a comparison record and the affected property is
 withheld from coverage and publication staging.
@@ -111,6 +111,14 @@ is limited to decimal digits, parentheses, unary signs, `+`, `-`, `*`, `/`, and
 `^`; it bounds expression length, tokens, exponent, and intermediate magnitude;
 uses exact rational arithmetic; consumes every source digit exactly once; and
 requires a nontrivial operation. it never executes source text.
+
+the current `seed-v2` reference corpus adds perfect-square, perfect-cube,
+fibonacci, and twin-prime evaluators to the original five-property pack. power
+and sequence witnesses record exact constructive identities. twin-prime claims
+record their lower and higher partners as checked qualifiers, allowing the
+public renderer to distinguish an exact partner from ambient shared membership.
+prime is graphable in this version; density is controlled by presentation, not
+by deleting the relation from the published ontology.
 
 ## explicit publication firewall
 
@@ -176,10 +184,13 @@ view:
 center integer -> shared property -> related integer
 ```
 
-rarer properties sort first; explicitly qualified endpoints receive salience
-within an equally rare property; canonical integer order breaks remaining ties.
-this makes the orderly `343` relation visible around `153` without hard-coding
-that pair.
+rarer properties sort first; an exact twin-prime partner sorts ahead of ambient
+members within that property; explicitly qualified endpoints then receive
+salience, and canonical integer order breaks remaining ties. this makes both
+the orderly `343` relation around `153` and the exact `139` relation around
+`137` visible without hard-coding either pair. high-degree properties such as
+prime remain honest graph facts: the svg shows a deterministic bounded slice,
+reports the omitted count, and leaves the complete relation list authoritative.
 
 ## private desktop boundary
 

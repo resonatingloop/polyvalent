@@ -1,7 +1,7 @@
 # polyvalent
 
 > **continuity role:** operational front door
-> **status:** implemented locally; public visual pass accepted; pages delivery prepared
+> **status:** reference-v1 live; reference-v2 corpus enrichment implemented locally
 > **last verified:** 2026-10-18
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
@@ -56,10 +56,12 @@ dotnet run --project src/Polyvalent.Publisher -c Release -- seed --data-dir ./va
 dotnet run --project src/Polyvalent.Desktop -c Release -- --data-dir ./var/local
 ```
 
-the seed is idempotent. it creates integers `1` through `2000`, five versioned
-properties, `524` accepted positive claims, complete recorded coverage where
-warranted, attributed sources and captures, and one sourced profile entry for
-`137`.
+the current `seed-v2` corpus is idempotent on an unchanged matching ledger. it creates
+integers `1` through `2000`, nine versioned properties, `717` accepted positive
+claims, complete recorded coverage where warranted, attributed sources and
+captures, and one sourced profile entry for `137`. it refuses to rewrite an
+older or divergent ledger; use a fresh data directory or an explicit revision
+workflow when existing authored research must be preserved.
 
 to generate a new local preview from exactly what is staged:
 
@@ -96,8 +98,12 @@ restore procedures.
 
 | property | positive members in `1–2000` | coverage warrant | public graph |
 |---|---:|---|---|
-| prime | 303 | deterministic evaluation | no |
+| prime | 303 | deterministic evaluation | yes, bounded display |
 | triangular number | 62 | deterministic evaluation | yes |
+| perfect square | 44 | deterministic evaluation | yes |
+| perfect cube | 12 | deterministic evaluation | yes |
+| fibonacci number | 16 | deterministic evaluation | yes |
+| twin-prime member | 121 | deterministic evaluation | yes |
 | decimal palindrome | 118 | deterministic evaluation | no |
 | decimal narcissistic number | 14 | deterministic evaluation, compared with oeis a005188 | yes |
 | decimal friedman number | 27 | source-asserted bounded import with locally validated expressions | yes |
@@ -106,6 +112,8 @@ relations are derived by intersecting published membership claims; there is no
 pairwise-edge table. the reference release therefore explains
 `153 → decimal friedman number → 343`, including `3 × 51` for `153` and the
 orderly/nice witness `(3 + 4) ^ 3` for `343`.
+it also gives `137` a prime and twin-prime social field, ranks its exact partner
+`139` first, and shows `343` as the perfect cube `7^3`.
 
 ## configuration and data
 
@@ -123,6 +131,11 @@ output are ignored as defense in depth. the reviewed deterministic artifact
 under `web/public/data/` is the only tracked release.
 
 ## public deployment
+
+the currently deployed reference-v1 site is
+[`https://resonatrix.tech/polyvalent/`](https://resonatrix.tech/polyvalent/).
+the tracked reference-v2 artifact in this checkout is not live until a later
+reviewed commit and deployment.
 
 [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) deploys the public site
 to github pages after relevant pushes to `main`, and also supports explicit

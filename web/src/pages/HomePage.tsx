@@ -37,12 +37,12 @@ export function HomePage({ index }: { index: CorpusIndex }) {
           <Link className="dispatch-card" href="/integer/343">
             <span className="dispatch-number">343</span>
             <span className="dispatch-label">the orderly acquaintance</span>
-            <span className="dispatch-note">palindromic · nice friedman</span>
+            <span className="dispatch-note">cube · palindromic · nice friedman</span>
           </Link>
           <Link className="dispatch-card" href="/integer/137">
             <span className="dispatch-number">137</span>
-            <span className="dispatch-label">profile lore, no forced edge</span>
-            <span className="dispatch-note">scientific context · sourced</span>
+            <span className="dispatch-label">the charged acquaintance</span>
+            <span className="dispatch-note">prime · twin prime · scientific context</span>
           </Link>
         </div>
       </section>

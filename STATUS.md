@@ -8,25 +8,26 @@
 
 ## Verified checkpoint
 
-the accepted first slice and bounded public-delivery follow-up are implemented
-locally as one vertical instrument:
+the accepted first slice, public-delivery follow-up, and bounded corpus
+enrichment are implemented locally as one vertical instrument:
 
-- a .net 10 solution with canonical integer semantics, five property
+- a .net 10 solution with canonical integer semantics, nine property
   evaluators/contracts, a bounded non-executing friedman parser, application
   services, direct sqlite persistence, avalonia desktop, and publisher;
 - a migrated provenance ledger with immutable accepted evidence, source and
   capture distinctions, comparisons, coverage, revision lineage, explicit
   staging, privacy sentinels, and immutable release records;
-- a deterministic `1–2000` seed containing `524` accepted positive claims and
+- a deterministic `1–2000` seed-v2 containing `717` accepted positive claims and
   one sourced profile entry;
-- a committed reference release with `5` properties, `481` materialized integer
-  profiles, and sha-256
-  `0a0cd360cd1832522634e1b4b14c6d461f53a4f78a48ad75a49547f00b6d830d`;
+- a prepared reference-v2 artifact in the tracked release path with `9`
+  properties, `520` materialized integer profiles, and sha-256
+  `e7e7a7611f86f77b84b9d9be6e7952e499601c72e8ca27513c7cafc9ac1a4569`;
 - a static react/vite public ui with search, number profiles, property dossiers,
   complete explained relation lists, and a bounded accessible bipartite graph;
 - a least-privilege github pages workflow that verifies tracked public inputs,
   builds for the configured pages base path, and uploads only the static web
   output;
+- a live reference-v1 deployment at `https://resonatrix.tech/polyvalent/`;
 - project-owned setup, validation, attribution, migration, publication, backup,
   deployment, and recovery documentation.
 
@@ -49,21 +50,21 @@ evidence:
   `web/dist` is the sole upload path, and the deploy job cannot check out source
   or run shell commands;
 - solution restore and release build: `0` warnings, `0` errors;
-- .net tests: `58` passed across domain (`34`), data (`16`), publication (`7`),
+- .net tests: `68` passed across domain (`41`), data (`18`), publication (`8`),
   and desktop view-model (`1`) suites;
 - .net formatting verification: succeeded;
-- web tests: `17` passed across relation, canonical-integer, coverage, salience,
+- web tests: `19` passed across relation, canonical-integer, coverage, salience,
   release-digest, and deployment-base routing behavior;
-- public artifact: digest matched; `5` properties and `481` integers;
+- public artifact: digest matched; `9` properties and `520` integers;
 - public boundary: `16` source files, `2` runtime dependencies, and only the `2`
   expected local release fetches;
 - root and `/polyvalent/` production web builds: succeeded; the project-path
   build emitted matching `index.html` and `404.html` routing shells;
 - `git diff --check`: succeeded as the final step of the script.
 
-focused integration proof also exercised a fresh `bootstrap` command, producing
-`2000` integers, `524` claims, one profile entry, and a sealed deterministic
-release without networking or deployment.
+focused integration proof exercised two independent fresh `bootstrap` commands.
+both produced `2000` integers, `717` claims, one profile entry, and byte-for-byte
+identical sealed release bytes without networking or deployment.
 
 headless chromium renders were inspected at desktop and narrow widths for the
 home page and the `153`, `343`, and `137` profiles. an avalonia render was
@@ -78,7 +79,12 @@ interactive browser and native desktop acceptance.
   strong/weak labels are absent;
 - graph salience keeps explicitly qualified endpoints such as `343` visible
   within an equally rare property while the list retains every relation;
-- `137` carries sourced public profile context without acquiring a graph edge;
+- prime, perfect-square, perfect-cube, fibonacci, and twin-prime membership are
+  graphable; the graph remains bounded while the relation list stays complete;
+- `137` carries independent sourced profile context plus prime and twin-prime
+  affiliations, with its exact partner `139` ranked before ambient mutuals;
+- `343` carries a checked `7^3 = 343` perfect-cube witness in addition to its
+  palindrome and friedman affiliations;
 - absence is covered-negative only inside succeeded recorded coverage and is
   otherwise unknown;
 - an incomplete private draft cannot establish membership, coverage, staging,
@@ -102,8 +108,12 @@ interactive browser and native desktop acceptance.
 
 ## Incomplete or broken
 
-- the github pages workflow exists locally, but pages repository settings, a
-  workflow run, the live url, tls, and direct-route behavior remain unverified;
+- reference-v2 is only the tracked local artifact; the live site still reports
+  reference-v1 until a later reviewed commit and deployment;
+- the in-app browser bridge rejected its own bundled runtime during the new
+  local visual smoke, so interactive rendering of the enriched `137` profile
+  remains an owner-visible check; type, relation, artifact, and production-build
+  proofs passed;
 - no custom domain, analytics, or production monitoring exists;
 - no public suggestion form or email provider exists;
 - no session-held integers, encounter pings, public lenses, private
@@ -120,18 +130,20 @@ interactive browser and native desktop acceptance.
 ## Active work
 
 - accepted spec: `specs/001-first-slice.md`;
-- implementation: complete locally against automated and rendered smoke proof;
+- implementation: corpus enrichment complete locally against automated proof;
 - public ui: initial aesthetic pass accepted by the owner;
-- remaining first-slice acceptance: owner-visible private gui review;
+- live site: reference-v1; reference-v2 is not committed, pushed, or deployed;
+- remaining visual acceptance: enriched `137` public profile and the deferred
+  private gui slice;
 - blockers: none for local use or review.
 
 ## Next useful action
 
-after review and commit, set repository settings → pages → source to **github
-actions**, push the deployment workflow, and inspect the reported live url at
-the home, integer, and property routes. treat that successful run and direct
-browser pass as external deployment proof. private gui refinement remains its
-own later visual slice.
+open the local reference-v2 site at `/integer/137`, confirm that `139` is the
+first exact twin-prime acquaintance and that the bounded prime field remains
+legible, then review and commit. a later authorized push will deploy that exact
+tracked artifact through the existing pages workflow. private gui refinement
+remains its own visual slice.
 
 ## Re-entry notes
 

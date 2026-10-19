@@ -17,7 +17,7 @@ public sealed record SeedResult(
 
 public sealed class CorpusSeeder
 {
-    public const string SeedVersion = "seed-v1";
+    public const string SeedVersion = "seed-v2";
     private readonly SqliteDatabase _database;
     private readonly TimeProvider _timeProvider;
     private readonly IReadOnlyList<string>? _narcissisticComparisonValuesOverride;
@@ -51,7 +51,21 @@ public sealed class CorpusSeeder
         await using var connection = await _database.OpenConnectionAsync(cancellationToken);
         if (await CountAsync(connection, "properties", cancellationToken) > 0)
         {
-            return await ReadExistingResultAsync(connection, cancellationToken);
+            var existing = await ReadExistingResultAsync(connection, cancellationToken);
+            try
+            {
+                AssertExpectedCounts(existing.PropertyCounts);
+                await AssertCurrentSeedShapeAsync(connection, cancellationToken);
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new InvalidOperationException(
+                    "the existing ledger predates or diverges from seed-v2; it was left untouched. "
+                    + "create a fresh ledger for the reference corpus or use an explicit revision workflow to preserve authored research.",
+                    exception);
+            }
+
+            return existing;
         }
 
         var narcissisticSeed = ReadEmbeddedJson<NarcissisticSeed>("narcissistic.json");
@@ -83,13 +97,7 @@ public sealed class CorpusSeeder
 
         var counts = new Dictionary<string, int>(StringComparer.Ordinal);
         var disagreements = new List<string>();
-        var deterministic = new IPropertyEvaluator[]
-        {
-            new PrimeEvaluator(),
-            new TriangularEvaluator(),
-            new DecimalPalindromeEvaluator(),
-            new DecimalNarcissisticEvaluator(),
-        };
+        var deterministic = CreateDeterministicEvaluators();
         foreach (var evaluator in deterministic)
         {
             var property = InitialPropertyCatalog.Definitions.Single(item => item.EvaluatorKey == evaluator.Key);
@@ -227,6 +235,10 @@ public sealed class CorpusSeeder
         {
             new SourceSeed("oeis-a000040", "OEIS A000040 — the prime numbers", "OEIS Foundation Inc.", "https://oeis.org/A000040", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a000217", "OEIS A000217 — triangular numbers", "OEIS Foundation Inc.", "https://oeis.org/A000217", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a000290", "OEIS A000290 — the squares", "OEIS Foundation Inc.", "https://oeis.org/A000290", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a000578", "OEIS A000578 — the cubes", "OEIS Foundation Inc.", "https://oeis.org/A000578", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a000045", "OEIS A000045 — fibonacci numbers", "OEIS Foundation Inc.", "https://oeis.org/A000045", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a001097", "OEIS A001097 — twin-prime members", "OEIS Foundation Inc.", "https://oeis.org/A001097", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a002113", "OEIS A002113 — palindromes in base 10", "OEIS Foundation Inc.", "https://oeis.org/A002113", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a005188", "OEIS A005188 — narcissistic numbers", "OEIS Foundation Inc.", "https://oeis.org/A005188", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a036057", "OEIS A036057 — Friedman numbers", "OEIS Foundation Inc.", "https://oeis.org/A036057", "source terms apply; attribution retained"),
@@ -338,13 +350,7 @@ public sealed class CorpusSeeder
         SqliteTransaction transaction,
         CancellationToken cancellationToken)
     {
-        var evaluators = new IPropertyEvaluator[]
-        {
-            new PrimeEvaluator(),
-            new TriangularEvaluator(),
-            new DecimalPalindromeEvaluator(),
-            new DecimalNarcissisticEvaluator(),
-        };
+        var evaluators = CreateDeterministicEvaluators();
         var ids = new Dictionary<(string Key, string Version), long>();
         foreach (var evaluator in evaluators)
         {
@@ -979,6 +985,10 @@ public sealed class CorpusSeeder
         {
             [PropertySlugs.Prime] = 303,
             [PropertySlugs.Triangular] = 62,
+            [PropertySlugs.PerfectSquare] = 44,
+            [PropertySlugs.PerfectCube] = 12,
+            [PropertySlugs.Fibonacci] = 16,
+            [PropertySlugs.TwinPrime] = 121,
             [PropertySlugs.DecimalPalindrome] = 118,
             [PropertySlugs.DecimalNarcissistic] = 14,
             [PropertySlugs.DecimalFriedman] = 27,
@@ -1022,6 +1032,40 @@ public sealed class CorpusSeeder
             await ReadDisagreementsAsync(connection, cancellationToken));
     }
 
+    private static async Task AssertCurrentSeedShapeAsync(
+        SqliteConnection connection,
+        CancellationToken cancellationToken)
+    {
+        foreach (var property in InitialPropertyCatalog.Definitions)
+        {
+            await using var command = connection.CreateCommand();
+            command.CommandText = """
+                SELECT COUNT(*)
+                FROM population_runs run
+                JOIN property_versions version ON version.id = run.property_version_id
+                JOIN properties property ON property.id = version.property_id
+                WHERE run.id = $runId
+                  AND run.status = 'succeeded'
+                  AND property.slug = $slug
+                  AND version.status = 'accepted'
+                  AND version.graph_mode = $graphMode;
+                """;
+            command.Parameters.AddWithValue("$runId", $"{SeedVersion}-{property.Slug}");
+            command.Parameters.AddWithValue("$slug", property.Slug);
+            command.Parameters.AddWithValue(
+                "$graphMode",
+                property.GraphMode == GraphMode.SharedMembership ? "shared-membership" : "none");
+            var matches = Convert.ToInt32(
+                await command.ExecuteScalarAsync(cancellationToken),
+                CultureInfo.InvariantCulture);
+            if (matches != 1)
+            {
+                throw new InvalidOperationException(
+                    $"{property.Slug} is not backed by the expected successful {SeedVersion} run and graph policy.");
+            }
+        }
+    }
+
     private static async Task<IReadOnlyList<string>> ReadDisagreementsAsync(
         SqliteConnection connection,
         CancellationToken cancellationToken)
@@ -1061,6 +1105,10 @@ public sealed class CorpusSeeder
     {
         PropertySlugs.Prime => ["oeis-a000040"],
         PropertySlugs.Triangular => ["oeis-a000217"],
+        PropertySlugs.PerfectSquare => ["oeis-a000290"],
+        PropertySlugs.PerfectCube => ["oeis-a000578"],
+        PropertySlugs.Fibonacci => ["oeis-a000045"],
+        PropertySlugs.TwinPrime => ["oeis-a001097"],
         PropertySlugs.DecimalPalindrome => ["oeis-a002113"],
         PropertySlugs.DecimalNarcissistic => ["oeis-a005188"],
         PropertySlugs.DecimalFriedman => ["oeis-a036057", "oeis-a080035", "erich-friedman-2000"],
@@ -1071,6 +1119,10 @@ public sealed class CorpusSeeder
     {
         "oeis-a000040" => "OEIS A000040",
         "oeis-a000217" => "OEIS A000217",
+        "oeis-a000290" => "OEIS A000290",
+        "oeis-a000578" => "OEIS A000578",
+        "oeis-a000045" => "OEIS A000045",
+        "oeis-a001097" => "OEIS A001097",
         "oeis-a002113" => "OEIS A002113",
         "oeis-a005188" => "OEIS A005188",
         "oeis-a036057" => "OEIS A036057",
@@ -1086,6 +1138,18 @@ public sealed class CorpusSeeder
         ClaimOrigin.Imported => "imported",
         _ => throw new ArgumentOutOfRangeException(nameof(origin)),
     };
+
+    private static IPropertyEvaluator[] CreateDeterministicEvaluators() =>
+    [
+        new PrimeEvaluator(),
+        new TriangularEvaluator(),
+        new PerfectSquareEvaluator(),
+        new PerfectCubeEvaluator(),
+        new FibonacciEvaluator(),
+        new TwinPrimeEvaluator(),
+        new DecimalPalindromeEvaluator(),
+        new DecimalNarcissisticEvaluator(),
+    ];
 
     private static void ValidateSeedEnvelope(int schemaVersion, string minimum, string maximum)
     {

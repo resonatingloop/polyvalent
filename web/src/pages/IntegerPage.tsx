@@ -56,7 +56,7 @@ export function IntegerPage({ index, value }: { index: CorpusIndex; value: strin
                       <h3><Link href={`/property/${encodeURIComponent(property.slug)}`}>{property.name}</Link></h3>
                       <p>{property.definition}</p>
                       {claim.witness && <code className="witness">{claim.witness.displayText}</code>}
-                      <CitationLine citations={claim.citations} />
+                      <CitationLine citations={mergeCitations(property.citations, claim.citations)} />
                     </div>
                   </article>
                 );
@@ -163,4 +163,14 @@ function CitationLine({ citations }: { citations: PublicCitation[] }) {
       ))}
     </p>
   );
+}
+
+function mergeCitations(...groups: PublicCitation[][]): PublicCitation[] {
+  const seen = new Set<string>();
+  return groups.flat().filter((citation) => {
+    const key = [citation.url, citation.label, citation.role, citation.locator ?? ""].join("\u0000");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }

@@ -13,7 +13,7 @@ public static class InitialPropertyCatalog
             "prime",
             "a positive integer greater than one with exactly two positive divisors.",
             [],
-            GraphMode.None,
+            GraphMode.SharedMembership,
             "prime/evidence-v1",
             "prime/deterministic",
             """
@@ -29,6 +29,50 @@ public static class InitialPropertyCatalog
             "triangular/deterministic",
             """
             {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["sequence_index"],"runMaySuffice":false,"coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.PerfectSquare,
+            "perfect square",
+            "a positive integer equal to the second power of a positive integer.",
+            ["square number"],
+            GraphMode.SharedMembership,
+            "perfect-square/evidence-v1",
+            "perfect-square/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["power_identity"],"runMaySuffice":false,"coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.PerfectCube,
+            "perfect cube",
+            "a positive integer equal to the third power of a positive integer.",
+            ["cube number"],
+            GraphMode.SharedMembership,
+            "perfect-cube/evidence-v1",
+            "perfect-cube/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["power_identity"],"runMaySuffice":false,"coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.Fibonacci,
+            "fibonacci number",
+            "a positive integer appearing in the fibonacci sequence beginning 1, 1, 2, 3, 5.",
+            ["fibonacci sequence member"],
+            GraphMode.SharedMembership,
+            "fibonacci/evidence-v1",
+            "fibonacci/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["sequence_indices"],"runMaySuffice":false,"coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.TwinPrime,
+            "twin-prime member",
+            "a prime differing by two from at least one other prime.",
+            ["twin prime"],
+            GraphMode.SharedMembership,
+            "twin-prime/evidence-v1",
+            "twin-prime/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["prime_partners"],"allowedQualifiers":{"lowerTwin":"integer text","higherTwin":"integer text"},"runMaySuffice":false,"coverageKinds":["deterministic"]}
             """),
         new(
             PropertySlugs.DecimalPalindrome,
@@ -109,6 +153,25 @@ public static class EvidenceContractValidator
                 ValidateTriangular(integer, RequireWitness(property, witness, "sequence_index"));
                 return;
 
+            case PropertySlugs.PerfectSquare:
+                ValidatePerfectPower(integer, RequireWitness(property, witness, "power_identity"), 2);
+                return;
+
+            case PropertySlugs.PerfectCube:
+                ValidatePerfectPower(integer, RequireWitness(property, witness, "power_identity"), 3);
+                return;
+
+            case PropertySlugs.Fibonacci:
+                ValidateFibonacci(integer, RequireWitness(property, witness, "sequence_indices"));
+                return;
+
+            case PropertySlugs.TwinPrime:
+                ValidateTwinPrime(
+                    integer,
+                    qualifierJson,
+                    RequireWitness(property, witness, "prime_partners"));
+                return;
+
             case PropertySlugs.DecimalPalindrome:
                 ValidatePalindrome(integer, RequireWitness(property, witness, "digit_symmetry"));
                 return;
@@ -145,6 +208,71 @@ public static class EvidenceContractValidator
         if (integer.Value < 0 || digits != integer.ToString() || reversed != new string(digits.Reverse().ToArray()))
         {
             throw new InvalidOperationException("the digit-symmetry witness does not prove the claimed integer.");
+        }
+    }
+
+    private static void ValidatePerfectPower(
+        IntegerValue integer,
+        EvidenceWitness witness,
+        int expectedExponent)
+    {
+        using var payload = ParsePayload(witness);
+        var baseValue = IntegerValue.Parse(RequiredString(payload.RootElement, "base")).Value;
+        var exponent = RequiredInt(payload.RootElement, "exponent");
+        if (baseValue <= 0
+            || exponent != expectedExponent
+            || BigInteger.Pow(baseValue, exponent) != integer.Value
+            || RequiredString(payload.RootElement, "result") != integer.ToString())
+        {
+            throw new InvalidOperationException("the power-identity witness does not prove the claimed integer.");
+        }
+    }
+
+    private static void ValidateFibonacci(IntegerValue integer, EvidenceWitness witness)
+    {
+        using var payload = ParsePayload(witness);
+        if (!payload.RootElement.TryGetProperty("indices", out var indicesNode)
+            || indicesNode.ValueKind != JsonValueKind.Array)
+        {
+            throw new InvalidOperationException("the fibonacci witness requires an indices array.");
+        }
+
+        var actual = indicesNode
+            .EnumerateArray()
+            .Select(node => node.ValueKind == JsonValueKind.String
+                ? IntegerValue.Parse(node.GetString()!).Value
+                : throw new InvalidOperationException("fibonacci indices must be integer strings."))
+            .ToArray();
+        var expected = FibonacciEvaluator.FindIndices(integer.Value);
+        if (actual.Length == 0
+            || !actual.SequenceEqual(expected)
+            || RequiredString(payload.RootElement, "result") != integer.ToString())
+        {
+            throw new InvalidOperationException("the fibonacci witness does not prove the claimed integer.");
+        }
+    }
+
+    private static void ValidateTwinPrime(
+        IntegerValue integer,
+        string qualifierJson,
+        EvidenceWitness witness)
+    {
+        using var qualifiers = JsonDocument.Parse(qualifierJson);
+        using var payload = ParsePayload(witness);
+        var expectedLower = PrimeEvaluator.IsPrime(integer.Value - 2)
+            ? (integer.Value - 2).ToString(CultureInfo.InvariantCulture)
+            : null;
+        var expectedHigher = PrimeEvaluator.IsPrime(integer.Value + 2)
+            ? (integer.Value + 2).ToString(CultureInfo.InvariantCulture)
+            : null;
+        if (!PrimeEvaluator.IsPrime(integer.Value)
+            || (expectedLower is null && expectedHigher is null)
+            || OptionalString(qualifiers.RootElement, "lowerTwin") != expectedLower
+            || OptionalString(qualifiers.RootElement, "higherTwin") != expectedHigher
+            || OptionalString(payload.RootElement, "lowerTwin") != expectedLower
+            || OptionalString(payload.RootElement, "higherTwin") != expectedHigher)
+        {
+            throw new InvalidOperationException("the prime-partners witness does not prove the claimed integer.");
         }
     }
 
@@ -263,9 +391,12 @@ public static class EvidenceContractValidator
     {
         EnsureJsonObject(qualifierJson, "qualifier");
         using var document = JsonDocument.Parse(qualifierJson);
-        var allowed = property.Slug == PropertySlugs.DecimalFriedman
-            ? new HashSet<string>(["orderly"], StringComparer.Ordinal)
-            : [];
+        var allowed = property.Slug switch
+        {
+            PropertySlugs.DecimalFriedman => new HashSet<string>(["orderly"], StringComparer.Ordinal),
+            PropertySlugs.TwinPrime => new HashSet<string>(["lowerTwin", "higherTwin"], StringComparer.Ordinal),
+            _ => [],
+        };
         foreach (var field in document.RootElement.EnumerateObject())
         {
             if (!allowed.Contains(field.Name))
@@ -284,5 +415,30 @@ public static class EvidenceContractValidator
         }
 
         return node.GetString()!;
+    }
+
+    private static string? OptionalString(JsonElement element, string name)
+    {
+        if (!element.TryGetProperty(name, out var node))
+        {
+            return null;
+        }
+
+        if (node.ValueKind != JsonValueKind.String)
+        {
+            throw new InvalidOperationException($"the witness payload field '{name}' must be a string.");
+        }
+
+        return node.GetString();
+    }
+
+    private static int RequiredInt(JsonElement element, string name)
+    {
+        if (!element.TryGetProperty(name, out var node) || !node.TryGetInt32(out var value))
+        {
+            throw new InvalidOperationException($"the witness payload requires integer field '{name}'.");
+        }
+
+        return value;
     }
 }

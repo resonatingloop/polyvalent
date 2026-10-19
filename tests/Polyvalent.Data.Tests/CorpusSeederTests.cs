@@ -19,10 +19,70 @@ public sealed class CorpusSeederTests
         Assert.Equal(2000, first.IntegerCount);
         Assert.Equal(303, first.PropertyCounts[PropertySlugs.Prime]);
         Assert.Equal(62, first.PropertyCounts[PropertySlugs.Triangular]);
+        Assert.Equal(44, first.PropertyCounts[PropertySlugs.PerfectSquare]);
+        Assert.Equal(12, first.PropertyCounts[PropertySlugs.PerfectCube]);
+        Assert.Equal(16, first.PropertyCounts[PropertySlugs.Fibonacci]);
+        Assert.Equal(121, first.PropertyCounts[PropertySlugs.TwinPrime]);
         Assert.Equal(118, first.PropertyCounts[PropertySlugs.DecimalPalindrome]);
         Assert.Equal(14, first.PropertyCounts[PropertySlugs.DecimalNarcissistic]);
         Assert.Equal(27, first.PropertyCounts[PropertySlugs.DecimalFriedman]);
         Assert.Empty(first.Disagreements);
+    }
+
+    [Fact]
+    public async Task Reference_numbers_receive_the_new_public_affiliations()
+    {
+        await using var fixture = TestDatabase.Create();
+        await new CorpusSeeder(fixture.Database).SeedAsync();
+        var store = new PolyvalentStore(fixture.Database);
+
+        var oneThirtySeven = await store.GetDossierAsync(IntegerValue.Parse("137"));
+        var threeFortyThree = await store.GetDossierAsync(IntegerValue.Parse("343"));
+
+        Assert.Contains(oneThirtySeven.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.Prime
+            && claim.State == KnowledgeState.Positive);
+        Assert.Contains(oneThirtySeven.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.TwinPrime
+            && claim.State == KnowledgeState.Positive
+            && claim.Witness!.DisplayText == "twin with 139");
+        Assert.Contains(threeFortyThree.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.PerfectCube
+            && claim.State == KnowledgeState.Positive
+            && claim.Witness!.DisplayText == "7^3 = 343");
+
+        await using var connection = await fixture.Database.OpenConnectionAsync();
+        await using var command = connection.CreateCommand();
+        command.CommandText = """
+            SELECT version.graph_mode
+            FROM property_versions version
+            JOIN properties property ON property.id = version.property_id
+            WHERE property.slug = $slug AND version.status = 'accepted';
+            """;
+        command.Parameters.AddWithValue("$slug", PropertySlugs.Prime);
+        Assert.Equal("shared-membership", await command.ExecuteScalarAsync());
+    }
+
+    [Fact]
+    public async Task Seed_v2_refuses_to_rewrite_an_existing_legacy_ledger()
+    {
+        await using var fixture = TestDatabase.Create();
+        await fixture.Database.InitializeAsync();
+        await using (var connection = await fixture.Database.OpenConnectionAsync())
+        {
+            await using var command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO properties(slug, display_name) VALUES ('legacy-fixture', 'legacy fixture');";
+            await command.ExecuteNonQueryAsync();
+        }
+
+        var error = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            new CorpusSeeder(fixture.Database).SeedAsync());
+
+        Assert.Contains("left untouched", error.Message, StringComparison.Ordinal);
+        await using var verification = await fixture.Database.OpenConnectionAsync();
+        await using var count = verification.CreateCommand();
+        count.CommandText = "SELECT COUNT(*) FROM properties;";
+        Assert.Equal(1L, await count.ExecuteScalarAsync());
     }
 
     [Fact]

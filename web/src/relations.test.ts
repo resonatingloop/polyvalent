@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
+import referenceData from "../public/data/data.json";
 import { canonicalInteger } from "./integer";
-import { explainRelationship, getInteger, getRelations, indexCorpus, knowledgeStatus } from "./relations";
+import { explainRelationship, getInteger, getRelations, indexCorpus, knowledgeStatus, qualifierLabel } from "./relations";
 import type { PublicCorpus } from "./types";
 
 const corpus: PublicCorpus = {
@@ -73,6 +74,16 @@ describe("public relation derivation", () => {
     expect(reasons[0].relatedClaim.qualifier.orderly).toBe(true);
   });
 
+  it("ranks 139 first in the actual reference-v2 field around 137", () => {
+    const reference = referenceData as unknown as PublicCorpus;
+    const relations = getRelations(indexCorpus(reference), "137");
+
+    expect(relations).toHaveLength(302);
+    expect(relations[0].integer.value).toBe("139");
+    expect(relations[0].reasons.map((reason) => reason.property.slug))
+      .toEqual(["prime", "twin-prime"]);
+  });
+
   it("derives a relation without stored pairwise edges", () => {
     const relations = getRelations(index, "153");
 
@@ -103,4 +114,45 @@ describe("public relation derivation", () => {
 
     expect(getRelations(indexCorpus(expanded), "153").map((relation) => relation.integer.value)).toEqual(["343", "25"]);
   });
+
+  it("puts an exact twin-prime partner before ambient shared memberships", () => {
+    const expanded: PublicCorpus = structuredClone(corpus);
+    expanded.properties.find((property) => property.slug === "prime")!.graphMode = "shared-membership";
+    expanded.properties.push({
+      slug: "twin-prime",
+      name: "twin-prime member",
+      definition: "fixture definition",
+      aliases: [],
+      graphMode: "shared-membership",
+      coverage: [{ minimum: "1", maximum: "2000", basis: "deterministic", exclusions: [] }],
+      citations: [],
+    });
+    expanded.integers.push(
+      twinPrimeInteger("107", { higherTwin: "109" }),
+      twinPrimeInteger("137", { higherTwin: "139" }),
+      twinPrimeInteger("139", { lowerTwin: "137" }),
+    );
+
+    const relations = getRelations(indexCorpus(expanded), "137");
+
+    expect(relations.map((relation) => relation.integer.value)).toEqual(["139", "107"]);
+    expect(qualifierLabel(expanded.integers.find((integer) => integer.value === "137")!.claims[1]))
+      .toBe("twin with 139");
+  });
 });
+
+function twinPrimeInteger(value: string, qualifier: Record<string, string>) {
+  return {
+    value,
+    claims: [
+      { propertySlug: "prime", qualifier: {}, witness: null, citations: [] },
+      {
+        propertySlug: "twin-prime",
+        qualifier,
+        witness: { kind: "prime_partners", schemaVersion: 1, displayText: "fixture witness" },
+        citations: [],
+      },
+    ],
+    profileEntries: [],
+  };
+}
