@@ -623,3 +623,56 @@ evidence:
 - owner selection on 2026-10-19;
 - seed, dossier, immutable-release, public-artifact, and no-accidental-claim
   tests.
+
+## d-016 — numerical biographies accumulate without merging their warrants
+
+- date: 2026-10-19
+- status: accepted
+- supersedes: none
+- related authorization: owner-directed completion of the sourced vignette set
+  on 2026-10-19
+
+context:
+
+the first vignette set established the profile-entry boundary but left a larger
+source-bearing cabinet unrepresented. two candidates, `137` and `153`, already
+had profiles in different registers. the `616` candidate also resurfaced through
+a private cross-instrument epithet supplied by another model, which was useful
+discovery provenance but not evidence or approved public language.
+
+decision:
+
+add thirteen separately cited profiles for `36`, `88`, `108`, `137`, `153`,
+`156`, `163`, `231`, `318`, `343`, `418`, `616`, and `1729`. retain the new
+`137` and `153` biographies as distinct revisions beside their existing entries
+rather than combining their warrants. ground `616` in the p. oxy. 4499
+manuscript witness and published textual criticism, and mechanically exclude
+the private discovery epithet from the public artifact.
+
+alternatives considered:
+
+- merge every appearance of one integer into a single omnibus vignette:
+  rejected because scientific measurement, biography, geometry, scripture,
+  and literature carry different evidence and revision histories;
+- convert recurring cultural domains into properties or edges: rejected
+  because this curated set does not establish exhaustive membership;
+- publish the relayed `616` epithet as a title or citation: rejected because a
+  remembered model phrase is provenance for discovery, not public evidence.
+
+consequences:
+
+- the fresh reference corpus is `seed-v4`, with twenty staged profile entries
+  across eighteen integers while the nine-property, `717`-claim mathematical
+  corpus remains unchanged;
+- the public reference artifact contains `528` integers, including new
+  profile-only records, without acquiring cultural claims or relations;
+- older populated ledgers remain untouched and require a fresh database or an
+  explicit revision workflow;
+- one integer may present several independently sourced biographies without
+  flattening them into a single epistemic register.
+
+evidence:
+
+- owner authorization on 2026-10-19;
+- source review, seed/dossier tests, immutable-release tests, public-artifact
+  checks, and fresh byte-reproduction proof.

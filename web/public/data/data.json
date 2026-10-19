@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "releaseId": "reference-v3",
+  "releaseId": "reference-v4",
   "generatedAtUtc": "2026-10-19T00:00:00.0000000\u002B00:00",
   "properties": [
     {
@@ -1063,7 +1063,23 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "thirty-six-righteous",
+          "title": "thirty-six at the threshold",
+          "category": "rabbinic number lore",
+          "epistemicRegister": "primary religious text",
+          "body": "sanhedrin 97b says that each generation has no fewer than thirty-six righteous people who greet the divine presence. the passage derives the count from the hebrew word lo in isaiah 30:18, whose letters lamed and vav have the numerical value 36.",
+          "citations": [
+            {
+              "label": "Sefaria \u2014 Sanhedrin 97b",
+              "locator": "sanhedrin 97b",
+              "role": "primary text and translation",
+              "url": "https://www.sefaria.org/Sanhedrin.97b?lang=bi"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "37",
@@ -1500,7 +1516,23 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "constellations-standardized",
+          "title": "the sky, standardized",
+          "category": "astronomical history",
+          "epistemicRegister": "institutional historical record",
+          "body": "in 1922 the international astronomical union agreed on a list of 88 constellations covering the entire sky. boundaries approved in 1928 and published in 1930 turned the modern constellations into defined celestial regions rather than merely recognized star pictures.",
+          "citations": [
+            {
+              "label": "International Astronomical Union \u2014 The Constellations",
+              "locator": "the 88 IAU constellations",
+              "role": "institutional history",
+              "url": "https://www.iau.org/IAU/Astronomy-FAQs/Constellations.aspx"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "89",
@@ -1702,6 +1734,27 @@
         }
       ],
       "profileEntries": []
+    },
+    {
+      "value": "108",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "panchen-lama-prayer-beads",
+          "title": "three days before the end",
+          "category": "ritual object",
+          "epistemicRegister": "museum catalog record",
+          "body": "the national palace museum catalogs a tibetan kapala strand of 108 darkened human-bone beads, each set between thin turquoise plates. an inscription records its presentation by the sixth panchen lama at the qing court on 27 october 1780; he died in beijing three days later.",
+          "citations": [
+            {
+              "label": "National Palace Museum, Taipei \u2014 Kapala bone prayer beads",
+              "locator": "\u6545\u96DC000579N000000000",
+              "role": "object record",
+              "url": "https://digitalarchive.npm.gov.tw/Collection/Detail/2969?dep=U"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "109",
@@ -2037,6 +2090,27 @@
               "url": "https://physics.nist.gov/cgi-bin/cuu/Value?alphinv"
             }
           ]
+        },
+        {
+          "slug": "paulis-last-room",
+          "title": "the last room",
+          "category": "scientific biography",
+          "epistemicRegister": "sourced biographical account",
+          "body": "wolfgang pauli was famously preoccupied with the inverse fine-structure constant, whose value lies near 137. when pauli\u0027s last assistant, charles enz, visited him in z\u00FCrich\u0027s red cross hospital, pauli asked whether he had noticed the room number: 137. pauli died there on 15 december 1958.",
+          "citations": [
+            {
+              "label": "CERNipedia \u2014 Wolfgang Pauli",
+              "locator": "later life and death",
+              "role": "accessible biographical account",
+              "url": "https://wiki.cern.ch/index.php/Wolfgang_Pauli"
+            },
+            {
+              "label": "Charles P. Enz \u2014 No Time to Be Brief",
+              "locator": "chapter 12",
+              "role": "biographical source",
+              "url": "https://academic.oup.com/book/25794"
+            }
+          ]
         }
       ]
     },
@@ -2242,6 +2316,21 @@
       ],
       "profileEntries": [
         {
+          "slug": "sonnet-153",
+          "title": "cupid\u0027s stolen fire",
+          "category": "literary afterlife",
+          "epistemicRegister": "primary literary text",
+          "body": "shakespeare\u0027s sonnet 153 begins with cupid asleep beside his torch. a follower of diana steals the brand and quenches it in a cold spring, which becomes a heated medicinal bath; the speaker finds that the bath cannot cure his lovesickness.",
+          "citations": [
+            {
+              "label": "Folger Shakespeare Library \u2014 Sonnet 153",
+              "locator": "sonnet 153",
+              "role": "primary text and synopsis",
+              "url": "https://www.folger.edu/explore/shakespeares-works/shakespeares-sonnets/read/153/"
+            }
+          ]
+        },
+        {
           "slug": "vesica-and-unbroken-net",
           "title": "yet was not the net broken",
           "category": "geometry and scripture",
@@ -2265,6 +2354,27 @@
               "locator": null,
               "role": "geometric definition",
               "url": "https://mathworld.wolfram.com/VesicaPiscis.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "value": "156",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "babalons-number",
+          "title": "babalon, enumerated",
+          "category": "thelemic qabalah",
+          "epistemicRegister": "primary esoteric text",
+          "body": "aleister crowley\u0027s liber lviii lists 156 as babalon and calls it 12 \u00D7 13, joining what the text describes as the most spiritual form of 13 with the most perfect number, 12. within crowley\u0027s system, 156 is declared symbolic apparatus rather than accidental resemblance.",
+          "citations": [
+            {
+              "label": "Aleister Crowley \u2014 Liber LVIII",
+              "locator": "156",
+              "role": "primary numerical attribution",
+              "url": "https://hermetic.com/crowley/libers/lib58"
             }
           ]
         }
@@ -2308,7 +2418,23 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "gardners-almost-integer",
+          "title": "the integer that wasn\u0027t",
+          "category": "mathematical folklore",
+          "epistemicRegister": "secondary mathematical reference",
+          "body": "e^(\u03C0\u221A163) is approximately 262537412640768743.99999999999925, an astonishing near-integer. in an april 1975 scientific american column, martin gardner jokingly claimed that it was exactly an integer and attributed the result to ramanujan; the prank helped attach ramanujan\u0027s name to the constant.",
+          "citations": [
+            {
+              "label": "Wolfram MathWorld \u2014 Ramanujan Constant",
+              "locator": null,
+              "role": "mathematical value and publication history",
+              "url": "https://mathworld.wolfram.com/RamanujanConstant.html"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "167",
@@ -2779,7 +2905,23 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "sefer-yetzirah-gates",
+          "title": "the gates of creation",
+          "category": "combinatorial cosmology",
+          "epistemicRegister": "primary religious text",
+          "body": "sefer yetzirah sets the twenty-two hebrew letters in a wheel of 231 gates. the count matches every unordered pairing of two distinct letters, 22 \u00D7 21 \u00F7 2, while the text imagines formed things and speech emerging through this combinatorial alphabet.",
+          "citations": [
+            {
+              "label": "Sefaria \u2014 Sefer Yetzirah 2:1",
+              "locator": "2:1",
+              "role": "primary text and translation",
+              "url": "https://www.sefaria.org/Sefer_Yetzirah.2.1"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "232",
@@ -3323,6 +3465,33 @@
       "profileEntries": []
     },
     {
+      "value": "318",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "abrahams-army-cipher",
+          "title": "abraham\u0027s army, reread",
+          "category": "scriptural reception",
+          "epistemicRegister": "primary text and patristic interpretation",
+          "body": "genesis 14:14 numbers abraham\u0027s trained retainers at 318. clement of alexandria later reads the greek numeral notation \u03C4\u03B9\u03B7 christologically: the character for 300 as the lord\u0027s sign, and iota-eta, 18, as an indication of the savior\u0027s name.",
+          "citations": [
+            {
+              "label": "Clement of Alexandria \u2014 Stromata VI.11",
+              "locator": "book VI, chapter 11",
+              "role": "patristic interpretation",
+              "url": "https://www.newadvent.org/fathers/02106.htm#chapter11"
+            },
+            {
+              "label": "Sefaria \u2014 Genesis 14:14",
+              "locator": "genesis 14:14",
+              "role": "scriptural occurrence",
+              "url": "https://www.sefaria.org/Genesis.14.14?lang=bi"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "value": "323",
       "claims": [
         {
@@ -3459,7 +3628,35 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "guilty-spark",
+          "title": "the murderous little oracle",
+          "category": "video-game afterlife",
+          "epistemicRegister": "official franchise history and contemporary report",
+          "body": "in halo: combat evolved, 343 guilty spark is the installation\u0027s artificial-intelligence monitor, revered by the covenant as an oracle and intent on activating halo despite the catastrophic cost. microsoft later used 343 industries for its halo division; in 2024 the studio opened its next chapter as halo studios.",
+          "citations": [
+            {
+              "label": "GameSpot \u2014 Microsoft names internal Halo label?",
+              "locator": null,
+              "role": "studio-name history",
+              "url": "https://www.gamespot.com/articles/microsoft-names-internal-halo-label/1100-6213640/"
+            },
+            {
+              "label": "Halo \u2014 A New Dawn",
+              "locator": null,
+              "role": "studio transition",
+              "url": "https://www.halowaypoint.com/news/a-new-dawn"
+            },
+            {
+              "label": "Xbox Wire \u2014 A Halo 5 Primer",
+              "locator": null,
+              "role": "character history",
+              "url": "https://news.xbox.com/en-us/2015/10/26/halo-5-primer-the-story-so-far/"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "347",
@@ -3907,6 +4104,27 @@
         }
       ],
       "profileEntries": []
+    },
+    {
+      "value": "418",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "abrahadabra-great-work",
+          "title": "the word of the great work",
+          "category": "thelemic qabalah",
+          "epistemicRegister": "autobiographical primary text",
+          "body": "aleister crowley wrote that he restored abracadabra as abrahadabra, analyzed it as a formula of the great work, and adopted the word and its numerical value 418 as an expression for the conduct of major magical operations.",
+          "citations": [
+            {
+              "label": "Aleister Crowley \u2014 The Confessions, chapter 25",
+              "locator": "chapter 25",
+              "role": "autobiographical account",
+              "url": "https://hermetic.com/crowley/confessions/chapter25"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "419",
@@ -4934,7 +5152,29 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "beasts-variant-number",
+          "title": "the beast\u0027s alternate number",
+          "category": "textual history",
+          "epistemicRegister": "manuscript witness and scholarly textual criticism",
+          "body": "papyrus 115, p. oxy. 4499, is a third- or fourth-century manuscript of revelation that preserves 616 at revelation 13:18 rather than the familiar 666. textual critic p. j. williams notes that both readings permit more than one gematric explanation: the variant is evidence, not a license to collapse a contested textual history into one solution.",
+          "citations": [
+            {
+              "label": "P. J. Williams \u2014 P115 and the Number of the Beast",
+              "locator": "pp. 151\u2013153",
+              "role": "scholarly textual criticism",
+              "url": "https://www.tyndalebulletin.org/article/29233-p115-and-the-number-of-the-beast"
+            },
+            {
+              "label": "University of Oxford \u2014 P. Oxy. LXVI 4499",
+              "locator": "revelation 13:18",
+              "role": "primary manuscript image",
+              "url": "https://portal.sds.ox.ac.uk/articles/online_resource/_/21178999"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "617",
@@ -9339,6 +9579,27 @@
         }
       ],
       "profileEntries": []
+    },
+    {
+      "value": "1729",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "ramanujans-taxi",
+          "title": "the taxi defends itself",
+          "category": "mathematical biography",
+          "epistemicRegister": "first-person mathematical recollection",
+          "body": "in g. h. hardy\u0027s retelling, he arrived to visit the ill srinivasa ramanujan in taxicab 1729 and called the number dull. ramanujan answered that it is the smallest positive integer expressible as a sum of two positive cubes in two ways: 1^3 \u002B 12^3 = 9^3 \u002B 10^3 = 1729.",
+          "citations": [
+            {
+              "label": "G. H. Hardy \u2014 Ramanujan",
+              "locator": null,
+              "role": "first-person recollection",
+              "url": "https://openlibrary.org/books/OL182011M/Ramanujan"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "1733",

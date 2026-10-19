@@ -136,9 +136,9 @@ public sealed class PublicReleaseTests
         var integers = data.RootElement.GetProperty("integers").EnumerateArray().ToArray();
 
         Assert.Equal(9, result.PropertyCount);
-        Assert.Equal(523, result.IntegerCount);
+        Assert.Equal(528, result.IntegerCount);
         Assert.Equal(717, result.ClaimCount);
-        Assert.Equal(7, result.ProfileEntryCount);
+        Assert.Equal(20, result.ProfileEntryCount);
 
         AssertProfile(integers, "137", "fine-structure-near-integer", 1);
         AssertProfile(integers, "153", "vesica-and-unbroken-net", 3);
@@ -147,21 +147,63 @@ public sealed class PublicReleaseTests
         AssertProfile(integers, "404", "http-not-found", 1);
         AssertProfile(integers, "808", "tr-808-afterlife", 1);
         var eightySix = AssertProfile(integers, "86", "eighty-sixed", 1);
+        AssertProfile(integers, "137", "paulis-last-room", 2);
+        AssertProfile(integers, "153", "sonnet-153", 1);
+        AssertProfile(integers, "36", "thirty-six-righteous", 1);
+        AssertProfile(integers, "88", "constellations-standardized", 1);
+        var oneHundredEight = AssertProfile(integers, "108", "panchen-lama-prayer-beads", 1);
+        var oneFiftySix = AssertProfile(integers, "156", "babalons-number", 1);
+        AssertProfile(integers, "163", "gardners-almost-integer", 1);
+        AssertProfile(integers, "231", "sefer-yetzirah-gates", 1);
+        var threeEighteen = AssertProfile(integers, "318", "abrahams-army-cipher", 2);
+        AssertProfile(integers, "343", "guilty-spark", 3);
+        var fourEighteen = AssertProfile(integers, "418", "abrahadabra-great-work", 1);
+        AssertProfile(integers, "616", "beasts-variant-number", 2);
+        var seventeenTwentyNine = AssertProfile(integers, "1729", "ramanujans-taxi", 1);
 
-        Assert.Empty(eightySix.GetProperty("claims").EnumerateArray());
-        Assert.Empty(ninetyThree.GetProperty("claims").EnumerateArray());
-        Assert.Empty(oneFortySix.GetProperty("claims").EnumerateArray());
+        foreach (var profileOnly in new[]
+                 {
+                     eightySix,
+                     ninetyThree,
+                     oneHundredEight,
+                     oneFortySix,
+                     oneFiftySix,
+                     threeEighteen,
+                     fourEighteen,
+                     seventeenTwentyNine,
+                 })
+        {
+            Assert.Empty(profileOnly.GetProperty("claims").EnumerateArray());
+        }
+
         Assert.DoesNotContain(
             data.RootElement.GetProperty("properties").EnumerateArray(),
             property => property.GetProperty("slug").GetString() is
-                "thelemic-greeting" or "lucina-minor-planet" or "http-not-found");
+                "thelemic-greeting"
+                or "lucina-minor-planet"
+                or "http-not-found"
+                or "babalons-number"
+                or "beasts-variant-number"
+                or "ramanujans-taxi");
 
-        var profile153 = integers
+        var profiles153 = integers
             .Single(integer => integer.GetProperty("value").GetString() == "153")
-            .GetProperty("profileEntries")[0];
+            .GetProperty("profileEntries")
+            .EnumerateArray()
+            .ToArray();
+        var profile153 = profiles153.Single(
+            profile => profile.GetProperty("slug").GetString() == "vesica-and-unbroken-net");
         Assert.Contains(
             profile153.GetProperty("citations").EnumerateArray(),
             citation => citation.GetProperty("url").GetString() == "https://www.kingjamesbibleonline.org/John-21-11/");
+
+        var profile616 = integers
+            .Single(integer => integer.GetProperty("value").GetString() == "616")
+            .GetProperty("profileEntries")
+            .EnumerateArray()
+            .Single(profile => profile.GetProperty("slug").GetString() == "beasts-variant-number");
+        Assert.Contains("papyrus 115", profile616.GetProperty("body").GetString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("scholar's 666", data.RootElement.ToString(), StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

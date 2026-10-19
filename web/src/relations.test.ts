@@ -107,7 +107,7 @@ describe("public relation derivation", () => {
     expect(reasons[0].relatedClaim.qualifier.orderly).toBe(true);
   });
 
-  it("ranks 139 first in the actual reference-v3 field around 137", () => {
+  it("ranks 139 first in the actual reference-v4 field around 137", () => {
     const reference = referenceData as unknown as PublicCorpus;
     const relations = getRelations(indexCorpus(reference), "137");
 

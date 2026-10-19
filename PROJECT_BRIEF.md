@@ -135,12 +135,6 @@ extensions of this one.
   public significance without fabricating edges among every marked integer;
 - private constellations and direct authored integer relations once their
   authoring and publication boundaries receive a dedicated slice.
-- a source-critical numerical-lore queue for proposed profile entries,
-  beginning with a `616` candidate concerning the alternate number-of-the-beast
-  reading in revelation 13:18. the private glosso epithet “the scholar’s 666”
-  records where the candidate resurfaced but is neither evidence nor approved
-  public copy; promotion requires primary manuscript evidence and scholarly
-  textual criticism.
 
 ## success
 

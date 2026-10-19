@@ -17,7 +17,7 @@ public sealed record SeedResult(
 
 public sealed class CorpusSeeder
 {
-    public const string SeedVersion = "seed-v3";
+    public const string SeedVersion = "seed-v4";
     private static readonly ProfileSeed[] ReferenceProfiles =
     [
         new(
@@ -83,6 +83,123 @@ public sealed class CorpusSeeder
             "attested usage / disputed etymology",
             "“eighty-six” appears in twentieth-century american lunch-counter slang for something unavailable, later broadening into a verb for eliminating or rejecting. proposed derivations remain uncertain.",
             [new("etymonline-eighty-six", "etymology", "Online Etymology Dictionary — eighty-six", null)]),
+        new(
+            "137",
+            "paulis-last-room",
+            "the last room",
+            "scientific biography",
+            "sourced biographical account",
+            "wolfgang pauli was famously preoccupied with the inverse fine-structure constant, whose value lies near 137. when pauli's last assistant, charles enz, visited him in zürich's red cross hospital, pauli asked whether he had noticed the room number: 137. pauli died there on 15 december 1958.",
+            [
+                new("cernipedia-pauli", "accessible biographical account", "CERNipedia — Wolfgang Pauli", "later life and death"),
+                new("enz-no-time-brief", "biographical source", "Charles P. Enz — No Time to Be Brief", "chapter 12"),
+            ]),
+        new(
+            "153",
+            "sonnet-153",
+            "cupid's stolen fire",
+            "literary afterlife",
+            "primary literary text",
+            "shakespeare's sonnet 153 begins with cupid asleep beside his torch. a follower of diana steals the brand and quenches it in a cold spring, which becomes a heated medicinal bath; the speaker finds that the bath cannot cure his lovesickness.",
+            [new("folger-sonnet-153", "primary text and synopsis", "Folger Shakespeare Library — Sonnet 153", "sonnet 153")]),
+        new(
+            "36",
+            "thirty-six-righteous",
+            "thirty-six at the threshold",
+            "rabbinic number lore",
+            "primary religious text",
+            "sanhedrin 97b says that each generation has no fewer than thirty-six righteous people who greet the divine presence. the passage derives the count from the hebrew word lo in isaiah 30:18, whose letters lamed and vav have the numerical value 36.",
+            [new("sefaria-sanhedrin-97b", "primary text and translation", "Sefaria — Sanhedrin 97b", "sanhedrin 97b")]),
+        new(
+            "88",
+            "constellations-standardized",
+            "the sky, standardized",
+            "astronomical history",
+            "institutional historical record",
+            "in 1922 the international astronomical union agreed on a list of 88 constellations covering the entire sky. boundaries approved in 1928 and published in 1930 turned the modern constellations into defined celestial regions rather than merely recognized star pictures.",
+            [new("iau-constellations", "institutional history", "International Astronomical Union — The Constellations", "the 88 IAU constellations")]),
+        new(
+            "108",
+            "panchen-lama-prayer-beads",
+            "three days before the end",
+            "ritual object",
+            "museum catalog record",
+            "the national palace museum catalogs a tibetan kapala strand of 108 darkened human-bone beads, each set between thin turquoise plates. an inscription records its presentation by the sixth panchen lama at the qing court on 27 october 1780; he died in beijing three days later.",
+            [new("npm-kapala-beads", "object record", "National Palace Museum, Taipei — Kapala bone prayer beads", "故雜000579N000000000")]),
+        new(
+            "156",
+            "babalons-number",
+            "babalon, enumerated",
+            "thelemic qabalah",
+            "primary esoteric text",
+            "aleister crowley's liber lviii lists 156 as babalon and calls it 12 × 13, joining what the text describes as the most spiritual form of 13 with the most perfect number, 12. within crowley's system, 156 is declared symbolic apparatus rather than accidental resemblance.",
+            [new("crowley-liber-lviii", "primary numerical attribution", "Aleister Crowley — Liber LVIII", "156")]),
+        new(
+            "163",
+            "gardners-almost-integer",
+            "the integer that wasn't",
+            "mathematical folklore",
+            "secondary mathematical reference",
+            "e^(π√163) is approximately 262537412640768743.99999999999925, an astonishing near-integer. in an april 1975 scientific american column, martin gardner jokingly claimed that it was exactly an integer and attributed the result to ramanujan; the prank helped attach ramanujan's name to the constant.",
+            [new("mathworld-ramanujan-constant", "mathematical value and publication history", "Wolfram MathWorld — Ramanujan Constant", null)]),
+        new(
+            "231",
+            "sefer-yetzirah-gates",
+            "the gates of creation",
+            "combinatorial cosmology",
+            "primary religious text",
+            "sefer yetzirah sets the twenty-two hebrew letters in a wheel of 231 gates. the count matches every unordered pairing of two distinct letters, 22 × 21 ÷ 2, while the text imagines formed things and speech emerging through this combinatorial alphabet.",
+            [new("sefaria-sefer-yetzirah", "primary text and translation", "Sefaria — Sefer Yetzirah 2:1", "2:1")]),
+        new(
+            "318",
+            "abrahams-army-cipher",
+            "abraham's army, reread",
+            "scriptural reception",
+            "primary text and patristic interpretation",
+            "genesis 14:14 numbers abraham's trained retainers at 318. clement of alexandria later reads the greek numeral notation τιη christologically: the character for 300 as the lord's sign, and iota-eta, 18, as an indication of the savior's name.",
+            [
+                new("sefaria-genesis-14-14", "scriptural occurrence", "Sefaria — Genesis 14:14", "genesis 14:14"),
+                new("clement-stromata-6-11", "patristic interpretation", "Clement of Alexandria — Stromata VI.11", "book VI, chapter 11"),
+            ]),
+        new(
+            "343",
+            "guilty-spark",
+            "the murderous little oracle",
+            "video-game afterlife",
+            "official franchise history and contemporary report",
+            "in halo: combat evolved, 343 guilty spark is the installation's artificial-intelligence monitor, revered by the covenant as an oracle and intent on activating halo despite the catastrophic cost. microsoft later used 343 industries for its halo division; in 2024 the studio opened its next chapter as halo studios.",
+            [
+                new("xbox-halo-primer", "character history", "Xbox Wire — A Halo 5 Primer", null),
+                new("gamespot-343-industries", "studio-name history", "GameSpot — Microsoft names internal Halo label?", null),
+                new("halo-new-dawn", "studio transition", "Halo — A New Dawn", null),
+            ]),
+        new(
+            "418",
+            "abrahadabra-great-work",
+            "the word of the great work",
+            "thelemic qabalah",
+            "autobiographical primary text",
+            "aleister crowley wrote that he restored abracadabra as abrahadabra, analyzed it as a formula of the great work, and adopted the word and its numerical value 418 as an expression for the conduct of major magical operations.",
+            [new("crowley-confessions-25", "autobiographical account", "Aleister Crowley — The Confessions, chapter 25", "chapter 25")]),
+        new(
+            "616",
+            "beasts-variant-number",
+            "the beast's alternate number",
+            "textual history",
+            "manuscript witness and scholarly textual criticism",
+            "papyrus 115, p. oxy. 4499, is a third- or fourth-century manuscript of revelation that preserves 616 at revelation 13:18 rather than the familiar 666. textual critic p. j. williams notes that both readings permit more than one gematric explanation: the variant is evidence, not a license to collapse a contested textual history into one solution.",
+            [
+                new("oxford-poxy-4499", "primary manuscript image", "University of Oxford — P. Oxy. LXVI 4499", "revelation 13:18"),
+                new("williams-p115", "scholarly textual criticism", "P. J. Williams — P115 and the Number of the Beast", "pp. 151–153"),
+            ]),
+        new(
+            "1729",
+            "ramanujans-taxi",
+            "the taxi defends itself",
+            "mathematical biography",
+            "first-person mathematical recollection",
+            "in g. h. hardy's retelling, he arrived to visit the ill srinivasa ramanujan in taxicab 1729 and called the number dull. ramanujan answered that it is the smallest positive integer expressible as a sum of two positive cubes in two ways: 1^3 + 12^3 = 9^3 + 10^3 = 1729.",
+            [new("hardy-ramanujan", "first-person recollection", "G. H. Hardy — Ramanujan", null)]),
     ];
     private readonly SqliteDatabase _database;
     private readonly TimeProvider _timeProvider;
@@ -320,6 +437,24 @@ public sealed class CorpusSeeder
             new SourceSeed("rfc-9110-404", "RFC 9110 — HTTP Semantics", "R. Fielding, M. Nottingham, and J. Reschke", "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.5", "IETF Trust document; source terms apply; short paraphrase and attribution retained"),
             new SourceSeed("roland-tr-808", "Roland Celebrates 40th Anniversary of the TR-808 Rhythm Composer", "Roland Corporation", "https://www.roland.com/us/company/press_releases/2020/Roland-Celebrates-40th-Anniversary-TR-808/", "copyright status not asserted; link and attribution retained"),
             new SourceSeed("etymonline-eighty-six", "eighty-six", "Online Etymology Dictionary", "https://www.etymonline.com/word/eighty-six", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("cernipedia-pauli", "Wolfgang Pauli", "CERNipedia", "https://wiki.cern.ch/index.php/Wolfgang_Pauli", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("enz-no-time-brief", "No Time to be Brief: A Scientific Biography of Wolfgang Pauli", "Charles P. Enz", "https://academic.oup.com/book/25794", "copyright status not asserted; bibliographic link and attribution retained"),
+            new SourceSeed("folger-sonnet-153", "Shakespeare's Sonnets — Sonnet 153", "William Shakespeare; Folger Shakespeare Library", "https://www.folger.edu/explore/shakespeares-works/shakespeares-sonnets/read/153/", "public-domain primary text; edition and link attribution retained"),
+            new SourceSeed("sefaria-sanhedrin-97b", "Sanhedrin 97b", "The William Davidson Talmud; Sefaria", "https://www.sefaria.org/Sanhedrin.97b?lang=bi", "source and translation terms apply; link and attribution retained"),
+            new SourceSeed("iau-constellations", "The Constellations", "International Astronomical Union", "https://www.iau.org/IAU/Astronomy-FAQs/Constellations.aspx", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("npm-kapala-beads", "Kapala bone prayer beads", "National Palace Museum, Taipei", "https://digitalarchive.npm.gov.tw/Collection/Detail/2969?dep=U", "catalog text CC BY 4.0; attribution retained"),
+            new SourceSeed("crowley-liber-lviii", "Liber LVIII — Qabalah", "Aleister Crowley", "https://hermetic.com/crowley/libers/lib58", "copyright status not asserted; short paraphrase, link, and attribution retained"),
+            new SourceSeed("mathworld-ramanujan-constant", "Ramanujan Constant", "Wolfram MathWorld", "https://mathworld.wolfram.com/RamanujanConstant.html", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("sefaria-sefer-yetzirah", "Sefer Yetzirah 2:1", "Sefer Yetzirah; Sefaria", "https://www.sefaria.org/Sefer_Yetzirah.2.1", "source and translation terms apply; link and attribution retained"),
+            new SourceSeed("sefaria-genesis-14-14", "Genesis 14:14", "Hebrew Bible; Sefaria", "https://www.sefaria.org/Genesis.14.14?lang=bi", "source and translation terms apply; link and attribution retained"),
+            new SourceSeed("clement-stromata-6-11", "The Stromata, Book VI, Chapter XI", "Clement of Alexandria; translated by William Wilson", "https://www.newadvent.org/fathers/02106.htm#chapter11", "public-domain translation; link and attribution retained"),
+            new SourceSeed("xbox-halo-primer", "A Halo 5 Primer: The Story So Far", "Xbox Wire", "https://news.xbox.com/en-us/2015/10/26/halo-5-primer-the-story-so-far/", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("gamespot-343-industries", "Microsoft names internal Halo label?", "Tor Thorsen; GameSpot", "https://www.gamespot.com/articles/microsoft-names-internal-halo-label/1100-6213640/", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("halo-new-dawn", "A New Dawn", "Halo Studios", "https://www.halowaypoint.com/news/a-new-dawn", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("crowley-confessions-25", "The Confessions of Aleister Crowley — Chapter 25", "Aleister Crowley", "https://hermetic.com/crowley/confessions/chapter25", "copyright status not asserted; short paraphrase, link, and attribution retained"),
+            new SourceSeed("oxford-poxy-4499", "P. Oxy. LXVI 4499", "Egypt Exploration Society; University of Oxford", "https://portal.sds.ox.ac.uk/articles/online_resource/_/21178999", "source and reproduction terms apply; manuscript link and attribution retained"),
+            new SourceSeed("williams-p115", "P115 and the Number of the Beast", "P. J. Williams", "https://www.tyndalebulletin.org/article/29233-p115-and-the-number-of-the-beast", "copyright status not asserted; scholarly link and attribution retained"),
+            new SourceSeed("hardy-ramanujan", "Ramanujan: Twelve Lectures on Subjects Suggested by His Life and Work", "G. H. Hardy", "https://openlibrary.org/books/OL182011M/Ramanujan", "copyright status not asserted; bibliographic link and attribution retained"),
         };
 
         var ids = new Dictionary<string, long>(StringComparer.Ordinal);

@@ -1,7 +1,7 @@
 # polyvalent
 
 > **continuity role:** operational front door
-> **status:** reference-v1 live; reference-v3 profile vignettes implemented locally
+> **status:** reference-v1 live; reference-v4 numerical biographies implemented locally
 > **last verified:** 2026-10-19
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
@@ -56,11 +56,11 @@ dotnet run --project src/Polyvalent.Publisher -c Release -- seed --data-dir ./va
 dotnet run --project src/Polyvalent.Desktop -c Release -- --data-dir ./var/local
 ```
 
-the current `seed-v3` corpus is idempotent on an unchanged matching ledger. it creates
+the current `seed-v4` corpus is idempotent on an unchanged matching ledger. it creates
 integers `1` through `2000`, nine versioned properties, `717` accepted positive
 claims, complete recorded coverage where warranted, attributed sources and
-captures, and seven sourced profile entries for `86`, `93`, `137`, `146`, `153`,
-`404`, and `808`. it refuses to rewrite an
+captures, and twenty sourced profile entries across eighteen integers. it
+refuses to rewrite an
 older or divergent ledger; use a fresh data directory or an explicit revision
 workflow when existing authored research must be preserved.
 
@@ -120,8 +120,11 @@ profile lore remains a separate register from mathematical affiliation. the
 reference artifact gives `153` a carefully separated vesica-piscis and john
 21:11 vignette, `93` a sourced thelemic greeting, `146` its minor-planet
 identity, `404` its http status, `808` its rhythm machine, and `86` its disputed
-slang history. none of these entries creates a cultural relation or pairwise
-edge.
+slang history. the expanded cabinet adds rabbinic, kabbalistic, patristic,
+thelemic, astronomical, literary, mathematical, manuscript, museum, and
+video-game biographies from `36` through `1729`; `137` and `153` now each carry
+two separately cited profiles. none of these entries creates a cultural
+relation or pairwise edge.
 
 ## configuration and data
 
@@ -142,7 +145,7 @@ under `web/public/data/` is the only tracked release.
 
 the currently deployed reference-v1 site is
 [`https://resonatrix.tech/polyvalent/`](https://resonatrix.tech/polyvalent/).
-the tracked reference-v3 artifact in this checkout is not live until a later
+the tracked reference-v4 artifact in this checkout is not live until a later
 reviewed commit and deployment.
 
 [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) deploys the public site

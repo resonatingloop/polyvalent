@@ -26,8 +26,8 @@ public sealed class CorpusSeederTests
         Assert.Equal(118, first.PropertyCounts[PropertySlugs.DecimalPalindrome]);
         Assert.Equal(14, first.PropertyCounts[PropertySlugs.DecimalNarcissistic]);
         Assert.Equal(27, first.PropertyCounts[PropertySlugs.DecimalFriedman]);
-        Assert.Equal(7, first.ProfileEntryCount);
-        Assert.Equal(7, second.ProfileEntryCount);
+        Assert.Equal(20, first.ProfileEntryCount);
+        Assert.Equal(20, second.ProfileEntryCount);
         Assert.Empty(first.Disagreements);
     }
 
@@ -80,6 +80,19 @@ public sealed class CorpusSeederTests
             (Value: "404", Slug: "http-not-found", Citations: 1),
             (Value: "808", Slug: "tr-808-afterlife", Citations: 1),
             (Value: "86", Slug: "eighty-sixed", Citations: 1),
+            (Value: "137", Slug: "paulis-last-room", Citations: 2),
+            (Value: "153", Slug: "sonnet-153", Citations: 1),
+            (Value: "36", Slug: "thirty-six-righteous", Citations: 1),
+            (Value: "88", Slug: "constellations-standardized", Citations: 1),
+            (Value: "108", Slug: "panchen-lama-prayer-beads", Citations: 1),
+            (Value: "156", Slug: "babalons-number", Citations: 1),
+            (Value: "163", Slug: "gardners-almost-integer", Citations: 1),
+            (Value: "231", Slug: "sefer-yetzirah-gates", Citations: 1),
+            (Value: "318", Slug: "abrahams-army-cipher", Citations: 2),
+            (Value: "343", Slug: "guilty-spark", Citations: 3),
+            (Value: "418", Slug: "abrahadabra-great-work", Citations: 1),
+            (Value: "616", Slug: "beasts-variant-number", Citations: 2),
+            (Value: "1729", Slug: "ramanujans-taxi", Citations: 1),
         };
 
         foreach (var item in expected)
@@ -97,16 +110,25 @@ public sealed class CorpusSeederTests
             });
         }
 
-        foreach (var value in new[] { "86", "93", "146" })
+        foreach (var value in new[] { "86", "93", "108", "146", "156", "318", "418", "1729" })
         {
             var dossier = await store.GetDossierAsync(IntegerValue.Parse(value));
             Assert.DoesNotContain(dossier.Claims, claim => claim.State == KnowledgeState.Positive);
         }
 
         var oneFiftyThree = await store.GetDossierAsync(IntegerValue.Parse("153"));
-        var profile153 = Assert.Single(oneFiftyThree.ProfileEntries);
+        var profile153 = Assert.Single(
+            oneFiftyThree.ProfileEntries,
+            profile => profile.Slug == "vesica-and-unbroken-net");
         Assert.Contains("yet was not the net broken", profile153.Body, StringComparison.Ordinal);
         Assert.Contains("without claiming that one encodes the other", profile153.Body, StringComparison.Ordinal);
+
+        var sixSixteen = await store.GetDossierAsync(IntegerValue.Parse("616"));
+        var variant = Assert.Single(
+            sixSixteen.ProfileEntries,
+            profile => profile.Slug == "beasts-variant-number");
+        Assert.Contains("papyrus 115", variant.Body, StringComparison.Ordinal);
+        Assert.DoesNotContain("scholar's 666", variant.Body, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
