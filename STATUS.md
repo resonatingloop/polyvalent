@@ -24,9 +24,9 @@ vertical instrument:
   properties, `528` materialized integer profiles, and sha-256
   `30fc26157eaaaee3caf60501917aa58780492159cac84d6bfbcc0ba517fb1a57`;
 - a static react/vite public ui with search, number profiles, property dossiers,
-  complete explained relation lists, a bounded accessible bipartite graph, and
-  a native in-page continuation seam from the home hero into the public
-  dispatch;
+  complete explained relation lists, a bounded accessible bipartite graph with
+  interactive evidence traces, and a native in-page continuation seam from the
+  home hero into the public dispatch;
 - a least-privilege github pages workflow that verifies tracked public inputs,
   builds for the configured pages base path, and uploads only the static web
   output;
@@ -56,10 +56,11 @@ evidence:
 - .net tests: `70` passed across domain (`41`), data (`19`), publication (`9`),
   and desktop view-model (`1`) suites;
 - .net formatting verification: succeeded;
-- web tests: `21` passed across relation, canonical-integer, citation display,
-  coverage, salience, release-digest, and deployment-base routing behavior;
+- web tests: `24` passed across relation, graph tracing, canonical-integer,
+  citation display, coverage, salience, release-digest, and deployment-base
+  routing behavior;
 - public artifact: digest matched; `9` properties and `528` integers;
-- public boundary: `16` source files, `2` runtime dependencies, and only the `2`
+- public boundary: `18` source files, `2` runtime dependencies, and only the `2`
   expected local release fetches;
 - root and `/polyvalent/` production web builds: succeeded; the project-path
   build emitted matching `index.html` and `404.html` routing shells;
@@ -80,6 +81,15 @@ x11 after correcting research-column measurement. these are rendered
 implementation evidence, not a substitute for the owner's final interactive
 browser and native desktop acceptance.
 
+the interactive graph was additionally exercised in isolated headless chrome
+at `1440px` and `390px`. pointer contact with `343` isolated exactly the
+`153 → decimal friedman number → 343` route and exposed both witnesses plus the
+orderly/nice qualifier. keyboard focus on decimal narcissistic membership lit
+its `13` displayed endpoints and the `14` route segments that carry them.
+compact geometry produced no horizontal page overflow, and emulated reduced
+motion collapsed graph animation durations to `0.01ms`. screenshots of resting,
+integer-trace, and property-trace states were inspected at native resolution.
+
 ## Working now
 
 - `153` and `343` relate through published decimal friedman membership without
@@ -87,6 +97,12 @@ browser and native desktop acceptance.
   strong/weak labels are absent;
 - graph salience keeps explicitly qualified endpoints such as `343` visible
   within an equally rare property while the list retains every relation;
+- pointer hover and keyboard focus now conduct an animated signal through only
+  the exact active integer-property routes, dim unrelated nodes, and expose
+  shared property names, qualifiers, and endpoint witnesses in a trace console;
+- compact viewports use a deterministic tighter graph geometry with larger
+  nodes, while reduced-motion preference suppresses entrances, scans, pulses,
+  orbits, and signal travel;
 - prime, perfect-square, perfect-cube, fibonacci, and twin-prime membership are
   graphable; the graph remains bounded while the relation list stays complete;
 - `137` carries independent sourced profile context plus prime and twin-prime
@@ -134,9 +150,10 @@ browser and native desktop acceptance.
 
 - reference-v4 is only the tracked local artifact; the live site still reports
   reference-v1 until a later reviewed commit and deployment;
-- the in-app browser bridge rejected its own bundled runtime during the new
-  local visual smoke; headless rendering succeeded, while interaction and the
-  home-page continuation seam remain owner-visible checks;
+- the in-app browser bridge rejected its own bundled runtime during the local
+  visual smoke; isolated headless chrome supplied pointer, keyboard, narrow,
+  and reduced-motion evidence, while the owner's browser remains the final
+  tactile acceptance surface;
 - no custom domain, analytics, or production monitoring exists;
 - no public suggestion form or email provider exists;
 - no session-held integers, encounter pings, public lenses, private
@@ -153,23 +170,25 @@ browser and native desktop acceptance.
 ## Active work
 
 - accepted spec: `specs/001-first-slice.md`;
-- implementation: corpus enrichment and expanded vignette cabinet complete locally
-  against automated and byte-reproduction proof;
-- public ui: initial aesthetic pass accepted by the owner; home-page scroll
-  disclosure is implemented locally and awaits rendered acceptance;
+- implementation: corpus enrichment, expanded vignette cabinet, and interactive
+  graph trace complete locally against automated, browser, and byte-reproduction
+  proof;
+- public ui: initial aesthetic pass accepted by the owner; graph motion and
+  interaction await the owner's tactile browser acceptance;
 - live site: reference-v1; reference-v4 is not committed, pushed, or deployed;
-- remaining visual acceptance: the expanded reference-v4 cabinet in the
-  owner's browser and the deferred private gui slice;
+- remaining visual acceptance: the expanded reference-v4 cabinet and graph
+  interaction in the owner's browser, plus the deferred private gui slice;
 - blockers: none for local use or review.
 
 ## Next useful action
 
-open the local reference-v4 cabinet and inspect the newly biographical integers,
-especially the two-profile `137` and `153` pages, the manuscript-grounded `616`
-entry, and claimless `1729`. after that owner-visible pass, the next design slice
-is the graph view. review and commit before any later authorized push deploys
-this exact tracked artifact through the existing pages workflow. private gui
-refinement remains its own visual slice.
+open the local reference-v4 `153` and `137` graphs, hover or tab through their
+integer and property nodes, and judge the trace speed, dimming, and console in a
+real browser. then inspect the newly biographical integers, especially the
+two-profile `137` and `153` pages, manuscript-grounded `616`, and claimless
+`1729`. review and commit before any later authorized push deploys this exact
+tracked artifact through the existing pages workflow. private gui refinement
+remains its own visual slice.
 
 ## Re-entry notes
 

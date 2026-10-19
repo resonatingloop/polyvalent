@@ -116,6 +116,13 @@ orderly/nice witness `(3 + 4) ^ 3` for `343`.
 it also gives `137` a prime and twin-prime social field, ranks its exact partner
 `139` first, and shows `343` as the perfect cube `7^3`.
 
+the graph is an interactive trace instrument rather than a decorative diagram.
+pointer contact or keyboard focus isolates the exact published route, conducts
+a visible signal through its property station, and opens a compact readout of
+the shared reasons, qualifiers, and endpoint witnesses. narrow screens receive
+a denser geometry with larger nodes instead of a miniaturized desktop map;
+reduced-motion preference suppresses the ambient and traced motion.
+
 profile lore remains a separate register from mathematical affiliation. the
 reference artifact gives `153` a carefully separated vesica-piscis and john
 21:11 vignette, `93` a sourced thelemic greeting, `146` its minor-planet

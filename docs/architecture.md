@@ -202,6 +202,16 @@ the orderly `343` relation around `153` and the exact `139` relation around
 prime remain honest graph facts: the svg shows a deterministic bounded slice,
 reports the omitted count, and leaves the complete relation list authoritative.
 
+the renderer keeps that topology fixed while making attention interactive.
+hovering or keyboard-focusing an integer isolates every property route that
+connects it to the center; focusing a property illuminates every displayed
+integer carried by that property. a visible trace console renders the same
+published property names, qualifiers, and endpoint witnesses. this is
+presentation state only: it neither evaluates mathematics nor stores edges.
+compact viewports use a separate deterministic geometry so nodes remain usable
+without horizontal page overflow. all continuous and entrance motion is
+disabled by the reduced-motion media contract.
+
 ## private desktop boundary
 
 the avalonia surface opens the canonical ledger directly because it is the

@@ -937,6 +937,7 @@ a:hover {
 
 .graph-shell {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   border: 1px solid #34413f;
   background:
@@ -951,8 +952,21 @@ a:hover {
     0 1px 0 rgba(240, 230, 210, 0.025);
 }
 
+.graph-shell::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 38%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(120, 223, 202, 0.045), transparent);
+  transform: translateX(-120%);
+  animation: graph-scan 11s var(--ease) infinite;
+}
+
 .graph-shell::after {
   position: absolute;
+  z-index: 3;
   inset: 5px;
   pointer-events: none;
   content: "";
@@ -961,21 +975,86 @@ a:hover {
 }
 
 .relation-graph {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   min-height: 420px;
 }
 
-.graph-lines line {
+.relation-graph.is-compact {
+  min-height: 0;
+  aspect-ratio: 430 / 520;
+}
+
+.graph-edge-group {
+  opacity: 1;
+  transition: opacity 260ms var(--ease);
+}
+
+.graph-edge-group.is-dimmed {
+  opacity: 0.08;
+}
+
+.graph-edge,
+.graph-signal {
+  fill: none;
   stroke: rgba(170, 149, 223, 0.46);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
-.graph-center circle {
+.graph-edge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: graph-draw 720ms var(--ease) both;
+  animation-delay: calc(90ms + var(--edge-order) * 22ms);
+}
+
+.graph-signal {
+  opacity: 0;
+  stroke: var(--ember);
+  stroke-width: 2;
+  stroke-dasharray: 9 91;
+  transition: opacity 180ms ease;
+  filter: drop-shadow(0 0 4px rgba(228, 127, 82, 0.82));
+}
+
+.graph-edge-group.is-active .graph-edge {
+  stroke: var(--verdigris);
+  stroke-width: 1.35;
+}
+
+.graph-edge-group.is-active .graph-signal {
+  opacity: 1;
+  animation: graph-signal 1.35s linear infinite;
+}
+
+.graph-center-orbit {
+  fill: none;
+  stroke: rgba(120, 223, 202, 0.48);
+  stroke-width: 0.8;
+  stroke-dasharray: 3 9;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: graph-orbit 18s linear infinite;
+}
+
+.graph-center-core {
   fill: #241a17;
   stroke: var(--ember);
   stroke-width: 1.5;
+  animation: graph-heartbeat 4.8s ease-in-out infinite;
+}
+
+.graph-center-glint {
+  fill: none;
+  stroke: rgba(240, 230, 210, 0.13);
+  stroke-width: 0.75;
+  stroke-dasharray: 23 77;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: graph-orbit 9s linear infinite reverse;
 }
 
 .graph-center text {
@@ -983,15 +1062,30 @@ a:hover {
   font: 26px var(--serif);
 }
 
+.graph-node {
+  opacity: 1;
+  transition: opacity 220ms var(--ease);
+  animation: graph-node-arrive 480ms var(--ease) backwards;
+  animation-delay: calc(180ms + var(--node-order) * 34ms);
+}
+
+.graph-node.is-dimmed {
+  opacity: 0.18;
+}
+
 .graph-property,
 .graph-integer {
   cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 220ms var(--ease), filter 220ms var(--ease);
 }
 
-.graph-property rect {
+.graph-property rect:not(.graph-node-halo) {
   fill: #17161e;
   stroke: var(--iris);
   stroke-width: 1;
+  transition: fill 180ms ease, stroke 180ms ease;
 }
 
 .graph-property text {
@@ -999,7 +1093,7 @@ a:hover {
   font: 10px var(--mono);
 }
 
-.graph-integer circle {
+.graph-integer circle:not(.graph-node-halo) {
   fill: var(--ink-raised);
   stroke: var(--rule-bright);
   stroke-width: 1;
@@ -1012,19 +1106,134 @@ a:hover {
   pointer-events: none;
 }
 
-.graph-property:hover rect,
-.graph-integer:hover circle,
-.relation-graph a:focus-visible .graph-property rect,
-.relation-graph a:focus-visible .graph-integer circle {
+.relation-graph.is-compact .graph-property text,
+.relation-graph.is-compact .graph-integer text {
+  font-size: 12px;
+}
+
+.relation-graph.is-compact .graph-center text {
+  font-size: 29px;
+}
+
+.graph-node-halo {
+  fill: none;
+  stroke: var(--ember);
+  stroke-width: 0.8;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.graph-node.is-active .graph-property,
+.graph-node.is-active .graph-integer,
+.graph-node:focus-within .graph-property,
+.graph-node:focus-within .graph-integer {
+  transform: scale(1.075);
+  filter: drop-shadow(0 0 9px rgba(228, 127, 82, 0.18));
+}
+
+.graph-node.is-active .graph-property rect:not(.graph-node-halo),
+.graph-node.is-active .graph-integer circle:not(.graph-node-halo),
+.relation-graph a:focus-visible .graph-property rect:not(.graph-node-halo),
+.relation-graph a:focus-visible .graph-integer circle:not(.graph-node-halo) {
   fill: #33231e;
   stroke: var(--ember);
+}
+
+.graph-node.is-active .graph-node-halo,
+.graph-node:focus-within .graph-node-halo {
+  opacity: 0.78;
+  animation: graph-halo 1.8s ease-in-out infinite;
+}
+
+.relation-graph a:focus-visible .graph-node-halo {
+  opacity: 1;
+  stroke: var(--paper);
+  stroke-width: 1.5;
 }
 
 .relation-graph a:focus-visible {
   outline: none;
 }
 
+.graph-trace-readout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+  min-height: 108px;
+  padding: 1rem;
+  border-top: 1px solid var(--rule);
+  background:
+    linear-gradient(90deg, rgba(170, 149, 223, 0.05), transparent 48%),
+    rgba(6, 10, 10, 0.82);
+  transition: background 240ms var(--ease), box-shadow 240ms var(--ease);
+}
+
+.graph-trace-readout.is-engaged {
+  background:
+    linear-gradient(90deg, rgba(228, 127, 82, 0.09), rgba(120, 223, 202, 0.025) 58%, transparent),
+    rgba(6, 10, 10, 0.88);
+  box-shadow: inset 2px 0 0 var(--ember);
+}
+
+.graph-trace-lamp {
+  width: 7px;
+  height: 7px;
+  margin-top: 0.35rem;
+  border: 1px solid var(--rule-bright);
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 4px rgba(70, 86, 83, 0.08);
+}
+
+.graph-trace-readout.is-engaged .graph-trace-lamp {
+  border-color: var(--ember);
+  background: var(--ember);
+  box-shadow: 0 0 12px rgba(228, 127, 82, 0.7);
+  animation: graph-lamp 1.15s ease-in-out infinite;
+}
+
+.graph-trace-kicker,
+.graph-trace-readout p {
+  margin: 0;
+}
+
+.graph-trace-kicker {
+  color: var(--verdigris);
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.graph-trace-readout strong {
+  display: block;
+  margin-top: 0.18rem;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 1.22rem;
+  font-weight: 400;
+}
+
+.graph-trace-readout p:last-child {
+  max-width: 76ch;
+  margin-top: 0.22rem;
+  color: var(--paper-dim);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  line-height: 1.55;
+}
+
 .graph-caption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
   margin: 0;
   padding: 0.75rem 1rem;
   border-top: 1px solid var(--rule);
@@ -1033,6 +1242,11 @@ a:hover {
   font-size: 0.6rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
+}
+
+.graph-caption span {
+  color: var(--verdigris);
+  text-align: right;
 }
 
 .relation-list {
@@ -1351,6 +1565,72 @@ a:hover {
   to { transform: rotate(-360deg); }
 }
 
+@keyframes graph-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes graph-signal {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes graph-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes graph-heartbeat {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(228, 127, 82, 0.18));
+  }
+  48% {
+    filter: drop-shadow(0 0 10px rgba(228, 127, 82, 0.42));
+  }
+  56% {
+    filter: drop-shadow(0 0 5px rgba(228, 127, 82, 0.24));
+  }
+}
+
+@keyframes graph-node-arrive {
+  from {
+    opacity: 0;
+    transform: scale(0.84);
+  }
+}
+
+@keyframes graph-halo {
+  0%, 100% {
+    stroke-opacity: 0.35;
+    transform: scale(0.96);
+  }
+  50% {
+    stroke-opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes graph-lamp {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes graph-scan {
+  0%, 12% {
+    transform: translateX(-120%);
+  }
+  72%, 100% {
+    transform: translateX(360%);
+  }
+}
+
 @media (max-width: 1050px) {
   .hero {
     grid-template-columns: 1fr 0.75fr;
@@ -1501,6 +1781,20 @@ a:hover {
 
   .relation-graph {
     min-height: 330px;
+  }
+
+  .graph-trace-readout {
+    min-height: 126px;
+  }
+
+  .graph-caption {
+    display: block;
+  }
+
+  .graph-caption span {
+    display: block;
+    margin-top: 0.35rem;
+    text-align: left;
   }
 
   .property-masthead h1 {
