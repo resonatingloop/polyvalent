@@ -17,7 +17,73 @@ public sealed record SeedResult(
 
 public sealed class CorpusSeeder
 {
-    public const string SeedVersion = "seed-v2";
+    public const string SeedVersion = "seed-v3";
+    private static readonly ProfileSeed[] ReferenceProfiles =
+    [
+        new(
+            "137",
+            "fine-structure-near-integer",
+            "the almost-integer",
+            "scientific context",
+            "sourced scientific fact",
+            "the inverse fine-structure constant is close to 137 rather than exactly 137; its measured value continues beyond the integer.",
+            [new("nist-alphinv", "measurement", "NIST inverse fine-structure constant", null)]),
+        new(
+            "153",
+            "vesica-and-unbroken-net",
+            "yet was not the net broken",
+            "geometry and scripture",
+            "parallel attested appearances",
+            "a vesica piscis has height √3 times its width; the classical lower approximation 265/153 gives 153 a precise geometric appearance. separately, john 21:11 numbers the post-resurrection catch at 153 fish and closes, “yet was not the net broken.” the records are presented together without claiming that one encodes the other.",
+            [
+                new("mathworld-vesica-piscis", "geometric definition", "Wolfram MathWorld — Vesica Piscis", null),
+                new("archimedes-measurement-circle", "numerical bound", "Archimedes — Measurement of a Circle", "proposition 3"),
+                new("kjv-john-21-11", "scriptural occurrence", "John 21:11 — King James Version", "John 21:11"),
+            ]),
+        new(
+            "93",
+            "thelemic-greeting",
+            "the thelemic greeting",
+            "religious custom",
+            "institutionally attested practice",
+            "thelemites customarily greet one another with “do what thou wilt shall be the whole of the law” and answer with “love is the law, love under will.” these phrases are often abbreviated as 93, a number signifying both will and love in thelemic numerology.",
+            [new("oto-usa-customs", "custom", "U.S. Grand Lodge, O.T.O. — Customs", null)]),
+        new(
+            "146",
+            "lucina-minor-planet",
+            "lucina, numbered",
+            "astronomical nomenclature",
+            "catalog record and historical naming",
+            "minor planet 146 lucina is a main-belt asteroid discovered by alphonse borrelly at marseilles on 8 june 1875. it was named for lucina, the roman divinity of labor and childbirth.",
+            [
+                new("jpl-sbdb-146-lucina", "catalog identity", "JPL Small-Body Database — 146 Lucina", null),
+                new("schmadel-minor-planet-names", "discovery and naming", "Dictionary of Minor Planet Names — (146) Lucina", "(146) Lucina"),
+            ]),
+        new(
+            "404",
+            "http-not-found",
+            "the missing address",
+            "network culture",
+            "technical standard",
+            "in http, status code 404 means that the origin server did not find a current representation for the requested resource, or is unwilling to disclose that one exists.",
+            [new("rfc-9110-404", "definition", "RFC 9110 §15.5.5 — 404 Not Found", "§15.5.5")]),
+        new(
+            "808",
+            "tr-808-afterlife",
+            "the machine that failed forward",
+            "music technology",
+            "manufacturer history",
+            "roland introduced the tr-808 rhythm composer in 1980. its analog drum sounds were initially dismissed as unrealistic; after the machine was discontinued, those sounds became embedded across hip-hop and electronic dance music.",
+            [new("roland-tr-808", "historical context", "Roland — TR-808 40th anniversary", null)]),
+        new(
+            "86",
+            "eighty-sixed",
+            "the unavailable order",
+            "language history",
+            "attested usage / disputed etymology",
+            "“eighty-six” appears in twentieth-century american lunch-counter slang for something unavailable, later broadening into a verb for eliminating or rejecting. proposed derivations remain uncertain.",
+            [new("etymonline-eighty-six", "etymology", "Online Etymology Dictionary — eighty-six", null)]),
+    ];
     private readonly SqliteDatabase _database;
     private readonly TimeProvider _timeProvider;
     private readonly IReadOnlyList<string>? _narcissisticComparisonValuesOverride;
@@ -60,7 +126,7 @@ public sealed class CorpusSeeder
             catch (InvalidOperationException exception)
             {
                 throw new InvalidOperationException(
-                    "the existing ledger predates or diverges from seed-v2; it was left untouched. "
+                    $"the existing ledger predates or diverges from {SeedVersion}; it was left untouched. "
                     + "create a fresh ledger for the reference corpus or use an explicit revision workflow to preserve authored research.",
                     exception);
             }
@@ -190,18 +256,18 @@ public sealed class CorpusSeeder
             cancellationToken);
         counts[PropertySlugs.DecimalFriedman] = friedmanCount;
 
-        var profileRevisionId = await InsertReferenceProfileAsync(
+        var profileRevisionIds = await InsertReferenceProfilesAsync(
             connection,
             sqlTransaction,
-            integerIds["137"],
-            sources["nist-alphinv"],
+            integerIds,
+            sources,
             now,
             cancellationToken);
-        await StageEverythingAsync(connection, sqlTransaction, profileRevisionId, now, cancellationToken);
+        await StageEverythingAsync(connection, sqlTransaction, profileRevisionIds, now, cancellationToken);
 
         AssertExpectedCounts(counts);
         await transaction.CommitAsync(cancellationToken);
-        return new SeedResult(false, integerIds.Count, counts, 1, disagreements);
+        return new SeedResult(false, integerIds.Count, counts, profileRevisionIds.Count, disagreements);
     }
 
     private static async Task<Dictionary<string, long>> InsertIntegersAsync(
@@ -245,6 +311,15 @@ public sealed class CorpusSeeder
             new SourceSeed("oeis-a080035", "OEIS A080035 — orderly Friedman numbers", "OEIS Foundation Inc.", "https://oeis.org/A080035", "source terms apply; attribution retained"),
             new SourceSeed("erich-friedman-2000", "Math Magic, August 2000", "Erich Friedman", "https://erich-friedman.github.io/mathmagic/0800.html", "copyright status not asserted; attribution retained"),
             new SourceSeed("nist-alphinv", "inverse fine-structure constant", "NIST", "https://physics.nist.gov/cgi-bin/cuu/Value?alphinv", "United States government reference; source terms apply"),
+            new SourceSeed("mathworld-vesica-piscis", "Vesica Piscis", "Wolfram MathWorld", "https://mathworld.wolfram.com/VesicaPiscis.html", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("archimedes-measurement-circle", "The Works of Archimedes — Measurement of a Circle", "Archimedes; translated by T. L. Heath", "https://www.aproged.pt/biblioteca/worksofarchimede.pdf", "public-domain translation; link and attribution retained"),
+            new SourceSeed("kjv-john-21-11", "John 21:11 — King James Version", "King James Bible", "https://www.kingjamesbibleonline.org/John-21-11/", "public-domain translation in the United States; short quotation and attribution retained"),
+            new SourceSeed("oto-usa-customs", "Customs", "U.S. Grand Lodge, Ordo Templi Orientis", "https://oto-usa.org/thelema/customs/", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("jpl-sbdb-146-lucina", "JPL Small-Body Database — 146 Lucina", "NASA Jet Propulsion Laboratory", "https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=146", "United States government reference; source terms apply"),
+            new SourceSeed("schmadel-minor-planet-names", "Dictionary of Minor Planet Names", "Lutz D. Schmadel", "https://ndl.ethernet.edu.et/bitstream/123456789/32939/1/Lutz%20D.%20Schmadel.pdf", "copyright status not asserted; link and bibliographic attribution retained"),
+            new SourceSeed("rfc-9110-404", "RFC 9110 — HTTP Semantics", "R. Fielding, M. Nottingham, and J. Reschke", "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.5", "IETF Trust document; source terms apply; short paraphrase and attribution retained"),
+            new SourceSeed("roland-tr-808", "Roland Celebrates 40th Anniversary of the TR-808 Rhythm Composer", "Roland Corporation", "https://www.roland.com/us/company/press_releases/2020/Roland-Celebrates-40th-Anniversary-TR-808/", "copyright status not asserted; link and attribution retained"),
+            new SourceSeed("etymonline-eighty-six", "eighty-six", "Online Etymology Dictionary", "https://www.etymonline.com/word/eighty-six", "copyright status not asserted; link and attribution retained"),
         };
 
         var ids = new Dictionary<string, long>(StringComparer.Ordinal);
@@ -866,95 +941,114 @@ public sealed class CorpusSeeder
         return seed.Entries.Count;
     }
 
-    private static async Task<long> InsertReferenceProfileAsync(
+    private static async Task<IReadOnlyList<long>> InsertReferenceProfilesAsync(
         SqliteConnection connection,
         SqliteTransaction transaction,
-        long integerId,
-        long sourceId,
+        IReadOnlyDictionary<string, long> integerIds,
+        IReadOnlyDictionary<string, long> sourceIds,
         string now,
         CancellationToken cancellationToken)
     {
-        await using var entryCommand = connection.CreateCommand();
-        entryCommand.Transaction = transaction;
-        entryCommand.CommandText = """
-            INSERT INTO profile_entries(integer_id, slug)
-            VALUES ($integerId, 'fine-structure-near-integer')
-            RETURNING id;
-            """;
-        entryCommand.Parameters.AddWithValue("$integerId", integerId);
-        var entryId = Convert.ToInt64(
-            await entryCommand.ExecuteScalarAsync(cancellationToken),
-            CultureInfo.InvariantCulture);
+        var revisionIds = new List<long>(ReferenceProfiles.Length);
+        foreach (var profile in ReferenceProfiles)
+        {
+            await using var entryCommand = connection.CreateCommand();
+            entryCommand.Transaction = transaction;
+            entryCommand.CommandText = """
+                INSERT INTO profile_entries(integer_id, slug)
+                VALUES ($integerId, $slug)
+                RETURNING id;
+                """;
+            entryCommand.Parameters.AddWithValue("$integerId", integerIds[profile.IntegerValue]);
+            entryCommand.Parameters.AddWithValue("$slug", profile.Slug);
+            var entryId = Convert.ToInt64(
+                await entryCommand.ExecuteScalarAsync(cancellationToken),
+                CultureInfo.InvariantCulture);
 
-        await using var revisionCommand = connection.CreateCommand();
-        revisionCommand.Transaction = transaction;
-        revisionCommand.CommandText = """
-            INSERT INTO profile_entry_revisions(
-                profile_entry_id,
-                revision,
-                status,
-                title,
-                category,
-                epistemic_register,
-                body,
-                private_notes,
-                created_at_utc,
-                accepted_at_utc,
-                supersedes_revision_id)
-            VALUES (
-                $entryId,
-                1,
-                'draft',
-                'the almost-integer',
-                'scientific context',
-                'sourced scientific fact',
-                'the inverse fine-structure constant is close to 137 rather than exactly 137; its measured value continues beyond the integer.',
-                NULL,
-                $now,
-                NULL,
-                NULL)
-            RETURNING id;
-            """;
-        revisionCommand.Parameters.AddWithValue("$entryId", entryId);
-        revisionCommand.Parameters.AddWithValue("$now", now);
-        var revisionId = Convert.ToInt64(
-            await revisionCommand.ExecuteScalarAsync(cancellationToken),
-            CultureInfo.InvariantCulture);
+            await using var revisionCommand = connection.CreateCommand();
+            revisionCommand.Transaction = transaction;
+            revisionCommand.CommandText = """
+                INSERT INTO profile_entry_revisions(
+                    profile_entry_id,
+                    revision,
+                    status,
+                    title,
+                    category,
+                    epistemic_register,
+                    body,
+                    private_notes,
+                    created_at_utc,
+                    accepted_at_utc,
+                    supersedes_revision_id)
+                VALUES (
+                    $entryId,
+                    1,
+                    'draft',
+                    $title,
+                    $category,
+                    $epistemicRegister,
+                    $body,
+                    NULL,
+                    $now,
+                    NULL,
+                    NULL)
+                RETURNING id;
+                """;
+            revisionCommand.Parameters.AddWithValue("$entryId", entryId);
+            revisionCommand.Parameters.AddWithValue("$title", profile.Title);
+            revisionCommand.Parameters.AddWithValue("$category", profile.Category);
+            revisionCommand.Parameters.AddWithValue("$epistemicRegister", profile.EpistemicRegister);
+            revisionCommand.Parameters.AddWithValue("$body", profile.Body);
+            revisionCommand.Parameters.AddWithValue("$now", now);
+            var revisionId = Convert.ToInt64(
+                await revisionCommand.ExecuteScalarAsync(cancellationToken),
+                CultureInfo.InvariantCulture);
 
-        await using var citationCommand = connection.CreateCommand();
-        citationCommand.Transaction = transaction;
-        citationCommand.CommandText = """
-            INSERT INTO profile_entry_revision_citations(
-                profile_entry_revision_id,
-                source_id,
-                source_capture_id,
-                role,
-                label,
-                locator,
-                public_safe)
-            VALUES ($revisionId, $sourceId, NULL, 'measurement', 'NIST inverse fine-structure constant', NULL, 1);
-            """;
-        citationCommand.Parameters.AddWithValue("$revisionId", revisionId);
-        citationCommand.Parameters.AddWithValue("$sourceId", sourceId);
-        await citationCommand.ExecuteNonQueryAsync(cancellationToken);
+            foreach (var citation in profile.Citations)
+            {
+                await using var citationCommand = connection.CreateCommand();
+                citationCommand.Transaction = transaction;
+                citationCommand.CommandText = """
+                    INSERT INTO profile_entry_revision_citations(
+                        profile_entry_revision_id,
+                        source_id,
+                        source_capture_id,
+                        role,
+                        label,
+                        locator,
+                        public_safe)
+                    VALUES ($revisionId, $sourceId, NULL, $role, $label, $locator, 1);
+                    """;
+                citationCommand.Parameters.AddWithValue("$revisionId", revisionId);
+                citationCommand.Parameters.AddWithValue("$sourceId", sourceIds[citation.SourceSlug]);
+                citationCommand.Parameters.AddWithValue("$role", citation.Role);
+                citationCommand.Parameters.AddWithValue("$label", citation.Label);
+                citationCommand.Parameters.AddWithValue(
+                    "$locator",
+                    citation.Locator is null ? DBNull.Value : citation.Locator);
+                await citationCommand.ExecuteNonQueryAsync(cancellationToken);
+            }
 
-        await using var acceptCommand = connection.CreateCommand();
-        acceptCommand.Transaction = transaction;
-        acceptCommand.CommandText = """
-            UPDATE profile_entry_revisions
-            SET status = 'accepted', accepted_at_utc = $now
-            WHERE id = $revisionId;
-            """;
-        acceptCommand.Parameters.AddWithValue("$now", now);
-        acceptCommand.Parameters.AddWithValue("$revisionId", revisionId);
-        await acceptCommand.ExecuteNonQueryAsync(cancellationToken);
-        return revisionId;
+            await using var acceptCommand = connection.CreateCommand();
+            acceptCommand.Transaction = transaction;
+            acceptCommand.CommandText = """
+                UPDATE profile_entry_revisions
+                SET status = 'accepted', accepted_at_utc = $now
+                WHERE id = $revisionId;
+                """;
+            acceptCommand.Parameters.AddWithValue("$now", now);
+            acceptCommand.Parameters.AddWithValue("$revisionId", revisionId);
+            await acceptCommand.ExecuteNonQueryAsync(cancellationToken);
+            revisionIds.Add(revisionId);
+        }
+
+        return revisionIds;
     }
 
     private static async Task StageEverythingAsync(
         SqliteConnection connection,
         SqliteTransaction transaction,
-        long profileRevisionId,
+        IReadOnlyList<long> profileRevisionIds,
         string now,
         CancellationToken cancellationToken)
     {
@@ -964,8 +1058,6 @@ public sealed class CorpusSeeder
             "INSERT INTO publication_property_citation_selections(property_version_id, citation_id) SELECT citation.property_version_id, citation.id FROM property_version_citations citation JOIN publication_property_selections selection ON selection.property_version_id = citation.property_version_id WHERE citation.public_safe = 1;",
             "INSERT INTO publication_claim_selections(claim_revision_id, selected_at_utc) SELECT revision.id, $now FROM claim_revisions revision JOIN publication_property_selections selection ON selection.property_version_id = revision.property_version_id WHERE revision.status = 'accepted';",
             "INSERT INTO publication_claim_citation_selections(claim_revision_id, citation_id) SELECT citation.claim_revision_id, citation.id FROM claim_revision_citations citation JOIN publication_claim_selections selection ON selection.claim_revision_id = citation.claim_revision_id WHERE citation.public_safe = 1;",
-            "INSERT INTO publication_profile_selections(profile_entry_revision_id, selected_at_utc) VALUES ($profileRevisionId, $now);",
-            "INSERT INTO publication_profile_citation_selections(profile_entry_revision_id, citation_id) SELECT citation.profile_entry_revision_id, citation.id FROM profile_entry_revision_citations citation WHERE citation.profile_entry_revision_id = $profileRevisionId AND citation.public_safe = 1;",
         };
 
         foreach (var statement in statements)
@@ -974,7 +1066,25 @@ public sealed class CorpusSeeder
             command.Transaction = transaction;
             command.CommandText = statement;
             command.Parameters.AddWithValue("$now", now);
+            await command.ExecuteNonQueryAsync(cancellationToken);
+        }
+
+        foreach (var profileRevisionId in profileRevisionIds)
+        {
+            await using var command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.CommandText = """
+                INSERT INTO publication_profile_selections(profile_entry_revision_id, selected_at_utc)
+                VALUES ($profileRevisionId, $now);
+
+                INSERT INTO publication_profile_citation_selections(profile_entry_revision_id, citation_id)
+                SELECT citation.profile_entry_revision_id, citation.id
+                FROM profile_entry_revision_citations citation
+                WHERE citation.profile_entry_revision_id = $profileRevisionId
+                  AND citation.public_safe = 1;
+                """;
             command.Parameters.AddWithValue("$profileRevisionId", profileRevisionId);
+            command.Parameters.AddWithValue("$now", now);
             await command.ExecuteNonQueryAsync(cancellationToken);
         }
     }
@@ -1062,6 +1172,41 @@ public sealed class CorpusSeeder
             {
                 throw new InvalidOperationException(
                     $"{property.Slug} is not backed by the expected successful {SeedVersion} run and graph policy.");
+            }
+        }
+
+        foreach (var profile in ReferenceProfiles)
+        {
+            await using var command = connection.CreateCommand();
+            command.CommandText = """
+                SELECT COUNT(*)
+                FROM profile_entry_revisions revision
+                JOIN profile_entries entry ON entry.id = revision.profile_entry_id
+                JOIN integers integer ON integer.id = entry.integer_id
+                JOIN publication_profile_selections selection
+                  ON selection.profile_entry_revision_id = revision.id
+                WHERE integer.canonical_value = $integerValue
+                  AND entry.slug = $slug
+                  AND revision.status = 'accepted'
+                  AND (
+                    SELECT COUNT(*)
+                    FROM publication_profile_citation_selections citation_selection
+                    JOIN profile_entry_revision_citations citation
+                      ON citation.id = citation_selection.citation_id
+                    WHERE citation_selection.profile_entry_revision_id = revision.id
+                      AND citation.public_safe = 1
+                  ) = $citationCount;
+                """;
+            command.Parameters.AddWithValue("$integerValue", profile.IntegerValue);
+            command.Parameters.AddWithValue("$slug", profile.Slug);
+            command.Parameters.AddWithValue("$citationCount", profile.Citations.Count);
+            var matches = Convert.ToInt32(
+                await command.ExecuteScalarAsync(cancellationToken),
+                CultureInfo.InvariantCulture);
+            if (matches != 1)
+            {
+                throw new InvalidOperationException(
+                    $"profile '{profile.Slug}' is not backed by the expected accepted and staged {SeedVersion} revision.");
             }
         }
     }
@@ -1197,6 +1342,21 @@ public sealed class CorpusSeeder
         long? SourceCaptureId,
         string Role,
         string Label);
+
+    private sealed record ProfileSeed(
+        string IntegerValue,
+        string Slug,
+        string Title,
+        string Category,
+        string EpistemicRegister,
+        string Body,
+        IReadOnlyList<ProfileCitationSeed> Citations);
+
+    private sealed record ProfileCitationSeed(
+        string SourceSlug,
+        string Role,
+        string Label,
+        string? Locator);
 
     private sealed record NarcissisticSeed(
         int SchemaVersion,

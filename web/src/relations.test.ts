@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import referenceData from "../public/data/data.json";
 import { canonicalInteger } from "./integer";
+import { mergeCitations } from "./pages/IntegerPage";
 import { explainRelationship, getInteger, getRelations, indexCorpus, knowledgeStatus, qualifierLabel } from "./relations";
-import type { PublicCorpus } from "./types";
+import type { PublicCitation, PublicCorpus } from "./types";
 
 const corpus: PublicCorpus = {
   schemaVersion: "1",
@@ -62,6 +63,38 @@ describe("integer identity", () => {
   });
 });
 
+describe("public citation display", () => {
+  it("collapses the same visible citation even when its contextual roles differ", () => {
+    const propertyCitation: PublicCitation = {
+      label: "OEIS A036057",
+      locator: null,
+      role: "definition",
+      url: "https://oeis.org/A036057",
+    };
+    const claimCitation: PublicCitation = {
+      ...propertyCitation,
+      role: "membership",
+    };
+
+    expect(mergeCitations([propertyCitation], [claimCitation])).toEqual([propertyCitation]);
+  });
+
+  it("retains citations to distinct locators on the same source", () => {
+    const first: PublicCitation = {
+      label: "reference work",
+      locator: "entry one",
+      role: "context",
+      url: "https://example.test/reference",
+    };
+    const second: PublicCitation = {
+      ...first,
+      locator: "entry two",
+    };
+
+    expect(mergeCitations([first], [second])).toEqual([first, second]);
+  });
+});
+
 describe("public relation derivation", () => {
   const index = indexCorpus(corpus);
 
@@ -74,7 +107,7 @@ describe("public relation derivation", () => {
     expect(reasons[0].relatedClaim.qualifier.orderly).toBe(true);
   });
 
-  it("ranks 139 first in the actual reference-v2 field around 137", () => {
+  it("ranks 139 first in the actual reference-v3 field around 137", () => {
     const reference = referenceData as unknown as PublicCorpus;
     const relations = getRelations(indexCorpus(reference), "137");
 

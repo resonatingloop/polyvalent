@@ -122,6 +122,49 @@ public sealed class PublicReleaseTests
     }
 
     [Fact]
+    public async Task Release_surfaces_seeded_vignettes_without_creating_cultural_claims()
+    {
+        await using var fixture = TestDatabase.Create();
+        await new CorpusSeeder(fixture.Database).SeedAsync();
+        var output = Path.Combine(fixture.Directory, "release");
+
+        var result = await new PublicReleaseService(fixture.Database).GenerateAsync(
+            output,
+            "vignettes-v1",
+            ReleaseTime);
+        using var data = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(output, "data.json")));
+        var integers = data.RootElement.GetProperty("integers").EnumerateArray().ToArray();
+
+        Assert.Equal(9, result.PropertyCount);
+        Assert.Equal(523, result.IntegerCount);
+        Assert.Equal(717, result.ClaimCount);
+        Assert.Equal(7, result.ProfileEntryCount);
+
+        AssertProfile(integers, "137", "fine-structure-near-integer", 1);
+        AssertProfile(integers, "153", "vesica-and-unbroken-net", 3);
+        var ninetyThree = AssertProfile(integers, "93", "thelemic-greeting", 1);
+        var oneFortySix = AssertProfile(integers, "146", "lucina-minor-planet", 2);
+        AssertProfile(integers, "404", "http-not-found", 1);
+        AssertProfile(integers, "808", "tr-808-afterlife", 1);
+        var eightySix = AssertProfile(integers, "86", "eighty-sixed", 1);
+
+        Assert.Empty(eightySix.GetProperty("claims").EnumerateArray());
+        Assert.Empty(ninetyThree.GetProperty("claims").EnumerateArray());
+        Assert.Empty(oneFortySix.GetProperty("claims").EnumerateArray());
+        Assert.DoesNotContain(
+            data.RootElement.GetProperty("properties").EnumerateArray(),
+            property => property.GetProperty("slug").GetString() is
+                "thelemic-greeting" or "lucina-minor-planet" or "http-not-found");
+
+        var profile153 = integers
+            .Single(integer => integer.GetProperty("value").GetString() == "153")
+            .GetProperty("profileEntries")[0];
+        Assert.Contains(
+            profile153.GetProperty("citations").EnumerateArray(),
+            citation => citation.GetProperty("url").GetString() == "https://www.kingjamesbibleonline.org/John-21-11/");
+    }
+
+    [Fact]
     public async Task Private_sentinels_in_selected_notes_source_metadata_and_neighboring_drafts_do_not_leak()
     {
         const string sentinel = "PRIVATE-SENTINEL-9f86d081884c";
@@ -320,4 +363,19 @@ public sealed class PublicReleaseTests
             .GetProperty("claims")
             .EnumerateArray()
             .Single(claim => claim.GetProperty("propertySlug").GetString() == propertySlug);
+
+    private static JsonElement AssertProfile(
+        IReadOnlyCollection<JsonElement> integers,
+        string value,
+        string slug,
+        int citationCount)
+    {
+        var integer = integers.Single(item => item.GetProperty("value").GetString() == value);
+        var profile = integer
+            .GetProperty("profileEntries")
+            .EnumerateArray()
+            .Single(item => item.GetProperty("slug").GetString() == slug);
+        Assert.Equal(citationCount, profile.GetProperty("citations").GetArrayLength());
+        return integer;
+    }
 }

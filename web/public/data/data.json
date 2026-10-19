@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1",
-  "releaseId": "reference-v2",
-  "generatedAtUtc": "2026-10-18T00:00:00.0000000\u002B00:00",
+  "releaseId": "reference-v3",
+  "generatedAtUtc": "2026-10-19T00:00:00.0000000\u002B00:00",
   "properties": [
     {
       "slug": "decimal-friedman-number",
@@ -1466,6 +1466,27 @@
       "profileEntries": []
     },
     {
+      "value": "86",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "eighty-sixed",
+          "title": "the unavailable order",
+          "category": "language history",
+          "epistemicRegister": "attested usage / disputed etymology",
+          "body": "\u201Ceighty-six\u201D appears in twentieth-century american lunch-counter slang for something unavailable, later broadening into a verb for eliminating or rejecting. proposed derivations remain uncertain.",
+          "citations": [
+            {
+              "label": "Online Etymology Dictionary \u2014 eighty-six",
+              "locator": null,
+              "role": "etymology",
+              "url": "https://www.etymonline.com/word/eighty-six"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "value": "88",
       "claims": [
         {
@@ -1518,6 +1539,27 @@
         }
       ],
       "profileEntries": []
+    },
+    {
+      "value": "93",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "thelemic-greeting",
+          "title": "the thelemic greeting",
+          "category": "religious custom",
+          "epistemicRegister": "institutionally attested practice",
+          "body": "thelemites customarily greet one another with \u201Cdo what thou wilt shall be the whole of the law\u201D and answer with \u201Clove is the law, love under will.\u201D these phrases are often abbreviated as 93, a number signifying both will and love in thelemic numerology.",
+          "citations": [
+            {
+              "label": "U.S. Grand Lodge, O.T.O. \u2014 Customs",
+              "locator": null,
+              "role": "custom",
+              "url": "https://oto-usa.org/thelema/customs/"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "97",
@@ -2065,6 +2107,33 @@
       "profileEntries": []
     },
     {
+      "value": "146",
+      "claims": [],
+      "profileEntries": [
+        {
+          "slug": "lucina-minor-planet",
+          "title": "lucina, numbered",
+          "category": "astronomical nomenclature",
+          "epistemicRegister": "catalog record and historical naming",
+          "body": "minor planet 146 lucina is a main-belt asteroid discovered by alphonse borrelly at marseilles on 8 june 1875. it was named for lucina, the roman divinity of labor and childbirth.",
+          "citations": [
+            {
+              "label": "Dictionary of Minor Planet Names \u2014 (146) Lucina",
+              "locator": "(146) Lucina",
+              "role": "discovery and naming",
+              "url": "https://ndl.ethernet.edu.et/bitstream/123456789/32939/1/Lutz%20D.%20Schmadel.pdf"
+            },
+            {
+              "label": "JPL Small-Body Database \u2014 146 Lucina",
+              "locator": null,
+              "role": "catalog identity",
+              "url": "https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=146"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "value": "149",
       "claims": [
         {
@@ -2171,7 +2240,35 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "vesica-and-unbroken-net",
+          "title": "yet was not the net broken",
+          "category": "geometry and scripture",
+          "epistemicRegister": "parallel attested appearances",
+          "body": "a vesica piscis has height \u221A3 times its width; the classical lower approximation 265/153 gives 153 a precise geometric appearance. separately, john 21:11 numbers the post-resurrection catch at 153 fish and closes, \u201Cyet was not the net broken.\u201D the records are presented together without claiming that one encodes the other.",
+          "citations": [
+            {
+              "label": "Archimedes \u2014 Measurement of a Circle",
+              "locator": "proposition 3",
+              "role": "numerical bound",
+              "url": "https://www.aproged.pt/biblioteca/worksofarchimede.pdf"
+            },
+            {
+              "label": "John 21:11 \u2014 King James Version",
+              "locator": "John 21:11",
+              "role": "scriptural occurrence",
+              "url": "https://www.kingjamesbibleonline.org/John-21-11/"
+            },
+            {
+              "label": "Wolfram MathWorld \u2014 Vesica Piscis",
+              "locator": null,
+              "role": "geometric definition",
+              "url": "https://mathworld.wolfram.com/VesicaPiscis.html"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "157",
@@ -3733,7 +3830,23 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "http-not-found",
+          "title": "the missing address",
+          "category": "network culture",
+          "epistemicRegister": "technical standard",
+          "body": "in http, status code 404 means that the origin server did not find a current representation for the requested resource, or is unwilling to disclose that one exists.",
+          "citations": [
+            {
+              "label": "RFC 9110 \u00A715.5.5 \u2014 404 Not Found",
+              "locator": "\u00A715.5.5",
+              "role": "definition",
+              "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.5"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "406",
@@ -5726,7 +5839,23 @@
           "citations": []
         }
       ],
-      "profileEntries": []
+      "profileEntries": [
+        {
+          "slug": "tr-808-afterlife",
+          "title": "the machine that failed forward",
+          "category": "music technology",
+          "epistemicRegister": "manufacturer history",
+          "body": "roland introduced the tr-808 rhythm composer in 1980. its analog drum sounds were initially dismissed as unrealistic; after the machine was discontinued, those sounds became embedded across hip-hop and electronic dance music.",
+          "citations": [
+            {
+              "label": "Roland \u2014 TR-808 40th anniversary",
+              "locator": null,
+              "role": "historical context",
+              "url": "https://www.roland.com/us/company/press_releases/2020/Roland-Celebrates-40th-Anniversary-TR-808/"
+            }
+          ]
+        }
+      ]
     },
     {
       "value": "809",

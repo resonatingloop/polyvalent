@@ -26,6 +26,8 @@ public sealed class CorpusSeederTests
         Assert.Equal(118, first.PropertyCounts[PropertySlugs.DecimalPalindrome]);
         Assert.Equal(14, first.PropertyCounts[PropertySlugs.DecimalNarcissistic]);
         Assert.Equal(27, first.PropertyCounts[PropertySlugs.DecimalFriedman]);
+        Assert.Equal(7, first.ProfileEntryCount);
+        Assert.Equal(7, second.ProfileEntryCount);
         Assert.Empty(first.Disagreements);
     }
 
@@ -64,7 +66,51 @@ public sealed class CorpusSeederTests
     }
 
     [Fact]
-    public async Task Seed_v2_refuses_to_rewrite_an_existing_legacy_ledger()
+    public async Task Reference_profiles_are_sourced_staged_and_do_not_become_claims()
+    {
+        await using var fixture = TestDatabase.Create();
+        await new CorpusSeeder(fixture.Database).SeedAsync();
+        var store = new PolyvalentStore(fixture.Database);
+        var expected = new[]
+        {
+            (Value: "137", Slug: "fine-structure-near-integer", Citations: 1),
+            (Value: "153", Slug: "vesica-and-unbroken-net", Citations: 3),
+            (Value: "93", Slug: "thelemic-greeting", Citations: 1),
+            (Value: "146", Slug: "lucina-minor-planet", Citations: 2),
+            (Value: "404", Slug: "http-not-found", Citations: 1),
+            (Value: "808", Slug: "tr-808-afterlife", Citations: 1),
+            (Value: "86", Slug: "eighty-sixed", Citations: 1),
+        };
+
+        foreach (var item in expected)
+        {
+            var dossier = await store.GetDossierAsync(IntegerValue.Parse(item.Value));
+            var profile = Assert.Single(dossier.ProfileEntries, profile => profile.Slug == item.Slug);
+
+            Assert.Equal("accepted", profile.Status);
+            Assert.True(profile.IsStaged);
+            Assert.Equal(item.Citations, profile.Citations.Count);
+            Assert.All(profile.Citations, citation =>
+            {
+                Assert.True(citation.PublicSafe);
+                Assert.True(citation.IsStaged);
+            });
+        }
+
+        foreach (var value in new[] { "86", "93", "146" })
+        {
+            var dossier = await store.GetDossierAsync(IntegerValue.Parse(value));
+            Assert.DoesNotContain(dossier.Claims, claim => claim.State == KnowledgeState.Positive);
+        }
+
+        var oneFiftyThree = await store.GetDossierAsync(IntegerValue.Parse("153"));
+        var profile153 = Assert.Single(oneFiftyThree.ProfileEntries);
+        Assert.Contains("yet was not the net broken", profile153.Body, StringComparison.Ordinal);
+        Assert.Contains("without claiming that one encodes the other", profile153.Body, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Seed_v3_refuses_to_rewrite_an_existing_legacy_ledger()
     {
         await using var fixture = TestDatabase.Create();
         await fixture.Database.InitializeAsync();

@@ -36,7 +36,7 @@ internal static class Program
                     $"corpus {(seed.AlreadySeeded ? "already present" : "seeded")}: "
                     + $"{seed.IntegerCount} integers, "
                     + $"{seed.PropertyCounts.Values.Sum()} accepted claims, "
-                    + $"{seed.ProfileEntryCount} profile entry.");
+                    + $"{seed.ProfileEntryCount} profile {(seed.ProfileEntryCount == 1 ? "entry" : "entries")}.");
                 if (seed.Disagreements.Count > 0)
                 {
                     Console.WriteLine(

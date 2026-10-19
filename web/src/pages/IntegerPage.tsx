@@ -155,7 +155,7 @@ function CitationLine({ citations }: { citations: PublicCitation[] }) {
   return (
     <p className="citations">
       {citations.map((citation, index) => (
-        <span key={`${citation.url}:${citation.label}`}>
+        <span key={`${citation.url}:${citation.label}:${citation.locator ?? ""}`}>
           {index > 0 && " · "}
           <a href={citation.url} target="_blank" rel="noreferrer">{citation.label}</a>
           {citation.locator ? `, ${citation.locator}` : ""}
@@ -165,10 +165,10 @@ function CitationLine({ citations }: { citations: PublicCitation[] }) {
   );
 }
 
-function mergeCitations(...groups: PublicCitation[][]): PublicCitation[] {
+export function mergeCitations(...groups: PublicCitation[][]): PublicCitation[] {
   const seen = new Set<string>();
   return groups.flat().filter((citation) => {
-    const key = [citation.url, citation.label, citation.role, citation.locator ?? ""].join("\u0000");
+    const key = [citation.url, citation.label, citation.locator ?? ""].join("\u0000");
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

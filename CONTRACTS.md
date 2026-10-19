@@ -2,7 +2,7 @@
 
 > **continuity role:** normative invariants
 > **status:** current
-> **last verified:** 2026-10-18
+> **last verified:** 2026-10-19
 > **owns:** confirmed promises implementation must not drift from casually
 > **update when:** an authorized decision changes an invariant or its proof
 
@@ -20,7 +20,7 @@ not, by itself, authorization to weaken the contract.
 | active transition | `specs/001-first-slice.md` | accepted 2026-10-18 |
 
 the accepted first slice, explicitly authorized pages-delivery follow-up, and
-bounded seed-v2 corpus enrichment now supply implementation and project-owned
+bounded seed-v3 corpus enrichment now supply implementation and project-owned
 proof for their in-scope invariants. deferred features retain prose-only proof
 until a later accepted slice gives them a representation.
 
@@ -41,7 +41,7 @@ until a later accepted slice gives them a representation.
 | `provenance-001` | a source identity, a particular retrieved capture, and a citation's contextual use remain distinct and independently addressable. | provenance schema and repositories | normalized migration schema and seeded source/capture/citation records |
 | `evidence-001` | every accepted property claim conforms to the versioned evidence contract of the exact property version it names. | property contract registry and validators | evaluator, witness, draft-acceptance, and publisher validation tests |
 | `history-001` | accepted revisions, source captures, terminal runs, and successful releases are immutable; correction preserves lineage through explicit supersession. | schema constraints and lifecycle services | mutation rejection, checksum drift, and staged-supersession tests |
-| `narrative-001` | sourced contextual lore is represented as a revisioned profile entry attached to one integer and creates no graph relation unless a later explicit model says otherwise. | narrative model and projection | seeded `137` profile, release projection, and relation derivation that consults claims only |
+| `narrative-001` | sourced contextual lore is represented as a revisioned profile entry attached to one integer and creates no graph relation unless a later explicit model says otherwise. | narrative model and projection | seven seeded profiles including profile-only `86`, release projection, and relation derivation that consults claims only |
 | `relation-001` | published shared membership remains a graph fact even when its degree is high; the visual graph may show a declared bounded slice, but the semantic list remains complete and exact partner qualifiers may determine salience. | public relation query and renderers | twin-partner ordering test, bounded graph component, complete relation list, and public artifact checks |
 | `publication-002` | private edits and staging never change public state; only an explicit successful generation creates a complete immutable release, and generation never implies deployment. | publisher and release ledger | deterministic, fail-closed, overwrite, exact citation-item, and immutable-release tests |
 | `publication-003` | the public runtime consumes only a versioned public artifact and has no canonical-database, desktop, private-api, or write capability. | web data adapter and dependency inventory | runtime digest check, artifact scan, and public-boundary check |

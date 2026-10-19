@@ -1,8 +1,8 @@
 # architecture
 
 > **continuity role:** implemented representation map
-> **status:** current for the accepted first slice, pages delivery, and seed-v2 enrichment
-> **last verified:** 2026-10-18
+> **status:** current for the accepted first slice, pages delivery, and seed-v3 enrichment
+> **last verified:** 2026-10-19
 > **owns:** dependency direction, data boundaries, lifecycle, and publication seam
 > **update when:** a layer, durable representation, or trust boundary changes
 
@@ -112,13 +112,19 @@ is limited to decimal digits, parentheses, unary signs, `+`, `-`, `*`, `/`, and
 uses exact rational arithmetic; consumes every source digit exactly once; and
 requires a nontrivial operation. it never executes source text.
 
-the current `seed-v2` reference corpus adds perfect-square, perfect-cube,
-fibonacci, and twin-prime evaluators to the original five-property pack. power
-and sequence witnesses record exact constructive identities. twin-prime claims
+the current `seed-v3` reference corpus retains the perfect-square, perfect-cube,
+fibonacci, and twin-prime evaluators added beside the original five-property
+pack. power and sequence witnesses record exact constructive identities. twin-prime claims
 record their lower and higher partners as checked qualifiers, allowing the
 public renderer to distinguish an exact partner from ambient shared membership.
 prime is graphable in this version; density is controlled by presentation, not
 by deleting the relation from the published ontology.
+
+the same seed stages seven cited profile entries. profile entries may cause an
+otherwise claimless integer such as `86`, `93`, or `146` to appear in the public
+corpus, but relation derivation still consults claims only. a composite profile
+may place distinct attested registers beside one another, as the geometry and
+scripture attached to `153` do, without asserting causal or encoded identity.
 
 ## explicit publication firewall
 

@@ -13,6 +13,7 @@ if (data.releaseId !== manifest.releaseId) throw new Error("release ids disagree
 if (data.schemaVersion !== manifest.schemaVersion) throw new Error("schema versions disagree");
 if (!Array.isArray(data.properties) || !Array.isArray(data.integers)) throw new Error("public arrays are missing");
 if (data.properties.length !== 9) throw new Error(`expected 9 public properties, found ${data.properties.length}`);
+if (data.integers.length !== 523) throw new Error(`expected 523 public integers, found ${data.integers.length}`);
 
 const raw = dataBytes.toString("utf8");
 for (const forbidden of [
@@ -54,6 +55,29 @@ if (claim(threeFortyThree, "perfect-cube")?.witness?.displayText !== "7^3 = 343"
 }
 if (!properties.get("twin-prime")?.citations.some((citation) => citation.url === "https://oeis.org/A001097")) {
   throw new Error("twin-prime provenance is missing");
+}
+
+const expectedProfiles = new Map([
+  ["137", ["fine-structure-near-integer", 1]],
+  ["153", ["vesica-and-unbroken-net", 3]],
+  ["93", ["thelemic-greeting", 1]],
+  ["146", ["lucina-minor-planet", 2]],
+  ["404", ["http-not-found", 1]],
+  ["808", ["tr-808-afterlife", 1]],
+  ["86", ["eighty-sixed", 1]],
+]);
+for (const [value, [slug, citationCount]] of expectedProfiles) {
+  const integer = values.get(value);
+  const profile = integer?.profileEntries.find((candidate) => candidate.slug === slug);
+  if (!profile || profile.citations.length !== citationCount) {
+    throw new Error(`${value} is missing its sourced ${slug} profile`);
+  }
+}
+for (const value of ["86", "93", "146"]) {
+  if (values.get(value).claims.length !== 0) throw new Error(`profile lore created an accidental claim for ${value}`);
+}
+if (!values.get("153").profileEntries[0].body.includes("without claiming that one encodes the other")) {
+  throw new Error("153 is missing its non-encoding boundary");
 }
 
 console.log(`public artifact ok: ${data.properties.length} properties, ${data.integers.length} integers, ${digest}`);

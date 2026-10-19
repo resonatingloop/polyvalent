@@ -8,8 +8,8 @@
 
 ## Verified checkpoint
 
-the accepted first slice, public-delivery follow-up, and bounded corpus
-enrichment are implemented locally as one vertical instrument:
+the accepted first slice, public-delivery follow-up, bounded corpus enrichment,
+and first public vignette set are implemented locally as one vertical instrument:
 
 - a .net 10 solution with canonical integer semantics, nine property
   evaluators/contracts, a bounded non-executing friedman parser, application
@@ -17,11 +17,11 @@ enrichment are implemented locally as one vertical instrument:
 - a migrated provenance ledger with immutable accepted evidence, source and
   capture distinctions, comparisons, coverage, revision lineage, explicit
   staging, privacy sentinels, and immutable release records;
-- a deterministic `1–2000` seed-v2 containing `717` accepted positive claims and
-  one sourced profile entry;
-- a prepared reference-v2 artifact in the tracked release path with `9`
-  properties, `520` materialized integer profiles, and sha-256
-  `e7e7a7611f86f77b84b9d9be6e7952e499601c72e8ca27513c7cafc9ac1a4569`;
+- a deterministic `1–2000` seed-v3 containing `717` accepted positive claims and
+  seven sourced, staged profile entries;
+- a prepared reference-v3 artifact in the tracked release path with `9`
+  properties, `523` materialized integer profiles, and sha-256
+  `d088ccfbd578adcfdc3b68982dd2d6bf5f2be5335efcd674ff1a5be7af119afa`;
 - a static react/vite public ui with search, number profiles, property dossiers,
   complete explained relation lists, a bounded accessible bipartite graph, and
   a native in-page continuation seam from the home hero into the public
@@ -52,12 +52,12 @@ evidence:
   `web/dist` is the sole upload path, and the deploy job cannot check out source
   or run shell commands;
 - solution restore and release build: `0` warnings, `0` errors;
-- .net tests: `68` passed across domain (`41`), data (`18`), publication (`8`),
+- .net tests: `70` passed across domain (`41`), data (`19`), publication (`9`),
   and desktop view-model (`1`) suites;
 - .net formatting verification: succeeded;
-- web tests: `19` passed across relation, canonical-integer, coverage, salience,
-  release-digest, and deployment-base routing behavior;
-- public artifact: digest matched; `9` properties and `520` integers;
+- web tests: `21` passed across relation, canonical-integer, citation display,
+  coverage, salience, release-digest, and deployment-base routing behavior;
+- public artifact: digest matched; `9` properties and `523` integers;
 - public boundary: `16` source files, `2` runtime dependencies, and only the `2`
   expected local release fetches;
 - root and `/polyvalent/` production web builds: succeeded; the project-path
@@ -65,12 +65,14 @@ evidence:
 - `git diff --check`: succeeded as the final step of the script.
 
 focused integration proof exercised two independent fresh `bootstrap` commands.
-both produced `2000` integers, `717` claims, one profile entry, and byte-for-byte
+both produced `2000` integers, `717` claims, seven profile entries, and byte-for-byte
 identical sealed release bytes without networking or deployment.
 
 headless chromium renders were inspected at desktop and narrow widths for the
-home page and the `153`, `343`, and `137` profiles. an avalonia render was
-inspected under x11 after correcting research-column measurement. these are
+home page and the `153`, `343`, `137`, `93`, and `146` profiles. the new `153`
+profile plate and the claimless `93`/`146` states remained legible; the `146`
+citations wrapped without horizontal overflow at `390px`. an avalonia render
+was inspected under x11 after correcting research-column measurement. these are
 rendered implementation evidence, not a substitute for the owner's final
 interactive browser and native desktop acceptance.
 
@@ -87,6 +89,11 @@ interactive browser and native desktop acceptance.
   affiliations, with its exact partner `139` ranked before ambient mutuals;
 - `343` carries a checked `7^3 = 343` perfect-cube witness in addition to its
   palindrome and friedman affiliations;
+- `86`, `93`, `137`, `146`, `153`, `404`, and `808` carry sourced profile lore;
+  `86`, `93`, and `146` prove that a profile can enter the public
+  corpus without manufacturing a property or relation;
+- `153` places its vesica-piscis ratio and john 21:11 occurrence in parallel
+  attested registers and explicitly makes no encoding claim;
 - absence is covered-negative only inside succeeded recorded coverage and is
   otherwise unknown;
 - an incomplete private draft cannot establish membership, coverage, staging,
@@ -96,6 +103,8 @@ interactive browser and native desktop acceptance.
 - citations, their public-safe/staged disposition, private notes, and parent
   revision staging are visible in the private dossier; sealed releases pin the
   exact selected citation rows as immutable ledger items;
+- public citation display coalesces the same visible source selected in
+  different contextual roles while retaining distinct locators;
 - accepted corrections preserve supersession, and staging a correction evicts
   the stale staged revision from that lineage;
 - a source comparison mismatch is preserved and withholds both coverage and
@@ -113,12 +122,11 @@ interactive browser and native desktop acceptance.
 
 ## Incomplete or broken
 
-- reference-v2 is only the tracked local artifact; the live site still reports
+- reference-v3 is only the tracked local artifact; the live site still reports
   reference-v1 until a later reviewed commit and deployment;
 - the in-app browser bridge rejected its own bundled runtime during the new
-  local visual smoke, so interactive rendering of the enriched `137` profile
-  and the home-page continuation seam remain owner-visible checks; type,
-  relation, artifact, and production-build proofs passed;
+  local visual smoke; headless rendering succeeded, while interaction and the
+  home-page continuation seam remain owner-visible checks;
 - no custom domain, analytics, or production monitoring exists;
 - no public suggestion form or email provider exists;
 - no session-held integers, encounter pings, public lenses, private
@@ -135,22 +143,24 @@ interactive browser and native desktop acceptance.
 ## Active work
 
 - accepted spec: `specs/001-first-slice.md`;
-- implementation: corpus enrichment complete locally against automated proof;
+- implementation: corpus enrichment and first vignette set complete locally
+  against automated and byte-reproduction proof;
 - public ui: initial aesthetic pass accepted by the owner; home-page scroll
   disclosure is implemented locally and awaits rendered acceptance;
-- live site: reference-v1; reference-v2 is not committed, pushed, or deployed;
+- live site: reference-v1; reference-v3 is not committed, pushed, or deployed;
 - remaining visual acceptance: home-page continuation seam, enriched `137`
   public profile, and the deferred private gui slice;
 - blockers: none for local use or review.
 
 ## Next useful action
 
-open the local reference-v2 home page at desktop and narrow widths, confirm that
+open the local reference-v3 home page at desktop and narrow widths, confirm that
 the continuation seam discloses the public dispatch without crowding the search,
-then inspect `/integer/137` and confirm that `139` is the first exact twin-prime
-acquaintance. review and commit after those visual checks. a later authorized
-push will deploy that exact tracked artifact through the existing pages
-workflow. private gui refinement remains its own visual slice.
+then inspect the seven vignette profiles, especially the composite `153` entry
+and profile-only `86`, `93`, and `146`. after those visual checks, the next
+design slice is the graph view. review and commit before any later authorized
+push deploys this exact tracked artifact through the existing pages workflow.
+private gui refinement remains its own visual slice.
 
 ## Re-entry notes
 

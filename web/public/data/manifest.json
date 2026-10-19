@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1",
-  "releaseId": "reference-v2",
-  "generatedAtUtc": "2026-10-18T00:00:00.0000000\u002B00:00",
+  "releaseId": "reference-v3",
+  "generatedAtUtc": "2026-10-19T00:00:00.0000000\u002B00:00",
   "sourceDatabaseSchemaVersion": 1,
-  "dataSha256": "e7e7a7611f86f77b84b9d9be6e7952e499601c72e8ca27513c7cafc9ac1a4569"
+  "dataSha256": "d088ccfbd578adcfdc3b68982dd2d6bf5f2be5335efcd674ff1a5be7af119afa"
 }

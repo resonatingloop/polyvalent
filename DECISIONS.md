@@ -2,7 +2,7 @@
 
 > **continuity role:** historical rationale and supersession
 > **status:** append-only
-> **last verified:** 2026-10-18
+> **last verified:** 2026-10-19
 > **owns:** consequential choices another maintainer should not have to re-derive
 > **update when:** a decision introduces, clarifies, or supersedes a durable fact
 
@@ -572,3 +572,54 @@ evidence:
 - owner authorization on 2026-10-18;
 - evaluator, evidence-contract, seed, public-projection, relation-ordering,
   artifact, and full repository checks.
+
+## d-015 — cited vignettes enter as profiles without cultural edges
+
+- date: 2026-10-19
+- status: accepted
+- supersedes: none
+- related authorization: owner-selected public vignettes on 2026-10-19
+
+context:
+
+the profile-entry model had one scientific example but not yet enough varied
+material to prove that mathematical, scriptural, religious, astronomical,
+technical, musical, and linguistic appearances could coexist without becoming
+a loose tag ontology. several selected integers also had no positive claim in
+the bounded mathematical corpus and still needed honest public profiles.
+
+decision:
+
+seed cited profile entries for `86`, `93`, `137`, `146`, `153`, `404`, and
+`808`. keep every vignette attached to one integer, retain its epistemic
+register, and derive no relation from profile content. where one vignette places
+distinct records beside one another, as with the vesica piscis and john 21:11
+at `153`, state the juxtaposition without asserting that either record encodes
+the other.
+
+alternatives considered:
+
+- express cultural material as properties: rejected because sparse curation
+  would impersonate exhaustive classification and manufacture public edges;
+- split the two `153` appearances into a hidden causal theory: rejected because
+  the sources warrant the individual appearances, not a historical encoding
+  claim;
+- omit integers without mathematical claims: rejected because profile lore is
+  already an independent first-class public object.
+
+consequences:
+
+- the fresh reference corpus is `seed-v3`, with seven staged profiles while the
+  nine-property, `717`-claim mathematical corpus remains unchanged;
+- profile-only integers materialize in the public release without acquiring
+  positive properties or graph relations;
+- older populated ledgers remain untouched and require a fresh database or an
+  explicit revision workflow;
+- source identity, citation role, locator, and public-safe staging remain
+  inspectable for every vignette.
+
+evidence:
+
+- owner selection on 2026-10-19;
+- seed, dossier, immutable-release, public-artifact, and no-accidental-claim
+  tests.
