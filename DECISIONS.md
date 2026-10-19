@@ -676,3 +676,51 @@ evidence:
 - owner authorization on 2026-10-19;
 - source review, seed/dossier tests, immutable-release tests, public-artifact
   checks, and fresh byte-reproduction proof.
+
+## d-017 — sequence interests enter as sourced complete properties
+
+- date: 2026-10-19
+- status: accepted
+- supersedes: none
+- related authorization: owner-selected sequence starter pack on 2026-10-19
+
+context:
+
+the owner selected fibonacci numbers, primes, and powers of two as the first
+sequence interests associated with caduceus. fibonacci and prime membership
+were already completely evaluated, graphable, and cited through their oeis
+source records; powers of two remained absent.
+
+decision:
+
+retain the existing fibonacci and prime properties and add powers of two as a
+complete deterministic `1–2000` property. include `1` as `2^0`, attach an exact
+`2^n = value` witness to every positive claim, cite oeis a000079 on the
+property version, and expose shared membership in the public graph.
+
+alternatives considered:
+
+- import the oeis term list as claim truth: rejected because this predicate is
+  deterministic locally and the source belongs as provenance, not executable
+  authority;
+- start at `2` rather than `1`: rejected because a000079 begins with `2^0 = 1`;
+- attach the same oeis citation to every claim: rejected because the sequence
+  identifies the property while each membership has its own checked witness.
+
+consequences:
+
+- the fresh reference corpus is `seed-v5`, with ten properties and `728`
+  accepted claims;
+- the public reference artifact contains `529` integers because `32` enters
+  the published corpus for the first time;
+- older populated ledgers remain untouched and require a fresh database or an
+  explicit revision workflow;
+- the three selected sequence interests all have public oeis provenance while
+  membership and bounded coverage remain locally computed.
+
+evidence:
+
+- owner selection on 2026-10-19;
+- oeis a000040, a000045, and a000079 source review;
+- evaluator, evidence-contract, seed, publication, artifact, and full
+  repository checks.

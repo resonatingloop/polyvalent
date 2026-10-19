@@ -7,6 +7,7 @@ public static class PropertySlugs
     public const string PerfectSquare = "perfect-square";
     public const string PerfectCube = "perfect-cube";
     public const string Fibonacci = "fibonacci-number";
+    public const string PowerOfTwo = "power-of-two";
     public const string TwinPrime = "twin-prime";
     public const string DecimalPalindrome = "decimal-palindrome";
     public const string DecimalNarcissistic = "decimal-narcissistic-number";

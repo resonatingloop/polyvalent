@@ -64,6 +64,17 @@ public static class InitialPropertyCatalog
             {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["sequence_indices"],"runMaySuffice":false,"coverageKinds":["deterministic"]}
             """),
         new(
+            PropertySlugs.PowerOfTwo,
+            "power of two",
+            "a positive integer equal to 2 raised to a nonnegative integer power.",
+            ["power of 2"],
+            GraphMode.SharedMembership,
+            "power-of-two/evidence-v1",
+            "power-of-two/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["power_identity"],"runMaySuffice":false,"coverageKinds":["deterministic"]}
+            """),
+        new(
             PropertySlugs.TwinPrime,
             "twin-prime member",
             "a prime differing by two from at least one other prime.",
@@ -165,6 +176,10 @@ public static class EvidenceContractValidator
                 ValidateFibonacci(integer, RequireWitness(property, witness, "sequence_indices"));
                 return;
 
+            case PropertySlugs.PowerOfTwo:
+                ValidatePowerOfTwo(integer, RequireWitness(property, witness, "power_identity"));
+                return;
+
             case PropertySlugs.TwinPrime:
                 ValidateTwinPrime(
                     integer,
@@ -249,6 +264,20 @@ public static class EvidenceContractValidator
             || RequiredString(payload.RootElement, "result") != integer.ToString())
         {
             throw new InvalidOperationException("the fibonacci witness does not prove the claimed integer.");
+        }
+    }
+
+    private static void ValidatePowerOfTwo(IntegerValue integer, EvidenceWitness witness)
+    {
+        using var payload = ParsePayload(witness);
+        var baseValue = IntegerValue.Parse(RequiredString(payload.RootElement, "base")).Value;
+        var exponent = RequiredInt(payload.RootElement, "exponent");
+        if (baseValue != 2
+            || exponent < 0
+            || BigInteger.Pow(baseValue, exponent) != integer.Value
+            || RequiredString(payload.RootElement, "result") != integer.ToString())
+        {
+            throw new InvalidOperationException("the power-of-two witness does not prove the claimed integer.");
         }
     }
 

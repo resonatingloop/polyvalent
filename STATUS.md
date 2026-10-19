@@ -8,21 +8,21 @@
 
 ## Verified checkpoint
 
-the accepted first slice, public-delivery follow-up, bounded corpus enrichment,
-and expanded public numerical-biography cabinet are implemented locally as one
-vertical instrument:
+the accepted first slice, public-delivery follow-up, bounded corpus and sequence
+enrichment, and expanded public numerical-biography cabinet are implemented
+locally as one vertical instrument:
 
-- a .net 10 solution with canonical integer semantics, nine property
+- a .net 10 solution with canonical integer semantics, ten property
   evaluators/contracts, a bounded non-executing friedman parser, application
   services, direct sqlite persistence, avalonia desktop, and publisher;
 - a migrated provenance ledger with immutable accepted evidence, source and
   capture distinctions, comparisons, coverage, revision lineage, explicit
   staging, privacy sentinels, and immutable release records;
-- a deterministic `1–2000` seed-v4 containing `717` accepted positive claims and
+- a deterministic `1–2000` seed-v5 containing `728` accepted positive claims and
   `20` sourced, staged profile entries across `18` integers;
-- a prepared reference-v4 artifact in the tracked release path with `9`
-  properties, `528` materialized integer profiles, and sha-256
-  `30fc26157eaaaee3caf60501917aa58780492159cac84d6bfbcc0ba517fb1a57`;
+- a prepared reference-v5 artifact in the tracked release path with `10`
+  properties, `529` materialized integer profiles, and sha-256
+  `2c0b485abc1dbb025296743c525d1948080f31e84ed71438251c1866affae441`;
 - a static react/vite public ui with search, number profiles, property dossiers,
   complete explained relation lists, a bounded accessible bipartite graph with
   interactive evidence traces, and a native in-page continuation seam from the
@@ -30,7 +30,7 @@ vertical instrument:
 - a least-privilege github pages workflow that verifies tracked public inputs,
   builds for the configured pages base path, and uploads only the static web
   output;
-- a live reference-v1 deployment at `https://resonatrix.tech/polyvalent/`;
+- a live reference-v4 deployment at `https://resonatrix.tech/polyvalent/`;
 - project-owned setup, validation, attribution, migration, publication, backup,
   deployment, and recovery documentation.
 
@@ -53,13 +53,13 @@ evidence:
   `web/dist` is the sole upload path, and the deploy job cannot check out source
   or run shell commands;
 - solution restore and release build: `0` warnings, `0` errors;
-- .net tests: `70` passed across domain (`41`), data (`19`), publication (`9`),
+- .net tests: `72` passed across domain (`43`), data (`19`), publication (`9`),
   and desktop view-model (`1`) suites;
 - .net formatting verification: succeeded;
-- web tests: `24` passed across relation, graph tracing, canonical-integer,
+- web tests: `25` passed across relation, graph tracing, canonical-integer,
   citation display, coverage, salience, release-digest, and deployment-base
   routing behavior;
-- public artifact: digest matched; `9` properties and `528` integers;
+- public artifact: digest matched; `10` properties and `529` integers;
 - public boundary: `18` source files, `2` runtime dependencies, and only the `2`
   expected local release fetches;
 - root and `/polyvalent/` production web builds: succeeded; the project-path
@@ -67,7 +67,7 @@ evidence:
 - `git diff --check`: succeeded as the final step of the script.
 
 focused integration proof exercised two independent fresh `bootstrap` commands.
-both produced `2000` integers, `717` claims, `20` profile entries, and
+both produced `2000` integers, `728` claims, `20` profile entries, and
 byte-for-byte identical sealed release bytes without networking or deployment.
 
 headless chromium renders were inspected at desktop and narrow widths for the
@@ -90,6 +90,12 @@ compact geometry produced no horizontal page overflow, and emulated reduced
 motion collapsed graph animation durations to `0.01ms`. screenshots of resting,
 integer-trace, and property-trace states were inspected at native resolution.
 
+reference-v5 was rendered at desktop and `390px` widths for `/integer/1024`,
+and its property dossier was rendered at `/property/power-of-two`. the integer
+page presented three affiliations, including a visible power-of-two graph
+station, without narrow-screen overflow; the dossier showed all eleven exact
+power witnesses, deterministic `1–2000` coverage, and the oeis a000079 source.
+
 ## Working now
 
 - `153` and `343` relate through published decimal friedman membership without
@@ -103,8 +109,12 @@ integer-trace, and property-trace states were inspected at native resolution.
 - compact viewports use a deterministic tighter graph geometry with larger
   nodes, while reduced-motion preference suppresses entrances, scans, pulses,
   orbits, and signal travel;
-- prime, perfect-square, perfect-cube, fibonacci, and twin-prime membership are
-  graphable; the graph remains bounded while the relation list stays complete;
+- prime, perfect-square, perfect-cube, fibonacci, power-of-two, and twin-prime
+  membership are graphable; the graph remains bounded while the relation list
+  stays complete;
+- prime and fibonacci retain oeis a000040 and a000045 provenance; the new
+  power-of-two property cites a000079 and gives all eleven members from `1`
+  through `1024` exact `2^n = value` witnesses;
 - `137` carries independent sourced profile context plus prime and twin-prime
   affiliations, with its exact partner `139` ranked before ambient mutuals;
 - `343` carries a checked `7^3 = 343` perfect-cube witness in addition to its
@@ -148,8 +158,8 @@ integer-trace, and property-trace states were inspected at native resolution.
 
 ## Incomplete or broken
 
-- reference-v4 is only the tracked local artifact; the live site still reports
-  reference-v1 until a later reviewed commit and deployment;
+- reference-v5 is only the tracked local artifact; the live site reports
+  reference-v4 until a later reviewed commit and deployment;
 - the in-app browser bridge rejected its own bundled runtime during the local
   visual smoke; isolated headless chrome supplied pointer, keyboard, narrow,
   and reduced-motion evidence, while the owner's browser remains the final
@@ -170,25 +180,24 @@ integer-trace, and property-trace states were inspected at native resolution.
 ## Active work
 
 - accepted spec: `specs/001-first-slice.md`;
-- implementation: corpus enrichment, expanded vignette cabinet, and interactive
-  graph trace complete locally against automated, browser, and byte-reproduction
-  proof;
+- implementation: corpus enrichment, sequence starter pack, expanded vignette
+  cabinet, and interactive graph trace complete locally against automated,
+  browser, and byte-reproduction proof;
 - public ui: initial aesthetic pass accepted by the owner; graph motion and
   interaction await the owner's tactile browser acceptance;
-- live site: reference-v1; reference-v4 is not committed, pushed, or deployed;
-- remaining visual acceptance: the expanded reference-v4 cabinet and graph
+- live site: reference-v4; reference-v5 is not committed, pushed, or deployed;
+- remaining visual acceptance: the expanded reference-v5 cabinet and graph
   interaction in the owner's browser, plus the deferred private gui slice;
 - blockers: none for local use or review.
 
 ## Next useful action
 
-open the local reference-v4 `153` and `137` graphs, hover or tab through their
-integer and property nodes, and judge the trace speed, dimming, and console in a
-real browser. then inspect the newly biographical integers, especially the
-two-profile `137` and `153` pages, manuscript-grounded `616`, and claimless
-`1729`. review and commit before any later authorized push deploys this exact
-tracked artifact through the existing pages workflow. private gui refinement
-remains its own visual slice.
+open the local reference-v5 `1024` graph and trace its power-of-two routes to
+`1`, `2`, `4`, `8`, `16`, `32`, `64`, `128`, `256`, and `512`; then inspect
+the power-of-two dossier and its oeis a000079 provenance. review and commit
+before any later authorized push deploys this exact tracked artifact through
+the existing pages workflow. private gui refinement remains its own visual
+slice.
 
 ## Re-entry notes
 

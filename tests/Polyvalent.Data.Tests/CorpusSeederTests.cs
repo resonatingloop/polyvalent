@@ -22,6 +22,7 @@ public sealed class CorpusSeederTests
         Assert.Equal(44, first.PropertyCounts[PropertySlugs.PerfectSquare]);
         Assert.Equal(12, first.PropertyCounts[PropertySlugs.PerfectCube]);
         Assert.Equal(16, first.PropertyCounts[PropertySlugs.Fibonacci]);
+        Assert.Equal(11, first.PropertyCounts[PropertySlugs.PowerOfTwo]);
         Assert.Equal(121, first.PropertyCounts[PropertySlugs.TwinPrime]);
         Assert.Equal(118, first.PropertyCounts[PropertySlugs.DecimalPalindrome]);
         Assert.Equal(14, first.PropertyCounts[PropertySlugs.DecimalNarcissistic]);
@@ -40,6 +41,7 @@ public sealed class CorpusSeederTests
 
         var oneThirtySeven = await store.GetDossierAsync(IntegerValue.Parse("137"));
         var threeFortyThree = await store.GetDossierAsync(IntegerValue.Parse("343"));
+        var oneThousandTwentyFour = await store.GetDossierAsync(IntegerValue.Parse("1024"));
 
         Assert.Contains(oneThirtySeven.Claims, claim =>
             claim.PropertySlug == PropertySlugs.Prime
@@ -52,6 +54,10 @@ public sealed class CorpusSeederTests
             claim.PropertySlug == PropertySlugs.PerfectCube
             && claim.State == KnowledgeState.Positive
             && claim.Witness!.DisplayText == "7^3 = 343");
+        Assert.Contains(oneThousandTwentyFour.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.PowerOfTwo
+            && claim.State == KnowledgeState.Positive
+            && claim.Witness!.DisplayText == "2^10 = 1024");
 
         await using var connection = await fixture.Database.OpenConnectionAsync();
         await using var command = connection.CreateCommand();
@@ -63,6 +69,17 @@ public sealed class CorpusSeederTests
             """;
         command.Parameters.AddWithValue("$slug", PropertySlugs.Prime);
         Assert.Equal("shared-membership", await command.ExecuteScalarAsync());
+
+        command.CommandText = """
+            SELECT source.canonical_url
+            FROM property_version_citations citation
+            JOIN property_versions version ON version.id = citation.property_version_id
+            JOIN properties property ON property.id = version.property_id
+            JOIN sources source ON source.id = citation.source_id
+            WHERE property.slug = $slug AND version.status = 'accepted';
+            """;
+        command.Parameters["$slug"].Value = PropertySlugs.PowerOfTwo;
+        Assert.Equal("https://oeis.org/A000079", await command.ExecuteScalarAsync());
     }
 
     [Fact]

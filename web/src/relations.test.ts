@@ -107,7 +107,7 @@ describe("public relation derivation", () => {
     expect(reasons[0].relatedClaim.qualifier.orderly).toBe(true);
   });
 
-  it("ranks 139 first in the actual reference-v4 field around 137", () => {
+  it("ranks 139 first in the actual reference-v5 field around 137", () => {
     const reference = referenceData as unknown as PublicCorpus;
     const relations = getRelations(indexCorpus(reference), "137");
 
@@ -115,6 +115,18 @@ describe("public relation derivation", () => {
     expect(relations[0].integer.value).toBe("139");
     expect(relations[0].reasons.map((reason) => reason.property.slug))
       .toEqual(["prime", "twin-prime"]);
+  });
+
+  it("connects powers of two through the sourced reference-v5 property", () => {
+    const reference = referenceData as unknown as PublicCorpus;
+    const referenceIndex = indexCorpus(reference);
+    const reasons = explainRelationship(referenceIndex, "1024", "512");
+    const property = referenceIndex.properties.get("power-of-two")!;
+
+    expect(reasons.map((reason) => reason.property.slug)).toContain("power-of-two");
+    expect(reasons.find((reason) => reason.property.slug === "power-of-two")?.centerClaim.witness?.displayText)
+      .toBe("2^10 = 1024");
+    expect(property.citations.map((citation) => citation.url)).toContain("https://oeis.org/A000079");
   });
 
   it("derives a relation without stored pairwise edges", () => {

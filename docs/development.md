@@ -1,7 +1,7 @@
 # development and recovery
 
 > **continuity role:** operational runbook
-> **status:** current for the accepted first slice, pages delivery, and seed-v4 enrichment
+> **status:** current for the accepted first slice, pages delivery, and seed-v5 enrichment
 > **last verified:** 2026-10-19
 > **owns:** setup, local data, seed, launch, publication preview, validation, and recovery
 > **update when:** any command, path, prerequisite, migration, or recovery step changes
@@ -78,12 +78,12 @@ populate the deterministic first corpus and its publication staging:
 dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- seed --data-dir ./var/local
 ```
 
-`seed-v4` is idempotent when the existing ledger has its expected successful
+`seed-v5` is idempotent when the existing ledger has its expected successful
 population runs, graph policy, claim counts, and twenty staged profile entries.
 a clean result reports `2000`
-integers and `717` accepted claims distributed as
+integers and `728` accepted claims distributed as
 `303` prime, `62` triangular, `44` perfect square, `12` perfect cube, `16`
-fibonacci, `121` twin-prime, `118` decimal palindrome, `14` decimal
+fibonacci, `11` power of two, `121` twin-prime, `118` decimal palindrome, `14` decimal
 narcissistic, and `27` decimal friedman claims.
 
 the same seed stages twenty sourced profile entries across `36`, `86`, `88`,
@@ -93,7 +93,7 @@ cited entries. profile entries remain narrative records rather than property
 claims, so the claim count and relation ontology do not change.
 
 the command deliberately refuses to rewrite a populated seed-v1, seed-v2,
-seed-v3, or divergent ledger. accepted property versions and claim revisions are immutable, so
+seed-v3, seed-v4, or divergent ledger. accepted property versions and claim revisions are immutable, so
 upgrading authored research requires a separately reviewed revision workflow.
 use a fresh `--data-dir` when the desired result is the current reference
 corpus.
@@ -135,10 +135,13 @@ the development server prints its local address. useful routes are:
 - `/integer/153` for the dense relation graph and complete list;
 - `/integer/343` for the cube and orderly/nice friedman witnesses;
 - `/integer/137` for sourced profile lore plus prime and twin-prime relations;
+- `/integer/1024` for perfect-square, friedman, and power-of-two relations;
 - `/integer/93` and `/integer/146` for profile-only public records;
 - `/integer/616` for source-critical textual lore beside its palindrome claim;
 - `/integer/1729` for a profile-only mathematical biography;
 - `/property/decimal-friedman-number` for the property dossier.
+- `/property/power-of-two` for all eleven locally computed members and the
+  oeis a000079 property citation.
 
 the production build is written to ignored `web/dist/`:
 
@@ -206,8 +209,8 @@ scan before any later artifact-promotion or deployment change.
 use a fresh database and fresh output outside the tracked tree:
 
 ```text
-dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v4.sqlite3 --output /tmp/polyvalent-reference-v4 --release-id reference-v4 --generated-at 2026-10-19T00:00:00Z
-diff -ru web/public/data /tmp/polyvalent-reference-v4
+dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v5.sqlite3 --output /tmp/polyvalent-reference-v5 --release-id reference-v5 --generated-at 2026-10-19T00:00:00Z
+diff -ru web/public/data /tmp/polyvalent-reference-v5
 ```
 
 both `/tmp` targets must be absent before the command. an empty `diff` proves

@@ -17,7 +17,7 @@ public sealed record SeedResult(
 
 public sealed class CorpusSeeder
 {
-    public const string SeedVersion = "seed-v4";
+    public const string SeedVersion = "seed-v5";
     private static readonly ProfileSeed[] ReferenceProfiles =
     [
         new(
@@ -421,6 +421,7 @@ public sealed class CorpusSeeder
             new SourceSeed("oeis-a000290", "OEIS A000290 — the squares", "OEIS Foundation Inc.", "https://oeis.org/A000290", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a000578", "OEIS A000578 — the cubes", "OEIS Foundation Inc.", "https://oeis.org/A000578", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a000045", "OEIS A000045 — fibonacci numbers", "OEIS Foundation Inc.", "https://oeis.org/A000045", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a000079", "OEIS A000079 — powers of two", "OEIS Foundation Inc.", "https://oeis.org/A000079", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a001097", "OEIS A001097 — twin-prime members", "OEIS Foundation Inc.", "https://oeis.org/A001097", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a002113", "OEIS A002113 — palindromes in base 10", "OEIS Foundation Inc.", "https://oeis.org/A002113", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a005188", "OEIS A005188 — narcissistic numbers", "OEIS Foundation Inc.", "https://oeis.org/A005188", "source terms apply; attribution retained"),
@@ -1233,6 +1234,7 @@ public sealed class CorpusSeeder
             [PropertySlugs.PerfectSquare] = 44,
             [PropertySlugs.PerfectCube] = 12,
             [PropertySlugs.Fibonacci] = 16,
+            [PropertySlugs.PowerOfTwo] = 11,
             [PropertySlugs.TwinPrime] = 121,
             [PropertySlugs.DecimalPalindrome] = 118,
             [PropertySlugs.DecimalNarcissistic] = 14,
@@ -1388,6 +1390,7 @@ public sealed class CorpusSeeder
         PropertySlugs.PerfectSquare => ["oeis-a000290"],
         PropertySlugs.PerfectCube => ["oeis-a000578"],
         PropertySlugs.Fibonacci => ["oeis-a000045"],
+        PropertySlugs.PowerOfTwo => ["oeis-a000079"],
         PropertySlugs.TwinPrime => ["oeis-a001097"],
         PropertySlugs.DecimalPalindrome => ["oeis-a002113"],
         PropertySlugs.DecimalNarcissistic => ["oeis-a005188"],
@@ -1402,6 +1405,7 @@ public sealed class CorpusSeeder
         "oeis-a000290" => "OEIS A000290",
         "oeis-a000578" => "OEIS A000578",
         "oeis-a000045" => "OEIS A000045",
+        "oeis-a000079" => "OEIS A000079",
         "oeis-a001097" => "OEIS A001097",
         "oeis-a002113" => "OEIS A002113",
         "oeis-a005188" => "OEIS A005188",
@@ -1426,6 +1430,7 @@ public sealed class CorpusSeeder
         new PerfectSquareEvaluator(),
         new PerfectCubeEvaluator(),
         new FibonacciEvaluator(),
+        new PowerOfTwoEvaluator(),
         new TwinPrimeEvaluator(),
         new DecimalPalindromeEvaluator(),
         new DecimalNarcissisticEvaluator(),

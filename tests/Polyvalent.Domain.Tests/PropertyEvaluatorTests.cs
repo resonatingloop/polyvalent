@@ -11,6 +11,7 @@ public sealed class PropertyEvaluatorTests
         { new PerfectSquareEvaluator(), 44 },
         { new PerfectCubeEvaluator(), 12 },
         { new FibonacciEvaluator(), 16 },
+        { new PowerOfTwoEvaluator(), 11 },
         { new TwinPrimeEvaluator(), 121 },
         { new DecimalPalindromeEvaluator(), 118 },
         { new DecimalNarcissisticEvaluator(), 14 },
@@ -70,6 +71,7 @@ public sealed class PropertyEvaluatorTests
             (new PerfectSquareEvaluator(), PropertySlugs.PerfectSquare, "64", "8^2 = 64"),
             (new PerfectCubeEvaluator(), PropertySlugs.PerfectCube, "343", "7^3 = 343"),
             (new FibonacciEvaluator(), PropertySlugs.Fibonacci, "1", "f(1) = f(2) = 1"),
+            (new PowerOfTwoEvaluator(), PropertySlugs.PowerOfTwo, "1024", "2^10 = 1024"),
             (new TwinPrimeEvaluator(), PropertySlugs.TwinPrime, "137", "twin with 139"),
         };
 
@@ -85,6 +87,29 @@ public sealed class PropertyEvaluatorTests
                 evaluation.QualifierJson,
                 evaluation.Witness);
         }
+    }
+
+    [Fact]
+    public void Powers_of_two_begin_at_the_zero_exponent_and_reject_false_witnesses()
+    {
+        var results = new PowerOfTwoEvaluator()
+            .Evaluate(IntegerValue.Parse("1"), IntegerValue.Parse("2000"))
+            .ToArray();
+
+        Assert.Equal("2^0 = 1", results[0].Witness!.DisplayText);
+        Assert.Equal("2^10 = 1024", results[^1].Witness!.DisplayText);
+
+        var falseWitness = new EvidenceWitness(
+            "power_identity",
+            1,
+            "{\"base\":\"2\",\"exponent\":9,\"result\":\"1024\"}",
+            "2^9 = 1024");
+        Assert.Throws<InvalidOperationException>(() =>
+            EvidenceContractValidator.Validate(
+                InitialPropertyCatalog.Get(PropertySlugs.PowerOfTwo),
+                IntegerValue.Parse("1024"),
+                "{}",
+                falseWitness));
     }
 
     [Fact]

@@ -1,7 +1,7 @@
 # polyvalent
 
 > **continuity role:** operational front door
-> **status:** reference-v1 live; reference-v4 numerical biographies implemented locally
+> **status:** reference-v4 live; reference-v5 sequence enrichment implemented locally
 > **last verified:** 2026-10-19
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
@@ -47,7 +47,8 @@ npm --prefix web run dev
 ```
 
 then visit `http://localhost:5173`, `/integer/153`, `/integer/343`, or
-`/integer/137`.
+`/integer/137`. the sequence starter pack is visible at `/integer/1024` and
+`/property/power-of-two`.
 
 to create a private development ledger and open the rolodex:
 
@@ -56,8 +57,8 @@ dotnet run --project src/Polyvalent.Publisher -c Release -- seed --data-dir ./va
 dotnet run --project src/Polyvalent.Desktop -c Release -- --data-dir ./var/local
 ```
 
-the current `seed-v4` corpus is idempotent on an unchanged matching ledger. it creates
-integers `1` through `2000`, nine versioned properties, `717` accepted positive
+the current `seed-v5` corpus is idempotent on an unchanged matching ledger. it creates
+integers `1` through `2000`, ten versioned properties, `728` accepted positive
 claims, complete recorded coverage where warranted, attributed sources and
 captures, and twenty sourced profile entries across eighteen integers. it
 refuses to rewrite an
@@ -104,6 +105,7 @@ restore procedures.
 | perfect square | 44 | deterministic evaluation | yes |
 | perfect cube | 12 | deterministic evaluation | yes |
 | fibonacci number | 16 | deterministic evaluation | yes |
+| power of two | 11 | deterministic evaluation | yes |
 | twin-prime member | 121 | deterministic evaluation | yes |
 | decimal palindrome | 118 | deterministic evaluation | no |
 | decimal narcissistic number | 14 | deterministic evaluation, compared with oeis a005188 | yes |
@@ -114,7 +116,8 @@ pairwise-edge table. the reference release therefore explains
 `153 → decimal friedman number → 343`, including `3 × 51` for `153` and the
 orderly/nice witness `(3 + 4) ^ 3` for `343`.
 it also gives `137` a prime and twin-prime social field, ranks its exact partner
-`139` first, and shows `343` as the perfect cube `7^3`.
+`139` first, shows `343` as the perfect cube `7^3`, and places `1` through
+`1024` in the source-linked power-of-two lineage with exact `2^n` witnesses.
 
 the graph is an interactive trace instrument rather than a decorative diagram.
 pointer contact or keyboard focus isolates the exact published route, conducts
@@ -150,9 +153,9 @@ under `web/public/data/` is the only tracked release.
 
 ## public deployment
 
-the currently deployed reference-v1 site is
+the currently deployed reference-v4 site is
 [`https://resonatrix.tech/polyvalent/`](https://resonatrix.tech/polyvalent/).
-the tracked reference-v4 artifact in this checkout is not live until a later
+the tracked reference-v5 artifact in this checkout is not live until a later
 reviewed commit and deployment.
 
 [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) deploys the public site

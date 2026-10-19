@@ -1,7 +1,7 @@
 # architecture
 
 > **continuity role:** implemented representation map
-> **status:** current for the accepted first slice, pages delivery, and seed-v4 enrichment
+> **status:** current for the accepted first slice, pages delivery, and seed-v5 enrichment
 > **last verified:** 2026-10-19
 > **owns:** dependency direction, data boundaries, lifecycle, and publication seam
 > **update when:** a layer, durable representation, or trust boundary changes
@@ -95,7 +95,7 @@ positive claims are materialized. a missing claim is not false by default.
   complete coverage containing the integer;
 - `unknown`: no positive claim and no applicable coverage warrant.
 
-the eight deterministic properties record deterministic coverage over `1–2000`.
+the nine deterministic properties record deterministic coverage over `1–2000`.
 friedman coverage is explicitly `source-asserted-bounded`. a mismatched source
 comparison is preserved as a comparison record and the affected property is
 withheld from coverage and publication staging.
@@ -112,9 +112,10 @@ is limited to decimal digits, parentheses, unary signs, `+`, `-`, `*`, `/`, and
 uses exact rational arithmetic; consumes every source digit exactly once; and
 requires a nontrivial operation. it never executes source text.
 
-the current `seed-v4` reference corpus retains the perfect-square, perfect-cube,
-fibonacci, and twin-prime evaluators added beside the original five-property
-pack. power and sequence witnesses record exact constructive identities. twin-prime claims
+the current `seed-v5` reference corpus retains the perfect-square, perfect-cube,
+fibonacci, power-of-two, and twin-prime evaluators added beside the original
+five-property pack. power and sequence witnesses record exact constructive
+identities, including `2^0 = 1` through `2^10 = 1024`. twin-prime claims
 record their lower and higher partners as checked qualifiers, allowing the
 public renderer to distinguish an exact partner from ambient shared membership.
 prime is graphable in this version; density is controlled by presentation, not

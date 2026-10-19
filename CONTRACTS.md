@@ -20,7 +20,7 @@ not, by itself, authorization to weaken the contract.
 | active transition | `specs/001-first-slice.md` | accepted 2026-10-18 |
 
 the accepted first slice, explicitly authorized pages-delivery follow-up, and
-bounded seed-v4 corpus enrichment now supply implementation and project-owned
+bounded seed-v5 corpus enrichment now supply implementation and project-owned
 proof for their in-scope invariants. deferred features retain prose-only proof
 until a later accepted slice gives them a representation.
 

@@ -234,6 +234,42 @@ public sealed class FibonacciEvaluator : IPropertyEvaluator
     }
 }
 
+public sealed class PowerOfTwoEvaluator : IPropertyEvaluator
+{
+    public string Key => "power-of-two/deterministic";
+
+    public string Version => "1";
+
+    public IEnumerable<PropertyEvaluation> Evaluate(IntegerValue minimum, IntegerValue maximum)
+    {
+        if (maximum.Value < 1)
+        {
+            yield break;
+        }
+
+        var value = BigInteger.One;
+        for (var exponent = 0; value <= maximum.Value; exponent++, value *= 2)
+        {
+            if (value < minimum.Value)
+            {
+                continue;
+            }
+
+            var valueText = value.ToString(CultureInfo.InvariantCulture);
+            var payload = JsonSerializer.Serialize(new
+            {
+                @base = "2",
+                exponent,
+                result = valueText,
+            });
+            yield return new PropertyEvaluation(
+                IntegerValue.From(value),
+                "{}",
+                new EvidenceWitness("power_identity", 1, payload, $"2^{exponent} = {valueText}"));
+        }
+    }
+}
+
 public sealed class TwinPrimeEvaluator : IPropertyEvaluator
 {
     public string Key => "twin-prime/deterministic";

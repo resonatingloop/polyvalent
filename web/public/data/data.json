@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1",
-  "releaseId": "reference-v4",
+  "releaseId": "reference-v5",
   "generatedAtUtc": "2026-10-19T00:00:00.0000000\u002B00:00",
   "properties": [
     {
@@ -169,6 +169,31 @@
       ]
     },
     {
+      "slug": "power-of-two",
+      "name": "power of two",
+      "definition": "a positive integer equal to 2 raised to a nonnegative integer power.",
+      "aliases": [
+        "power of 2"
+      ],
+      "graphMode": "shared-membership",
+      "coverage": [
+        {
+          "minimum": "1",
+          "maximum": "2000",
+          "basis": "deterministic",
+          "exclusions": []
+        }
+      ],
+      "citations": [
+        {
+          "label": "OEIS A000079",
+          "locator": null,
+          "role": "sequence",
+          "url": "https://oeis.org/A000079"
+        }
+      ]
+    },
+    {
       "slug": "prime",
       "name": "prime",
       "definition": "a positive integer greater than one with exactly two positive divisors.",
@@ -297,6 +322,16 @@
           "citations": []
         },
         {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^0 = 1"
+          },
+          "citations": []
+        },
+        {
           "propertySlug": "triangular-number",
           "qualifier": {},
           "witness": {
@@ -339,6 +374,16 @@
             "kind": "sequence_indices",
             "schemaVersion": 1,
             "displayText": "f(3) = 2"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^1 = 2"
           },
           "citations": []
         },
@@ -440,6 +485,16 @@
         },
         {
           "propertySlug": "perfect-square",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^2 = 4"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
           "qualifier": {},
           "witness": {
             "kind": "power_identity",
@@ -628,6 +683,16 @@
             "displayText": "2^3 = 8"
           },
           "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^3 = 8"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -778,6 +843,16 @@
             "kind": "power_identity",
             "schemaVersion": 1,
             "displayText": "4^2 = 16"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^4 = 16"
           },
           "citations": []
         }
@@ -1001,6 +1076,22 @@
             "kind": "prime_partners",
             "schemaVersion": 1,
             "displayText": "twin with 29"
+          },
+          "citations": []
+        }
+      ],
+      "profileEntries": []
+    },
+    {
+      "value": "32",
+      "claims": [
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^5 = 32"
           },
           "citations": []
         }
@@ -1317,6 +1408,16 @@
             "kind": "power_identity",
             "schemaVersion": 1,
             "displayText": "8^2 = 64"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^6 = 64"
           },
           "citations": []
         }
@@ -2011,6 +2112,16 @@
               "url": "https://oeis.org/A036057"
             }
           ]
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^7 = 128"
+          },
+          "citations": []
         }
       ],
       "profileEntries": []
@@ -3079,6 +3190,16 @@
             "kind": "power_identity",
             "schemaVersion": 1,
             "displayText": "16^2 = 256"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^8 = 256"
           },
           "citations": []
         }
@@ -4630,6 +4751,16 @@
             "kind": "power_identity",
             "schemaVersion": 1,
             "displayText": "8^3 = 512"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^9 = 512"
           },
           "citations": []
         }
@@ -7171,6 +7302,16 @@
             "kind": "power_identity",
             "schemaVersion": 1,
             "displayText": "32^2 = 1024"
+          },
+          "citations": []
+        },
+        {
+          "propertySlug": "power-of-two",
+          "qualifier": {},
+          "witness": {
+            "kind": "power_identity",
+            "schemaVersion": 1,
+            "displayText": "2^10 = 1024"
           },
           "citations": []
         }

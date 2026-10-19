@@ -102,20 +102,28 @@ public sealed class PublicReleaseTests
         var properties = data.RootElement.GetProperty("properties").EnumerateArray().ToArray();
         var integers = data.RootElement.GetProperty("integers").EnumerateArray().ToArray();
         var prime = properties.Single(item => item.GetProperty("slug").GetString() == PropertySlugs.Prime);
+        var powerOfTwo = properties.Single(item => item.GetProperty("slug").GetString() == PropertySlugs.PowerOfTwo);
         var twinPrime = properties.Single(item => item.GetProperty("slug").GetString() == PropertySlugs.TwinPrime);
         var oneThirtySeven = integers.Single(item => item.GetProperty("value").GetString() == "137");
         var threeFortyThree = integers.Single(item => item.GetProperty("value").GetString() == "343");
+        var oneThousandTwentyFour = integers.Single(item => item.GetProperty("value").GetString() == "1024");
         var twinClaim = Claim(oneThirtySeven, PropertySlugs.TwinPrime);
         var cubeClaim = Claim(threeFortyThree, PropertySlugs.PerfectCube);
+        var powerClaim = Claim(oneThousandTwentyFour, PropertySlugs.PowerOfTwo);
 
-        Assert.Equal(9, properties.Length);
+        Assert.Equal(10, properties.Length);
         Assert.Equal("shared-membership", prime.GetProperty("graphMode").GetString());
+        Assert.Equal("shared-membership", powerOfTwo.GetProperty("graphMode").GetString());
         Assert.Equal(
             PropertySlugs.Prime,
             Claim(oneThirtySeven, PropertySlugs.Prime).GetProperty("propertySlug").GetString());
         Assert.Equal("139", twinClaim.GetProperty("qualifier").GetProperty("higherTwin").GetString());
         Assert.Equal("twin with 139", twinClaim.GetProperty("witness").GetProperty("displayText").GetString());
         Assert.Equal("7^3 = 343", cubeClaim.GetProperty("witness").GetProperty("displayText").GetString());
+        Assert.Equal("2^10 = 1024", powerClaim.GetProperty("witness").GetProperty("displayText").GetString());
+        Assert.Contains(
+            powerOfTwo.GetProperty("citations").EnumerateArray(),
+            citation => citation.GetProperty("url").GetString() == "https://oeis.org/A000079");
         Assert.Contains(
             twinPrime.GetProperty("citations").EnumerateArray(),
             citation => citation.GetProperty("url").GetString() == "https://oeis.org/A001097");
@@ -135,9 +143,9 @@ public sealed class PublicReleaseTests
         using var data = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(output, "data.json")));
         var integers = data.RootElement.GetProperty("integers").EnumerateArray().ToArray();
 
-        Assert.Equal(9, result.PropertyCount);
-        Assert.Equal(528, result.IntegerCount);
-        Assert.Equal(717, result.ClaimCount);
+        Assert.Equal(10, result.PropertyCount);
+        Assert.Equal(529, result.IntegerCount);
+        Assert.Equal(728, result.ClaimCount);
         Assert.Equal(20, result.ProfileEntryCount);
 
         AssertProfile(integers, "137", "fine-structure-near-integer", 1);
