@@ -1,7 +1,7 @@
 # development and recovery
 
 > **continuity role:** operational runbook
-> **status:** current for the accepted first slice, pages delivery, and seed-v5 enrichment
+> **status:** current for the first slice, pages delivery, seed-v5, and suggestion inbox
 > **last verified:** 2026-10-19
 > **owns:** setup, local data, seed, launch, publication preview, validation, and recovery
 > **update when:** any command, path, prerequisite, migration, or recovery step changes
@@ -143,6 +143,19 @@ the development server prints its local address. useful routes are:
 - `/property/power-of-two` for all eleven locally computed members and the
   oeis a000079 property citation.
 
+the home page also renders the numerical-gossip tip line. it is intentionally
+dormant in an unconfigured checkout. to exercise its configured appearance
+without an `.env` file, use a real owner-created formspree form id only in the
+process environment:
+
+```text
+VITE_PUBLIC_SUGGESTION_FORM_ID=<form-id> npm --prefix web run dev
+```
+
+the form id is public configuration, not a secret. do not substitute a full
+url, recipient address, api key, or formspree deploy key. local automated tests
+inject a fake request function and never contact the provider.
+
 the production build is written to ignored `web/dist/`:
 
 ```text
@@ -178,12 +191,34 @@ the action uses no repository secret and never runs `Polyvalent.Publisher`.
 github's reported base path keeps assets, release fetches, links, and client
 routing valid both at `/polyvalent/` and at a later configured custom domain.
 
+### activate the suggestion inbox
+
+activation crosses an external provider and remains owner-operated:
+
+1. create one form in the formspree dashboard and verify the intended recipient;
+2. retain default spam and recaptcha behavior, restrict the project to
+   `resonatrix.tech`, review submission retention, and leave uploads, webhooks,
+   autoresponses, integrations, and api access disabled;
+3. copy only the public form id from the endpoint—not the full url;
+4. under repository settings → secrets and variables → actions → variables,
+   create `PUBLIC_SUGGESTION_FORM_ID` with that id;
+5. review the workflow build and authorize a later push or manual deployment;
+6. after deployment, submit one clearly labeled canary and confirm both the
+   page's relay-accepted state and delivery to the intended inbox.
+
+neither local checks nor a successful pages deployment proves provider settings
+or inbox delivery. do not send a canary without explicit authorization. to
+disable dispatch immediately, remove or blank the repository variable and
+redeploy; separately disable or delete the form in formspree when provider-side
+closure is required.
+
 deployment is proven only by a successful github actions run followed by direct
-browser checks of `/`, `/integer/153`, and
-`/property/decimal-friedman-number`. local builds do not prove repository
-settings, pages availability, tls, or the live route fallback. rollback means a
-fresh pages deployment from a reviewed commit containing the desired immutable
-public artifact; it never edits the canonical ledger or a sealed release.
+browser checks of `/`, `/integer/153`, `/property/decimal-friedman-number`, and
+the configured or truthfully dormant tip line. local builds do not prove
+repository settings, pages availability, tls, the live route fallback,
+formspree acceptance, or inbox arrival. rollback means a fresh pages deployment
+from a reviewed commit containing the desired immutable public artifact; it
+never edits the canonical ledger or a sealed release.
 
 ## generate a publication preview
 

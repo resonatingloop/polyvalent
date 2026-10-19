@@ -55,7 +55,13 @@ jobs:
         working-directory: web
 
       - name: build for the configured pages path
+        env:
+          VITE_PUBLIC_SUGGESTION_FORM_ID: ${{ vars.PUBLIC_SUGGESTION_FORM_ID }}
         run: npm run build -- --base "${{ steps.pages.outputs.base_path }}/"
+        working-directory: web
+
+      - name: inspect the built public boundary
+        run: npm run check:dist-boundary
         working-directory: web
 
       - name: add the history-route fallback

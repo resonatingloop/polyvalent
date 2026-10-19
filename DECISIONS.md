@@ -724,3 +724,58 @@ evidence:
 - oeis a000040, a000045, and a000079 source review;
 - evaluator, evidence-contract, seed, publication, artifact, and full
   repository checks.
+
+## d-018 — the tip line is a fixed outbound correspondence seam
+
+- date: 2026-10-19
+- status: accepted
+- supersedes: none
+- related spec: `specs/002-public-suggestion-inbox.md`
+
+context:
+
+github pages cannot deliver email on its own. a useful public submission box
+therefore needs either a mail-client handoff, a new polyvalent backend, or a
+bounded external form relay. the existing contracts require suggestions to
+stop at human review and prohibit any automatic path into canonical research.
+
+decision:
+
+use one formspree form-id endpoint as the public site's sole outbound
+correspondence path. inject only the non-secret form id at build time, validate
+it against a narrow grammar, construct the fixed formspree host in code, and
+render the form dormant when configuration is absent or malformed. the
+recipient address stays outside the repository and built artifact.
+
+the provider post is not a corpus or publication write. submitted text remains
+untrusted correspondence; it can become research only through a later private
+human action.
+
+alternatives considered:
+
+- a `mailto:` form: rejected because it delegates delivery to an inconsistently
+  configured local mail client and cannot report relay acceptance honestly;
+- an address-bearing no-account relay: rejected because it exposes the inbox in
+  public markup and weakens provider ownership and rollback;
+- a custom api or serverless function: rejected because the expected volume
+  does not justify a new secret-bearing backend and operations surface;
+- direct ingestion or a moderation dashboard: already rejected by `d-005`.
+
+consequences:
+
+- formspree may retain submission fields under the owner account's settings;
+  the public interface discloses this beside the form;
+- domain restriction, spam configuration, recipient verification, live email
+  arrival, and provider shutdown remain separately observable owner operations;
+- automated proof uses an injected transport and never contacts the provider;
+- removing the github repository variable and redeploying disables browser
+  dispatch without changing the corpus; disabling the provider form remains a
+  separate rollback step.
+
+evidence:
+
+- owner acceptance of `specs/002-public-suggestion-inbox.md` on 2026-10-19;
+- formspree documentation review for form-id endpoints, ajax delivery,
+  honeypots, domain restriction, storage, and account limits;
+- component, validation, fixed-endpoint, workflow-boundary, built-artifact,
+  and responsive render proof.

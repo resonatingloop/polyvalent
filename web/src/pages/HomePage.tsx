@@ -1,5 +1,6 @@
 import { Link } from "../router";
 import { SearchForm } from "../SearchForm";
+import { SuggestionBox } from "../SuggestionBox";
 import type { CorpusIndex } from "../types";
 
 export function HomePage({ index }: { index: CorpusIndex }) {
@@ -63,6 +64,8 @@ export function HomePage({ index }: { index: CorpusIndex }) {
           </p>
         </div>
       </section>
+
+      <SuggestionBox />
     </main>
   );
 }

@@ -1,7 +1,7 @@
 # architecture
 
 > **continuity role:** implemented representation map
-> **status:** current for the accepted first slice, pages delivery, and seed-v5 enrichment
+> **status:** current for the first slice, pages delivery, seed-v5, and suggestion inbox
 > **last verified:** 2026-10-19
 > **owns:** dependency direction, data boundaries, lifecycle, and publication seam
 > **update when:** a layer, durable representation, or trust boundary changes
@@ -27,8 +27,8 @@ desktop   publisher  │
              │        │
              ▼        │
        react web ─────┘ meaning only; no code reference
-             │
-             ▼
+         │         └── bounded suggestion -> formspree -> owner inbox
+         ▼
       pages artifact
              │
              ▼
@@ -36,8 +36,10 @@ desktop   publisher  │
 ```
 
 the horizontal meaning-only arrow is conceptual: the web application has types
-for the public wire format but no .net reference. its only runtime input is
-`data/manifest.json` plus `data/data.json` beneath the active deployment base.
+for the public wire format but no .net reference. its only research-data input
+is `data/manifest.json` plus `data/data.json` beneath the active deployment
+base. the suggestion path is outbound untrusted correspondence and cannot feed
+the artifact or ledger.
 
 ## project responsibilities
 
@@ -48,8 +50,8 @@ for the public wire format but no .net reference. its only runtime input is
 | `Polyvalent.Data` | migrations, repositories, population ledger, sources, coverage, staging, and public projection | desktop controls or web rendering |
 | `Polyvalent.Desktop` | private rolodex interaction over application services | graph spectacle, public artifact generation, deployment |
 | `Polyvalent.Publisher` | explicit command boundary for initialization, seed, and release generation | network access or deployment |
-| `web` | static public search, profiles, property dossiers, relation derivation, and accessible svg | sqlite, private api, authoring, mathematical evaluation |
-| pages workflow | checked static build and github pages delivery | publisher execution, database access, repository secrets, or non-web artifact upload |
+| `web` | static public search, profiles, property dossiers, relation derivation, accessible svg, and bounded suggestion correspondence | sqlite, private api, corpus authoring, mathematical evaluation, or automatic ingestion |
+| pages workflow | checked static build, public form-id injection, and github pages delivery | publisher execution, database access, repository secrets, recipient addresses, or non-web artifact upload |
 
 the dependency graph is intentionally one-way. another resonance repository is
 neither a package dependency nor a runtime data source.
@@ -181,6 +183,30 @@ deploy only the static artifact produced by the successful build job. this
 keeps release generation, tracked-artifact review, repository push, and live
 deployment as separately observable transitions.
 
+the build job may receive exactly one repository variable:
+`PUBLIC_SUGGESTION_FORM_ID`. vite exposes it as
+`VITE_PUBLIC_SUGGESTION_FORM_ID`; the browser accepts only a narrow lowercase
+ascii form id and constructs `https://formspree.io/f/{id}`. it cannot configure
+another protocol, host, path, credential, or recipient. without a valid id the
+form remains visible but disabled. the built-output scan excludes the recipient
+address and private runtime tokens.
+
+## suggestion correspondence boundary
+
+the home-page tip line accepts a bounded kind, optional canonical integer,
+plain-text proposal, optional http(s) source url, optional byline and reply
+address, and distinct public-credit consent. values are trimmed and validated
+locally; source urls are never fetched or previewed. a honeypot and the
+provider's spam controls reduce abuse without being treated as authorization.
+
+one asynchronous post may leave the static application for the fixed formspree
+endpoint. success means only that the relay accepted the request. the page does
+not render, persist, cache, log, or add submitted values to a url, and neither
+the web dependency graph nor the provider has a path to sqlite, publication
+staging, or a sealed release. formspree transit and retention are disclosed
+beside the form. email arrival and provider configuration require separate live
+proof.
+
 ## public relation derivation
 
 the public artifact stores memberships, never pairwise social edges. the web
@@ -225,9 +251,11 @@ not change the selected integer because selection lives in the view model.
 
 the database path resolver accepts an explicit database, an explicit data
 directory, `POLYVALENT_DATA_DIR`, or the platform-local application-data
-directory in that order. neither executable reads `.env`. this slice introduces
-no application secret. the pages workflow uses only github's job-scoped token
-with per-job least privilege; no provider client enters either application.
+directory in that order. neither executable reads `.env`. the suggestion form
+id is public configuration rather than a credential; the recipient address and
+provider account remain outside the bundle. the pages workflow uses only
+github's job-scoped token with per-job least privilege and introduces no
+repository secret or provider api client.
 
 the local database is permission-restricted on unix but is not encrypted at the
 application layer. the operating-system account and publication firewall are
@@ -236,6 +264,6 @@ therefore part of the privacy model.
 ## deferred boundaries
 
 the following require later accepted slices rather than opportunistic schema or
-ui growth: public suggestion delivery, session-held integers, thematic lenses,
-private constellations, arbitrary property-definition authoring, custom-domain
-operation, analytics, and encrypted local storage.
+ui growth: session-held integers, thematic lenses, private constellations,
+arbitrary property-definition authoring, analytics, and encrypted local
+storage.

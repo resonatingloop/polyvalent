@@ -27,6 +27,12 @@ for (const [, action, reference] of actionReferences) {
   }
 }
 
+const repositoryVariables = [...workflow.matchAll(/\$\{\{\s*vars\.([A-Z0-9_]+)\s*\}\}/g)]
+  .map((match) => match[1]);
+if (JSON.stringify(repositoryVariables) !== JSON.stringify(["PUBLIC_SUGGESTION_FORM_ID"])) {
+  throw new Error(`unexpected github repository variables: ${repositoryVariables.join(", ")}`);
+}
+
 const buildJob = job("build");
 const deployJob = job("deploy");
 
@@ -41,6 +47,8 @@ requireText(buildJob, "node ./scripts/check-pages-workflow.mjs");
 requireText(buildJob, "npm run check:artifact");
 requireText(buildJob, "npm run check:boundary");
 requireText(buildJob, "steps.pages.outputs.base_path");
+requireText(buildJob, "VITE_PUBLIC_SUGGESTION_FORM_ID: ${{ vars.PUBLIC_SUGGESTION_FORM_ID }}");
+requireText(buildJob, "npm run check:dist-boundary");
 requireText(buildJob, "cp dist/index.html dist/404.html");
 requireText(buildJob, "path: web/dist");
 requireText(workflow, "- scripts/check-pages-workflow.mjs");

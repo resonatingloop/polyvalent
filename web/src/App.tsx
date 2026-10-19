@@ -4,7 +4,7 @@ import { IntegerPage } from "./pages/IntegerPage";
 import { NotFound, PropertyPage } from "./pages/PropertyPage";
 import { openRelease } from "./release";
 import { indexCorpus } from "./relations";
-import { Link, useRoute } from "./router";
+import { fragmentTarget, Link, useRoute } from "./router";
 import type { PublicCorpus, PublicManifest } from "./types";
 
 interface LoadedData {
@@ -37,6 +37,20 @@ export function App() {
     return () => { active = false; };
   }, []);
 
+  useEffect(() => {
+    if (!loaded) return;
+    const target = fragmentTarget(window.location.hash);
+    if (!target) return;
+    const frame = window.requestAnimationFrame(() => {
+      const element = document.getElementById(target);
+      if (!element) return;
+      document.documentElement.classList.add("is-restoring-fragment");
+      element.scrollIntoView({ behavior: "auto", block: "start" });
+      window.requestAnimationFrame(() => document.documentElement.classList.remove("is-restoring-fragment"));
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [loaded, route.path]);
+
   const index = useMemo(() => loaded ? indexCorpus(loaded.corpus) : null, [loaded]);
 
   if (error) {
@@ -62,9 +76,10 @@ export function App() {
       </header>
       {page}
       <footer className="site-footer">
-        <span>read-only public release</span>
-        <span>{loaded.manifest.releaseId} · schema {loaded.manifest.schemaVersion}</span>
-        <span title={loaded.manifest.dataSha256}>digest {loaded.manifest.dataSha256.slice(0, 12)}…</span>
+        <span className="footer-release">read-only public release</span>
+        <a className="footer-tip-link" href={`${import.meta.env.BASE_URL}#tip-line`}>submit numerical gossip ↘</a>
+        <span className="footer-version">{loaded.manifest.releaseId} · schema {loaded.manifest.schemaVersion}</span>
+        <span className="footer-digest" title={loaded.manifest.dataSha256}>digest {loaded.manifest.dataSha256.slice(0, 12)}…</span>
       </footer>
     </>
   );

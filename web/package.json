@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "check:artifact": "node scripts/check-public-artifact.mjs",
     "check:boundary": "node scripts/check-public-boundary.mjs",
-    "check": "npm run typecheck && npm run test && npm run check:artifact && npm run check:boundary && npm run build"
+    "check:dist-boundary": "node scripts/check-built-boundary.mjs",
+    "check": "npm run typecheck && npm run test && npm run check:artifact && npm run check:boundary && npm run build && npm run check:dist-boundary"
   },
   "dependencies": {
     "react": "19.3.0",

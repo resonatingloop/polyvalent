@@ -1,7 +1,7 @@
 # polyvalent
 
 > **continuity role:** operational front door
-> **status:** reference-v4 live; reference-v5 sequence enrichment implemented locally
+> **status:** reference-v5 live; suggestion inbox configured for a later reviewed deployment
 > **last verified:** 2026-10-19
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
@@ -16,10 +16,12 @@ different surfaces:
   profiles, property dossiers, complete explained relation lists, and a bounded
   bipartite graph.
 
-the public runtime has no database, backend, administrative route, or write
-path. private changes do nothing publicly until the owner runs the publisher;
-generation still does not deploy anything. github pages delivery is a separate,
-checked repository action over the committed public release.
+the public runtime has no database, polyvalent backend, administrative route,
+or corpus-write path. private changes do nothing publicly until the owner runs
+the publisher; generation still does not deploy anything. github pages delivery
+is a separate, checked repository action over the committed public release. an
+optional formspree tip line is the sole outbound correspondence path and never
+touches publication or canonical state.
 
 ## quickest successful use
 
@@ -48,7 +50,8 @@ npm --prefix web run dev
 
 then visit `http://localhost:5173`, `/integer/153`, `/integer/343`, or
 `/integer/137`. the sequence starter pack is visible at `/integer/1024` and
-`/property/power-of-two`.
+`/property/power-of-two`. the home-page tip line deliberately renders dormant
+without a configured formspree form id.
 
 to create a private development ledger and open the rolodex:
 
@@ -86,8 +89,8 @@ private sqlite ledger
                                       │
                                       ▼
                            static react/vite site
-                                      │
-                                      ▼
+                              │               └── suggestion -> formspree -> inbox
+                              ▼
                          checked github pages artifact
 ```
 
@@ -151,17 +154,23 @@ sidecars, migration backups, preview releases, node modules, and compiled
 output are ignored as defense in depth. the reviewed deterministic artifact
 under `web/public/data/` is the only tracked release.
 
+the public suggestion endpoint is configured only through the non-secret
+build-time form id `VITE_PUBLIC_SUGGESTION_FORM_ID`; github pages maps it from
+the repository variable `PUBLIC_SUGGESTION_FORM_ID`. absent or malformed values
+leave the plate visibly dormant and make no request.
+
 ## public deployment
 
-the currently deployed reference-v4 site is
+the currently deployed reference-v5 site is
 [`https://resonatrix.tech/polyvalent/`](https://resonatrix.tech/polyvalent/).
-the tracked reference-v5 artifact in this checkout is not live until a later
-reviewed commit and deployment.
 
 [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) deploys the public site
 to github pages after relevant pushes to `main`, and also supports explicit
 manual dispatch. it checks the private git boundary and public release seam,
-builds for the pages-provided base path, and uploads only `web/dist`.
+builds for the pages-provided base path, scans the built boundary, and uploads
+only `web/dist`. the public form id is configured as a repository variable, but
+the currently live site remains unchanged until a reviewed commit and later
+authorized deployment.
 
 the repository owner must select **github actions** once under settings → pages
 before the first run can deploy. no private database, untracked publisher
@@ -182,14 +191,14 @@ operator path and rollback boundary.
 | `CONTRACTS.md` | normative | current | epistemic, privacy, and publication invariants |
 | `DECISIONS.md` | historical | append-only | accepted choices and their consequences |
 | `specs/001-first-slice.md` | planning | accepted | active first-slice scope and acceptance criteria |
+| `specs/002-public-suggestion-inbox.md` | planning | accepted | public suggestion-to-inbox transition and activation boundary |
 
 when documents disagree, identify which document owns the disputed fact rather
 than applying filename precedence.
 
 ## intentionally absent
 
-- a custom domain, analytics, and production monitoring;
-- the public suggestion form and email delivery;
+- analytics and production monitoring;
 - session-held integers and encounter pings;
 - public thematic lenses;
 - private constellations and arbitrary new property definitions;

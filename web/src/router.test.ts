@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fromBrowserPath, toBrowserPath } from "./router";
+import { fragmentTarget, fromBrowserPath, toBrowserPath } from "./router";
 
 describe("deployment base routing", () => {
   it("keeps root-hosted development paths unchanged", () => {
@@ -21,5 +21,12 @@ describe("deployment base routing", () => {
 
   it("does not disguise a path outside the configured mount", () => {
     expect(fromBrowserPath("/integer/153", "/polyvalent/")).toBe("/integer/153");
+  });
+
+  it("decodes a bounded fragment target after the asynchronous release opens", () => {
+    expect(fragmentTarget("#tip-line")).toBe("tip-line");
+    expect(fragmentTarget("#numerical%20gossip")).toBe("numerical gossip");
+    expect(fragmentTarget("")).toBeNull();
+    expect(fragmentTarget("#%zz")).toBeNull();
   });
 });

@@ -4,6 +4,15 @@ export interface Route {
   path: string;
 }
 
+export function fragmentTarget(hash: string): string | null {
+  if (!hash.startsWith("#") || hash.length === 1) return null;
+  try {
+    return decodeURIComponent(hash.slice(1));
+  } catch {
+    return null;
+  }
+}
+
 export function useRoute(): Route {
   const [path, setPath] = useState(() => fromBrowserPath(window.location.pathname));
   useEffect(() => {
