@@ -142,7 +142,7 @@ web/
   public/data/
 
 data/
-  seed/v1/
+  source-extracts/schema-v1/
 
 docs/
   architecture.md
@@ -496,7 +496,7 @@ immutable release. deployment mechanics remain outside this slice.
 - ordered sql migrations and repository implementations under
   `src/polyvalent.data/`;
 - seed manifests, property contracts, and attributed bounded source data under
-  `data/seed/v1/`;
+  `data/source-extracts/schema-v1/`;
 - avalonia views, view models, and theme resources under
   `src/polyvalent.desktop/`;
 - publisher commands and public dto/schema definitions under
@@ -581,7 +581,7 @@ dotnet build -c release
 dotnet test -c release
 npm --prefix web ci
 npm --prefix web run check
-python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --review-claims
+python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --require SCHEMA.md --review-claims
 git diff --check
 direct review of the complete diff and generated public artifact
 ```

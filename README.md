@@ -186,12 +186,14 @@ operator path and rollback boundary.
 | `STATUS.md` | operational | current | verified checkpoint and next useful action |
 | `docs/development.md` | operational | current | setup, commands, local data, and recovery |
 | `docs/architecture.md` | explanatory | current | implemented boundaries and representation map |
+| `SCHEMA.md` | explanatory | current | private sqlite tables, relationships, guards, and version axes |
 | `AGENTS.md` | behavioral | current | agent authorization and completion protocol |
 | `PROJECT_BRIEF.md` | durable intent | current | purpose, audience, scope, and non-goals |
 | `CONTRACTS.md` | normative | current | epistemic, privacy, and publication invariants |
 | `DECISIONS.md` | historical | append-only | accepted choices and their consequences |
 | `specs/001-first-slice.md` | planning | accepted | active first-slice scope and acceptance criteria |
 | `specs/002-public-suggestion-inbox.md` | planning | accepted | public suggestion-to-inbox transition and activation boundary |
+| `specs/003-network-ignition.md` | planning | draft | proposed seven-property `seed-v6` and `reference-v6` transition |
 
 when documents disagree, identify which document owns the disputed fact rather
 than applying filename precedence.

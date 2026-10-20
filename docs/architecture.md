@@ -80,6 +80,9 @@ into a tag table:
 5. revisioned profile entries for sourced lore that makes no graph edge;
 6. mutable publication staging and immutable sealed release records.
 
+[`../SCHEMA.md`](../SCHEMA.md) is the compact table-and-relationship map. the
+ordered sql migrations remain the executable schema authority.
+
 accepted revisions, source captures, terminal runs, comparison results,
 coverage claims, and sealed releases are protected by sqlite triggers. a
 correction becomes a new revision with `supersedes_revision_id`; staging the new

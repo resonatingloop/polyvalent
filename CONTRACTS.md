@@ -133,7 +133,7 @@ restore procedure.
 
 ```text
 ./scripts/check.sh
-python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --review-claims
+python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --require SCHEMA.md --review-claims
 ```
 
 rendered browser and native desktop review is required in addition to automated

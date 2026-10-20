@@ -46,7 +46,7 @@ the documentation continuity check is separate because it belongs to the local
 codex skill installation:
 
 ```text
-python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --review-claims
+python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --require SCHEMA.md --review-claims
 ```
 
 ## database configuration
@@ -297,8 +297,8 @@ reviewed commit containing that release through the same workflow.
 
 ## source and seed maintenance
 
-tracked bounded extracts live in `data/seed/v1/`; attribution lives in
-`THIRD_PARTY_NOTICES.md`. changing an extract, witness, property contract,
+tracked bounded extracts live in `data/source-extracts/schema-v1/`; attribution
+lives in `THIRD_PARTY_NOTICES.md`. changing an extract, witness, property contract,
 evaluator version, or expected count is a data/provenance change. it requires a
 new accepted slice or explicit bounded authorization, focused mathematical and
 comparison tests, regenerated reference bytes, and documentation reconciliation.

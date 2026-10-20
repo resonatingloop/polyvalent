@@ -9,12 +9,14 @@ acting.
 2. `STATUS.md` for the last verified checkpoint.
 3. `docs/development.md` before running, migrating, publishing, or recovering.
 4. `docs/architecture.md` before changing a layer or trust boundary.
-5. `CONTRACTS.md` before changing domain behavior, persisted state, publication,
+5. `SCHEMA.md` before changing persisted relationships, migrations, or the
+   distinct schema, corpus, extract, and release version axes.
+6. `CONTRACTS.md` before changing domain behavior, persisted state, publication,
    submissions, or privacy boundaries.
-6. the active spec under `specs/` when one exists, observing its exact status;
+7. the active spec under `specs/` when one exists, observing its exact status;
    a draft is context, not implementation authorization.
-7. `PROJECT_BRIEF.md` for generative or scope-changing work.
-8. `DECISIONS.md` when a choice may already have accepted rationale.
+8. `PROJECT_BRIEF.md` for generative or scope-changing work.
+9. `DECISIONS.md` when a choice may already have accepted rationale.
 
 if documents disagree, identify which document owns the disputed fact. do not
 infer authority from the filename alone. surface unresolved conflicts before
@@ -64,7 +66,7 @@ run the project-owned complete local check:
 then run the documentation continuity check:
 
 ```text
-python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --review-claims
+python3 ~/.codex/skills/manage-project-docs/scripts/check_docset.py . --require PROJECT_BRIEF.md --require CONTRACTS.md --require DECISIONS.md --require SCHEMA.md --review-claims
 ```
 
 the full check owns the private git boundary, .net restore/build/format/tests,

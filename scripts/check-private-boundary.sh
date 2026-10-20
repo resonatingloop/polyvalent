@@ -53,7 +53,7 @@ for path in "${expected_ignored[@]}"; do
 done
 
 expected_trackable=(
-  "data/seed/v1/friedman.json"
+  "data/source-extracts/schema-v1/friedman.json"
   "web/public/data/data.json"
   "web/public/data/manifest.json"
 )
