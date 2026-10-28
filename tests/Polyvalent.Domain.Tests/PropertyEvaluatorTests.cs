@@ -15,6 +15,12 @@ public sealed class PropertyEvaluatorTests
         { new TwinPrimeEvaluator(), 121 },
         { new DecimalPalindromeEvaluator(), 118 },
         { new DecimalNarcissisticEvaluator(), 14 },
+        { new CarmichaelEvaluator(), 3 },
+        { new Base2FermatPseudoprimeEvaluator(), 7 },
+        { new AmicableEvaluator(), 4 },
+        { new SylvesterSequenceEvaluator(), 5 },
+        { new PrimaryPseudoperfectEvaluator(), 4 },
+        { new TwoWayTaxicabEvaluator(), 1 },
     };
 
     [Theory]
@@ -140,5 +146,129 @@ public sealed class PropertyEvaluatorTests
                 IntegerValue.Parse("137"),
                 "{\"higherTwin\":\"149\"}",
                 witness));
+    }
+
+    [Fact]
+    public void Network_ignition_populations_match_the_bounded_reference_sets()
+    {
+        var cases = new (IPropertyEvaluator Evaluator, string[] Expected)[]
+        {
+            (new CarmichaelEvaluator(), ["561", "1105", "1729"]),
+            (new Base2FermatPseudoprimeEvaluator(), ["341", "561", "645", "1105", "1387", "1729", "1905"]),
+            (new AmicableEvaluator(), ["220", "284", "1184", "1210"]),
+            (new SylvesterSequenceEvaluator(), ["2", "3", "7", "43", "1807"]),
+            (new PrimaryPseudoperfectEvaluator(), ["2", "6", "42", "1806"]),
+            (new TwoWayTaxicabEvaluator(), ["1729"]),
+        };
+
+        foreach (var item in cases)
+        {
+            var actual = item.Evaluator
+                .Evaluate(IntegerValue.Parse("1"), IntegerValue.Parse("2000"))
+                .Select(result => result.Integer.ToString())
+                .ToArray();
+
+            Assert.Equal(item.Expected, actual);
+        }
+    }
+
+    [Fact]
+    public void Network_ignition_witnesses_are_exact_and_contract_valid()
+    {
+        var cases = new (IPropertyEvaluator Evaluator, string Slug, string Integer, string Evidence)[]
+        {
+            (new CarmichaelEvaluator(), PropertySlugs.Carmichael, "561", "561 = 3 × 11 × 17"),
+            (new Base2FermatPseudoprimeEvaluator(), PropertySlugs.Base2FermatPseudoprime, "341", "2^340 ≡ 1 (mod 341)"),
+            (new AmicableEvaluator(), PropertySlugs.Amicable, "220", "s(220) = 284; s(284) = 220"),
+            (new SylvesterSequenceEvaluator(), PropertySlugs.SylvesterSequenceMember, "1807", "a(4) = 1807"),
+            (new PrimaryPseudoperfectEvaluator(), PropertySlugs.PrimaryPseudoperfect, "1806", "1/1806 + 1/2 + 1/3 + 1/7 + 1/43 = 1"),
+            (new TwoWayTaxicabEvaluator(), PropertySlugs.TwoWayTaxicab, "1729", "1^3 + 12^3 = 9^3 + 10^3 = 1729"),
+        };
+
+        foreach (var item in cases)
+        {
+            var integer = IntegerValue.Parse(item.Integer);
+            var evaluation = item.Evaluator.Evaluate(integer, integer).Single();
+
+            Assert.Contains(item.Evidence, evaluation.Witness!.DisplayText, StringComparison.Ordinal);
+            EvidenceContractValidator.Validate(
+                InitialPropertyCatalog.Get(item.Slug),
+                integer,
+                evaluation.QualifierJson,
+                evaluation.Witness);
+        }
+
+        var heegnerWitness = new EvidenceWitness(
+            "source_sequence_term",
+            1,
+            "{\"accession\":\"A003173\",\"sourceIndex\":9,\"value\":\"163\"}",
+            "OEIS A003173 term 9 = 163");
+        EvidenceContractValidator.Validate(
+            InitialPropertyCatalog.Get(PropertySlugs.Heegner),
+            IntegerValue.Parse("163"),
+            "{}",
+            heegnerWitness);
+    }
+
+    [Fact]
+    public void Network_ignition_contracts_reject_inconsistent_evidence()
+    {
+        AssertRejected(
+            PropertySlugs.Carmichael,
+            "561",
+            "{}",
+            "korselt_certificate",
+            "{\"factors\":[\"3\",\"11\"],\"checks\":[],\"result\":\"561\"}");
+        AssertRejected(
+            PropertySlugs.Base2FermatPseudoprime,
+            "341",
+            "{}",
+            "modular_congruence",
+            "{\"base\":\"2\",\"exponent\":\"340\",\"modulus\":\"341\",\"remainder\":\"0\",\"factors\":[{\"prime\":\"11\",\"exponent\":1},{\"prime\":\"31\",\"exponent\":1}]}");
+        AssertRejected(
+            PropertySlugs.Amicable,
+            "220",
+            "{\"partner\":\"1184\"}",
+            "amicable_pair",
+            "{\"partner\":\"1184\",\"sumOfProperDivisors\":\"1184\",\"partnerSumOfProperDivisors\":\"220\"}");
+        AssertRejected(
+            PropertySlugs.SylvesterSequenceMember,
+            "1807",
+            "{}",
+            "recurrence_term",
+            "{\"index\":3,\"previous\":\"43\",\"result\":\"1807\",\"expression\":\"43^2 - 43 + 1 = 1807\"}");
+        AssertRejected(
+            PropertySlugs.PrimaryPseudoperfect,
+            "42",
+            "{}",
+            "reciprocal_identity",
+            "{\"primeDivisors\":[\"2\",\"3\",\"7\"],\"terms\":[{\"numerator\":\"1\",\"denominator\":\"42\"},{\"numerator\":\"1\",\"denominator\":\"2\"},{\"numerator\":\"1\",\"denominator\":\"3\"},{\"numerator\":\"1\",\"denominator\":\"6\"}],\"result\":\"1\"}");
+        AssertRejected(
+            PropertySlugs.Heegner,
+            "163",
+            "{}",
+            "source_sequence_term",
+            "{\"accession\":\"A003173\",\"sourceIndex\":8,\"value\":\"163\"}");
+        AssertRejected(
+            PropertySlugs.TwoWayTaxicab,
+            "1729",
+            "{}",
+            "cube_sum_representations",
+            "{\"representations\":[{\"left\":\"1\",\"right\":\"12\"},{\"left\":\"1\",\"right\":\"12\"}],\"result\":\"1729\"}");
+    }
+
+    private static void AssertRejected(
+        string slug,
+        string integer,
+        string qualifierJson,
+        string witnessKind,
+        string payloadJson)
+    {
+        var witness = new EvidenceWitness(witnessKind, 1, payloadJson, "invalid fixture");
+        Assert.Throws<InvalidOperationException>(() => EvidenceContractValidator.Validate(
+            InitialPropertyCatalog.Get(slug),
+            IntegerValue.Parse(integer),
+            qualifierJson,
+            witness));
     }
 }

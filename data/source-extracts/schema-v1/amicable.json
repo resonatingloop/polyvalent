@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "accession": "A063990",
+  "source": "https://oeis.org/A063990",
+  "retrievedAtUtc": "2026-10-28T05:30:39Z",
+  "rangeMinimum": "1",
+  "rangeMaximum": "2000",
+  "values": [
+    "220",
+    "284",
+    "1184",
+    "1210"
+  ],
+  "firstValueAboveRange": "2620"
+}

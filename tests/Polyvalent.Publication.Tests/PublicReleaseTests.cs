@@ -111,7 +111,7 @@ public sealed class PublicReleaseTests
         var cubeClaim = Claim(threeFortyThree, PropertySlugs.PerfectCube);
         var powerClaim = Claim(oneThousandTwentyFour, PropertySlugs.PowerOfTwo);
 
-        Assert.Equal(10, properties.Length);
+        Assert.Equal(17, properties.Length);
         Assert.Equal("shared-membership", prime.GetProperty("graphMode").GetString());
         Assert.Equal("shared-membership", powerOfTwo.GetProperty("graphMode").GetString());
         Assert.Equal(
@@ -143,9 +143,9 @@ public sealed class PublicReleaseTests
         using var data = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(output, "data.json")));
         var integers = data.RootElement.GetProperty("integers").EnumerateArray().ToArray();
 
-        Assert.Equal(10, result.PropertyCount);
-        Assert.Equal(529, result.IntegerCount);
-        Assert.Equal(728, result.ClaimCount);
+        Assert.Equal(17, result.PropertyCount);
+        Assert.Equal(541, result.IntegerCount);
+        Assert.Equal(761, result.ClaimCount);
         Assert.Equal(20, result.ProfileEntryCount);
 
         AssertProfile(integers, "137", "fine-structure-near-integer", 1);
@@ -167,7 +167,7 @@ public sealed class PublicReleaseTests
         AssertProfile(integers, "343", "guilty-spark", 3);
         var fourEighteen = AssertProfile(integers, "418", "abrahadabra-great-work", 1);
         AssertProfile(integers, "616", "beasts-variant-number", 2);
-        var seventeenTwentyNine = AssertProfile(integers, "1729", "ramanujans-taxi", 1);
+        AssertProfile(integers, "1729", "ramanujans-taxi", 1);
 
         foreach (var profileOnly in new[]
                  {
@@ -178,7 +178,6 @@ public sealed class PublicReleaseTests
                      oneFiftySix,
                      threeEighteen,
                      fourEighteen,
-                     seventeenTwentyNine,
                  })
         {
             Assert.Empty(profileOnly.GetProperty("claims").EnumerateArray());
@@ -212,6 +211,70 @@ public sealed class PublicReleaseTests
             .Single(profile => profile.GetProperty("slug").GetString() == "beasts-variant-number");
         Assert.Contains("papyrus 115", profile616.GetProperty("body").GetString(), StringComparison.Ordinal);
         Assert.DoesNotContain("scholar's 666", data.RootElement.ToString(), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task Release_surfaces_network_ignition_with_exact_evidence_and_provenance()
+    {
+        await using var fixture = TestDatabase.Create();
+        await new CorpusSeeder(fixture.Database).SeedAsync();
+        var output = Path.Combine(fixture.Directory, "release");
+
+        var result = await new PublicReleaseService(fixture.Database).GenerateAsync(
+            output,
+            "network-v1",
+            ReleaseTime);
+        using var data = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(output, "data.json")));
+        var properties = data.RootElement.GetProperty("properties").EnumerateArray().ToArray();
+        var integers = data.RootElement.GetProperty("integers").EnumerateArray().ToArray();
+
+        Assert.Equal(17, result.PropertyCount);
+        Assert.Equal(541, result.IntegerCount);
+        Assert.Equal(761, result.ClaimCount);
+        Assert.Equal(20, result.ProfileEntryCount);
+        foreach (var value in new[]
+                 {
+                     "42", "220", "284", "341", "645", "1105", "1184", "1210", "1387", "1806", "1807", "1905",
+                 })
+        {
+            Assert.Contains(integers, integer => integer.GetProperty("value").GetString() == value);
+        }
+
+        var seventeenTwentyNine = integers.Single(integer => integer.GetProperty("value").GetString() == "1729");
+        Assert.Equal(
+            "1^3 + 12^3 = 9^3 + 10^3 = 1729",
+            Claim(seventeenTwentyNine, PropertySlugs.TwoWayTaxicab)
+                .GetProperty("witness").GetProperty("displayText").GetString());
+        Assert.Contains(
+            "7 × 13 × 19",
+            Claim(seventeenTwentyNine, PropertySlugs.Carmichael)
+                .GetProperty("witness").GetProperty("displayText").GetString(),
+            StringComparison.Ordinal);
+        Assert.Equal(
+            "ramanujans-taxi",
+            Assert.Single(seventeenTwentyNine.GetProperty("profileEntries").EnumerateArray())
+                .GetProperty("slug").GetString());
+
+        var twoTwenty = integers.Single(integer => integer.GetProperty("value").GetString() == "220");
+        var amicableClaim = Claim(twoTwenty, PropertySlugs.Amicable);
+        Assert.Equal("284", amicableClaim.GetProperty("qualifier").GetProperty("partner").GetString());
+        Assert.Equal(
+            "s(220) = 284; s(284) = 220",
+            amicableClaim.GetProperty("witness").GetProperty("displayText").GetString());
+
+        var heegner = properties.Single(property => property.GetProperty("slug").GetString() == PropertySlugs.Heegner);
+        Assert.Equal(
+            "source-asserted-bounded",
+            Assert.Single(heegner.GetProperty("coverage").EnumerateArray()).GetProperty("basis").GetString());
+        Assert.Contains(
+            heegner.GetProperty("citations").EnumerateArray(),
+            citation => citation.GetProperty("url").GetString() == "https://oeis.org/A003173");
+        var heegnerClaim = Claim(
+            integers.Single(integer => integer.GetProperty("value").GetString() == "163"),
+            PropertySlugs.Heegner);
+        Assert.Contains(
+            heegnerClaim.GetProperty("citations").EnumerateArray(),
+            citation => citation.GetProperty("url").GetString() == "https://oeis.org/A003173");
     }
 
     [Fact]

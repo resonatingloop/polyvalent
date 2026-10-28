@@ -2,7 +2,7 @@
 
 > **continuity role:** explanatory current reference
 > **status:** current for migration `001_initial.sql`
-> **last verified:** 2026-10-20
+> **last verified:** 2026-10-27
 > **owns:** a compact map of persisted tables, relationships, guards, and version axes
 > **update when:** a migration changes the database or a version axis changes meaning
 
@@ -88,13 +88,13 @@ sqlite triggers enforce the adult boundaries of the ledger:
 | axis | current value | what it versions |
 |---|---|---|
 | database migration | `001_initial.sql` / schema version `1` | sqlite tables, constraints, indexes, and triggers |
-| corpus recipe | `seed-v5` | the idempotent code path that assembles a fresh private reference ledger |
+| corpus recipe | `seed-v6` | the idempotent code path that assembles a fresh private reference ledger |
 | source-extract envelope | `data/source-extracts/schema-v1/` / json `schemaVersion: 1` | the tracked format for bounded source-derived value lists |
-| public release | `reference-v5` | one reviewed immutable `manifest.json` plus `data.json` projection |
+| public release | `reference-v6` | one reviewed immutable `manifest.json` plus `data.json` projection |
 
 these numbers do not march in lockstep. a new corpus recipe may reuse the same
 database and extract schemas; a new release may reflect new selected data
-without a sql migration. draft spec `specs/003-network-ignition.md` proposes
+without a sql migration. accepted spec `specs/003-network-ignition.md` supplies
 `seed-v6` and `reference-v6` while deliberately requiring no database migration.
 
 ## change rule

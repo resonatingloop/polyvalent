@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "accession": "A001235",
+  "source": "https://oeis.org/A001235",
+  "retrievedAtUtc": "2026-10-28T05:30:39Z",
+  "rangeMinimum": "1",
+  "rangeMaximum": "2000",
+  "values": [
+    "1729"
+  ],
+  "firstValueAboveRange": "4104"
+}

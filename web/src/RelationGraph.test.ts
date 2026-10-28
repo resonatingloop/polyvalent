@@ -67,6 +67,24 @@ describe("relation graph tracing", () => {
     expect(trace.body).toContain("property a · 10: witness a · 20: witness a · orderly / nice");
     expect(trace.body).toContain("property b · 10: witness b · 20: witness b");
   });
+
+  it("speaks an exact amicable partner through the trace console", () => {
+    const amicable = property("amicable-number", "amicable number");
+    const amicableRelations: IntegerRelation[] = [{
+      integer: { value: "284", claims: [], profileEntries: [] },
+      reasons: [{
+        property: amicable,
+        centerClaim: claim("amicable-number", "s(220) = 284; s(284) = 220", { partner: "284" }),
+        relatedClaim: claim("amicable-number", "s(284) = 220; s(220) = 284", { partner: "220" }),
+      }],
+    }];
+
+    const trace = describeGraphTrace("220", amicableRelations, { kind: "integer", value: "284" });
+
+    expect(trace.body).toContain("220: s(220) = 284; s(284) = 220");
+    expect(trace.body).toContain("284: s(284) = 220; s(220) = 284");
+    expect(trace.body).toContain("partner 220");
+  });
 });
 
 function property(slug: string, name: string): PublicProperty {

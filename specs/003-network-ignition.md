@@ -1,15 +1,16 @@
 # spec: network ignition — seven evidence-bearing circles
 
-status: draft
+status: accepted
 
-> **continuity role:** proposed transition
+> **continuity role:** accepted transition
 > **owner:** repository owner
 > **created:** 2026-10-20
+> **accepted:** 2026-10-27
 > **supersedes:** none
 > **related decisions:** `d-003`, `d-004`, `d-012`, `d-014`, `d-017`
 
-this draft does not authorize implementation. owner acceptance would authorize
-only the bounded repository change described below; it would not authorize a
+accepted by the repository owner on 2026-10-27. this spec authorizes only the
+bounded repository implementation described below; it does not authorize a
 commit, push, deployment, or mutation of an existing private ledger.
 
 ## context
@@ -421,7 +422,7 @@ npm --prefix web test
 deterministic fixture proof:
 
 ```text
-dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v6.sqlite3 --output /tmp/polyvalent-reference-v6 --release-id reference-v6 --generated-at 2026-10-20T00:00:00Z
+dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v6.sqlite3 --output /tmp/polyvalent-reference-v6 --release-id reference-v6 --generated-at 2026-10-27T00:00:00Z
 diff -ru web/public/data /tmp/polyvalent-reference-v6
 ```
 

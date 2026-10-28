@@ -1,8 +1,8 @@
 # architecture
 
 > **continuity role:** implemented representation map
-> **status:** current for the first slice, pages delivery, seed-v5, and suggestion inbox
-> **last verified:** 2026-10-19
+> **status:** current for the first slice, pages delivery, seed-v6, and suggestion inbox
+> **last verified:** 2026-10-27
 > **owns:** dependency direction, data boundaries, lifecycle, and publication seam
 > **update when:** a layer, durable representation, or trust boundary changes
 
@@ -100,10 +100,12 @@ positive claims are materialized. a missing claim is not false by default.
   complete coverage containing the integer;
 - `unknown`: no positive claim and no applicable coverage warrant.
 
-the nine deterministic properties record deterministic coverage over `1–2000`.
-friedman coverage is explicitly `source-asserted-bounded`. a mismatched source
-comparison is preserved as a comparison record and the affected property is
-withheld from coverage and publication staging.
+the fifteen deterministic properties record deterministic coverage over
+`1–2000`. friedman and heegner coverage are explicitly
+`source-asserted-bounded`; heegner claims additionally cite the exact captured
+sequence term. a mismatched source comparison is preserved as a comparison
+record and the affected property is withheld from coverage and publication
+staging.
 
 ## evidence and expressions
 
@@ -117,18 +119,21 @@ is limited to decimal digits, parentheses, unary signs, `+`, `-`, `*`, `/`, and
 uses exact rational arithmetic; consumes every source digit exactly once; and
 requires a nontrivial operation. it never executes source text.
 
-the current `seed-v5` reference corpus retains the perfect-square, perfect-cube,
-fibonacci, power-of-two, and twin-prime evaluators added beside the original
-five-property pack. power and sequence witnesses record exact constructive
-identities, including `2^0 = 1` through `2^10 = 1024`. twin-prime claims
-record their lower and higher partners as checked qualifiers, allowing the
-public renderer to distinguish an exact partner from ambient shared membership.
-prime is graphable in this version; density is controlled by presentation, not
-by deleting the relation from the published ontology.
+the current `seed-v6` reference corpus carries seventeen properties. the seven
+network-ignition additions use exact korselt certificates, modular congruences,
+reciprocal identities, recurrence indices, amicable divisor sums, complete
+cube-sum representations, or source-sequence indices. six new deterministic
+populations are compared against immutable bounded oeis extracts; heegner is a
+captured finite import so a hard-coded list cannot masquerade as a local proof
+of the stark–heegner theorem. twin-prime and amicable claims record checked
+partners as distinct qualifier contracts, allowing the public renderer to rank
+an exact partner before ambient shared membership without storing pairwise
+edges. density remains a presentation concern rather than a reason to delete a
+true published relation.
 
 the same seed stages twenty cited profile entries across eighteen integers.
 profile entries may cause an otherwise claimless integer such as `86`, `93`,
-`108`, `146`, `156`, `318`, `418`, or `1729` to appear in the public corpus,
+`108`, `146`, `156`, `318`, or `418` to appear in the public corpus,
 but relation derivation still consults claims only. one integer may carry
 several independently sourced biographies, as `137` and `153` do, without
 merging their warrants or asserting causal or encoded identity. the `616`

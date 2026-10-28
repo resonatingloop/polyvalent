@@ -1,8 +1,8 @@
 # development and recovery
 
 > **continuity role:** operational runbook
-> **status:** current for the first slice, pages delivery, seed-v5, and suggestion inbox
-> **last verified:** 2026-10-19
+> **status:** current for the first slice, pages delivery, seed-v6, and suggestion inbox
+> **last verified:** 2026-10-27
 > **owns:** setup, local data, seed, launch, publication preview, validation, and recovery
 > **update when:** any command, path, prerequisite, migration, or recovery step changes
 
@@ -78,13 +78,15 @@ populate the deterministic first corpus and its publication staging:
 dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- seed --data-dir ./var/local
 ```
 
-`seed-v5` is idempotent when the existing ledger has its expected successful
+`seed-v6` is idempotent when the existing ledger has its expected successful
 population runs, graph policy, claim counts, and twenty staged profile entries.
 a clean result reports `2000`
-integers and `728` accepted claims distributed as
+integers and `761` accepted claims distributed as
 `303` prime, `62` triangular, `44` perfect square, `12` perfect cube, `16`
-fibonacci, `11` power of two, `121` twin-prime, `118` decimal palindrome, `14` decimal
-narcissistic, and `27` decimal friedman claims.
+fibonacci, `11` power of two, `121` twin-prime, `118` decimal palindrome, `14`
+decimal narcissistic, `27` decimal friedman, `3` carmichael, `7` base-2 fermat
+pseudoprime, `4` amicable, `5` sylvester, `4` primary pseudoperfect, `9`
+heegner, and `1` two-way taxicab claim.
 
 the same seed stages twenty sourced profile entries across `36`, `86`, `88`,
 `93`, `108`, `137`, `146`, `153`, `156`, `163`, `231`, `318`, `343`, `404`,
@@ -92,16 +94,19 @@ the same seed stages twenty sourced profile entries across `36`, `86`, `88`,
 cited entries. profile entries remain narrative records rather than property
 claims, so the claim count and relation ontology do not change.
 
-the command deliberately refuses to rewrite a populated seed-v1, seed-v2,
-seed-v3, seed-v4, or divergent ledger. accepted property versions and claim revisions are immutable, so
-upgrading authored research requires a separately reviewed revision workflow.
-use a fresh `--data-dir` when the desired result is the current reference
-corpus.
+the command deliberately refuses to rewrite a populated seed-v1 through
+seed-v5 or any divergent ledger. accepted property versions and claim revisions
+are immutable, so upgrading authored research requires a separately reviewed
+revision workflow. use a fresh `--data-dir` when the desired result is the
+current reference corpus.
 
-the narcissistic run is compared with the bounded a005188 extract. disagreement
-is retained in `comparison_runs`; that property receives no coverage or staging,
-and the command reports the publication hold. friedman expressions are parsed
-and checked locally before their imported claims can be accepted.
+the narcissistic run and all six deterministic network-ignition populations are
+compared with their bounded oeis extracts. disagreement is retained in
+`comparison_runs`; the affected property receives no coverage or staging, and
+the command reports the publication hold. friedman expressions are parsed and
+checked locally before their imported claims can be accepted. heegner numbers
+remain a captured, cited, source-asserted bounded import rather than a local
+theorem claim.
 
 ## private desktop
 
@@ -138,10 +143,16 @@ the development server prints its local address. useful routes are:
 - `/integer/1024` for perfect-square, friedman, and power-of-two relations;
 - `/integer/93` and `/integer/146` for profile-only public records;
 - `/integer/616` for source-critical textual lore beside its palindrome claim;
-- `/integer/1729` for a profile-only mathematical biography;
+- `/integer/1729` for the taxi biography plus carmichael, base-2 pseudoprime,
+  and two-way taxicab memberships;
+- `/integer/220` for exact amicable-partner salience and the full shared class;
+- `/integer/2` and `/integer/163` for overlapping sylvester, primary
+  pseudoperfect, and source-asserted heegner membership;
 - `/property/decimal-friedman-number` for the property dossier.
 - `/property/power-of-two` for all eleven locally computed members and the
   oeis a000079 property citation.
+- `/property/carmichael-number`, `/property/amicable-number`, and
+  `/property/heegner-number` for representative network-ignition dossiers.
 
 the home page also renders the numerical-gossip tip line. it is intentionally
 dormant in an unconfigured checkout. to exercise its configured appearance
@@ -229,7 +240,7 @@ selected safe citations. choose a new release id and a path that does not exist:
 dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- publish --data-dir ./var/local --output ./artifacts/public/local-v1 --release-id local-v1
 ```
 
-inject `--generated-at 2026-10-19T00:00:00Z` when deterministic bytes are
+inject `--generated-at 2026-10-27T00:00:00Z` when deterministic bytes are
 required for a fixture or comparison. the publisher writes to a sibling
 temporary directory, validates all bytes, moves the directory into place, and
 then seals the release ledger record with the exact selected revision and
@@ -244,8 +255,8 @@ scan before any later artifact-promotion or deployment change.
 use a fresh database and fresh output outside the tracked tree:
 
 ```text
-dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v5.sqlite3 --output /tmp/polyvalent-reference-v5 --release-id reference-v5 --generated-at 2026-10-19T00:00:00Z
-diff -ru web/public/data /tmp/polyvalent-reference-v5
+dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v6.sqlite3 --output /tmp/polyvalent-reference-v6 --release-id reference-v6 --generated-at 2026-10-27T00:00:00Z
+diff -ru web/public/data /tmp/polyvalent-reference-v6
 ```
 
 both `/tmp` targets must be absent before the command. an empty `diff` proves

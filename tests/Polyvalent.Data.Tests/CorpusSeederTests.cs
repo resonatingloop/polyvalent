@@ -27,6 +27,15 @@ public sealed class CorpusSeederTests
         Assert.Equal(118, first.PropertyCounts[PropertySlugs.DecimalPalindrome]);
         Assert.Equal(14, first.PropertyCounts[PropertySlugs.DecimalNarcissistic]);
         Assert.Equal(27, first.PropertyCounts[PropertySlugs.DecimalFriedman]);
+        Assert.Equal(3, first.PropertyCounts[PropertySlugs.Carmichael]);
+        Assert.Equal(7, first.PropertyCounts[PropertySlugs.Base2FermatPseudoprime]);
+        Assert.Equal(4, first.PropertyCounts[PropertySlugs.Amicable]);
+        Assert.Equal(5, first.PropertyCounts[PropertySlugs.SylvesterSequenceMember]);
+        Assert.Equal(4, first.PropertyCounts[PropertySlugs.PrimaryPseudoperfect]);
+        Assert.Equal(9, first.PropertyCounts[PropertySlugs.Heegner]);
+        Assert.Equal(1, first.PropertyCounts[PropertySlugs.TwoWayTaxicab]);
+        Assert.Equal(17, first.PropertyCounts.Count);
+        Assert.Equal(761, first.PropertyCounts.Values.Sum());
         Assert.Equal(20, first.ProfileEntryCount);
         Assert.Equal(20, second.ProfileEntryCount);
         Assert.Empty(first.Disagreements);
@@ -127,7 +136,7 @@ public sealed class CorpusSeederTests
             });
         }
 
-        foreach (var value in new[] { "86", "93", "108", "146", "156", "318", "418", "1729" })
+        foreach (var value in new[] { "86", "93", "108", "146", "156", "318", "418" })
         {
             var dossier = await store.GetDossierAsync(IntegerValue.Parse(value));
             Assert.DoesNotContain(dossier.Claims, claim => claim.State == KnowledgeState.Positive);
@@ -149,7 +158,7 @@ public sealed class CorpusSeederTests
     }
 
     [Fact]
-    public async Task Seed_v3_refuses_to_rewrite_an_existing_legacy_ledger()
+    public async Task Seed_v6_refuses_to_rewrite_an_existing_legacy_ledger()
     {
         await using var fixture = TestDatabase.Create();
         await fixture.Database.InitializeAsync();
@@ -272,11 +281,14 @@ public sealed class CorpusSeederTests
     public async Task Source_disagreement_is_preserved_and_held_out_of_coverage_and_staging()
     {
         await using var fixture = TestDatabase.Create();
-        var seeder = new CorpusSeeder(fixture.Database, ["1", "2", "3"]);
+        var seeder = new CorpusSeeder(
+            fixture.Database,
+            PropertySlugs.Carmichael,
+            ["561", "1105"]);
 
         var result = await seeder.SeedAsync();
 
-        Assert.Equal([PropertySlugs.DecimalNarcissistic], result.Disagreements);
+        Assert.Equal([PropertySlugs.Carmichael], result.Disagreements);
         await using var connection = await fixture.Database.OpenConnectionAsync();
         await using var command = connection.CreateCommand();
         command.CommandText = """
@@ -290,7 +302,7 @@ public sealed class CorpusSeederTests
             JOIN properties property ON property.id = version.property_id
             WHERE property.slug = $slug;
             """;
-        command.Parameters.AddWithValue("$slug", PropertySlugs.DecimalNarcissistic);
+        command.Parameters.AddWithValue("$slug", PropertySlugs.Carmichael);
         await using var reader = await command.ExecuteReaderAsync();
 
         Assert.True(await reader.ReadAsync());
@@ -301,11 +313,61 @@ public sealed class CorpusSeederTests
         await reader.DisposeAsync();
 
         var store = new PolyvalentStore(fixture.Database);
-        var dossier = await store.GetDossierAsync(IntegerValue.Parse("153"));
+        var dossier = await store.GetDossierAsync(IntegerValue.Parse("561"));
         var revisionId = dossier.Claims.Single(claim =>
-            claim.PropertySlug == PropertySlugs.DecimalNarcissistic
+            claim.PropertySlug == PropertySlugs.Carmichael
             && claim.RevisionStatus == "accepted").RevisionId;
         await Assert.ThrowsAsync<SqliteException>(() => store.StageClaimAsync(revisionId));
+    }
+
+    [Fact]
+    public async Task Network_ignition_claims_keep_exact_witnesses_provenance_and_import_semantics()
+    {
+        await using var fixture = TestDatabase.Create();
+        await new CorpusSeeder(fixture.Database).SeedAsync();
+        var store = new PolyvalentStore(fixture.Database);
+
+        var seventeenTwentyNine = await store.GetDossierAsync(IntegerValue.Parse("1729"));
+        Assert.Contains(seventeenTwentyNine.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.Carmichael
+            && claim.Witness!.DisplayText.Contains("7 × 13 × 19", StringComparison.Ordinal));
+        Assert.Contains(seventeenTwentyNine.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.Base2FermatPseudoprime
+            && claim.Witness!.DisplayText.Contains("2^1728 ≡ 1", StringComparison.Ordinal));
+        Assert.Contains(seventeenTwentyNine.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.TwoWayTaxicab
+            && claim.Witness!.DisplayText == "1^3 + 12^3 = 9^3 + 10^3 = 1729");
+
+        var twoTwenty = await store.GetDossierAsync(IntegerValue.Parse("220"));
+        Assert.Contains(twoTwenty.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.Amicable
+            && claim.QualifierJson == "{\"partner\":\"284\"}"
+            && claim.Witness!.DisplayText == "s(220) = 284; s(284) = 220");
+
+        var two = await store.GetDossierAsync(IntegerValue.Parse("2"));
+        Assert.Contains(two.Claims, claim => claim.PropertySlug == PropertySlugs.SylvesterSequenceMember);
+        Assert.Contains(two.Claims, claim => claim.PropertySlug == PropertySlugs.PrimaryPseudoperfect);
+        var heegner = Assert.Single(two.Claims, claim =>
+            claim.PropertySlug == PropertySlugs.Heegner
+            && claim.State == KnowledgeState.Positive);
+        Assert.Equal(ClaimOrigin.Imported, heegner.Origin);
+        Assert.Equal("OEIS A003173 term 2 = 2", heegner.Witness!.DisplayText);
+        Assert.Single(heegner.Citations);
+        Assert.True(heegner.Citations[0].IsStaged);
+
+        await using var connection = await fixture.Database.OpenConnectionAsync();
+        await using var command = connection.CreateCommand();
+        command.CommandText = """
+            SELECT
+                (SELECT COUNT(*) FROM comparison_runs WHERE status = 'matched'),
+                (SELECT COUNT(*) FROM source_captures),
+                (SELECT COUNT(*) FROM property_versions WHERE status = 'accepted');
+            """;
+        await using var reader = await command.ExecuteReaderAsync();
+        Assert.True(await reader.ReadAsync());
+        Assert.Equal(7, reader.GetInt32(0));
+        Assert.Equal(9, reader.GetInt32(1));
+        Assert.Equal(17, reader.GetInt32(2));
     }
 
     [Fact]

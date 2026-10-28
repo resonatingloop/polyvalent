@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "accession": "A000058",
+  "source": "https://oeis.org/A000058",
+  "retrievedAtUtc": "2026-10-28T05:30:39Z",
+  "rangeMinimum": "1",
+  "rangeMaximum": "2000",
+  "values": [
+    "2",
+    "3",
+    "7",
+    "43",
+    "1807"
+  ],
+  "firstValueAboveRange": "3263443"
+}

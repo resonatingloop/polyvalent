@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "accession": "A003173",
+  "source": "https://oeis.org/A003173",
+  "retrievedAtUtc": "2026-10-28T05:30:39Z",
+  "rangeMinimum": "1",
+  "rangeMaximum": "2000",
+  "values": [
+    "1",
+    "2",
+    "3",
+    "7",
+    "11",
+    "19",
+    "43",
+    "67",
+    "163"
+  ],
+  "firstValueAboveRange": null
+}

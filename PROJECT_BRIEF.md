@@ -2,7 +2,7 @@
 
 > **continuity role:** durable intent
 > **status:** current
-> **last verified:** 2026-10-19
+> **last verified:** 2026-10-27
 > **owns:** purpose, users, scope, non-goals, constraints, and success
 > **update when:** project direction changes, not when implementation merely advances
 
@@ -122,13 +122,15 @@ reference corpus, and react public explorer now form one tested vertical path.
 final owner-visible browser and native desktop acceptance is recorded.
 
 the public visual pass is owner-accepted and a bounded github pages delivery
-workflow now carries only the reviewed static web artifact. reference-v5 is
-live. the accepted suggestion-inbox slice is implemented locally as a
+workflow carries only the reviewed static web artifact. the accepted
+network-ignition slice now prepares a local reference-v6 with seventeen
+evidence-bearing properties while the checked live deployment remains
+reference-v5. the accepted suggestion-inbox slice is implemented locally as a
 fail-closed formspree correspondence path, and its public form id is configured
-for the github pages build. provider settings and recipient verification,
-deployment, and a live inbox canary remain explicit owner-visible transitions.
-session-held integers, lenses, and private constellations remain later slices
-rather than hidden extensions of this one.
+for the github pages build. provider settings, recipient verification,
+reference-v6 deployment, and a live inbox canary remain explicit owner-visible
+transitions. session-held integers, lenses, and private constellations remain
+later slices rather than hidden extensions of this one.
 
 ## future apertures
 

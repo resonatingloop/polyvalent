@@ -12,6 +12,13 @@ public static class PropertySlugs
     public const string DecimalPalindrome = "decimal-palindrome";
     public const string DecimalNarcissistic = "decimal-narcissistic-number";
     public const string DecimalFriedman = "decimal-friedman-number";
+    public const string Carmichael = "carmichael-number";
+    public const string Base2FermatPseudoprime = "base-2-fermat-pseudoprime";
+    public const string Amicable = "amicable-number";
+    public const string SylvesterSequenceMember = "sylvester-sequence-member";
+    public const string PrimaryPseudoperfect = "primary-pseudoperfect-number";
+    public const string Heegner = "heegner-number";
+    public const string TwoWayTaxicab = "two-way-taxicab-number";
 }
 
 public enum GraphMode

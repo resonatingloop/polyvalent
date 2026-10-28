@@ -107,7 +107,7 @@ describe("public relation derivation", () => {
     expect(reasons[0].relatedClaim.qualifier.orderly).toBe(true);
   });
 
-  it("ranks 139 first in the actual reference-v5 field around 137", () => {
+  it("ranks 139 first in the actual reference-v6 field around 137", () => {
     const reference = referenceData as unknown as PublicCorpus;
     const relations = getRelations(indexCorpus(reference), "137");
 
@@ -117,7 +117,7 @@ describe("public relation derivation", () => {
       .toEqual(["prime", "twin-prime"]);
   });
 
-  it("connects powers of two through the sourced reference-v5 property", () => {
+  it("connects powers of two through the sourced reference-v6 property", () => {
     const reference = referenceData as unknown as PublicCorpus;
     const referenceIndex = indexCorpus(reference);
     const reasons = explainRelationship(referenceIndex, "1024", "512");
@@ -184,6 +184,71 @@ describe("public relation derivation", () => {
     expect(qualifierLabel(expanded.integers.find((integer) => integer.value === "137")!.claims[1]))
       .toBe("twin with 139");
   });
+
+  it("puts an exact amicable partner before ambient members without inventing pairwise edges", () => {
+    const expanded: PublicCorpus = structuredClone(corpus);
+    expanded.properties.push({
+      slug: "amicable-number",
+      name: "amicable number",
+      definition: "fixture definition",
+      aliases: [],
+      graphMode: "shared-membership",
+      coverage: [{ minimum: "1", maximum: "2000", basis: "deterministic", exclusions: [] }],
+      citations: [],
+    });
+    expanded.integers.push(
+      amicableInteger("220", "284"),
+      amicableInteger("284", "220"),
+      amicableInteger("1184", "1210"),
+      amicableInteger("1210", "1184"),
+    );
+
+    const relations = getRelations(indexCorpus(expanded), "220");
+
+    expect(relations.map((relation) => relation.integer.value)).toEqual(["284", "1184", "1210"]);
+    expect(qualifierLabel(expanded.integers.find((integer) => integer.value === "220")!.claims[0]))
+      .toBe("partner 284");
+    expect(relations[0].reasons).toHaveLength(1);
+    expect(qualifierLabel({
+      ...expanded.integers.find((integer) => integer.value === "220")!.claims[0],
+      propertySlug: "unrecognized-partner-property",
+    })).toBeNull();
+  });
+
+  it("gives 1729 complete double-reason relations to 561 and 1105", () => {
+    const reference = referenceData as unknown as PublicCorpus;
+    const referenceIndex = indexCorpus(reference);
+
+    for (const value of ["561", "1105"]) {
+      expect(explainRelationship(referenceIndex, "1729", value).map((reason) => reason.property.slug))
+        .toEqual(["carmichael-number", "base-2-fermat-pseudoprime"]);
+    }
+    expect(getInteger(referenceIndex, "1729").profileEntries.map((profile) => profile.slug))
+      .toContain("ramanujans-taxi");
+  });
+
+  it("ranks 284 first in the actual amicable field and labels the exact partner", () => {
+    const reference = referenceData as unknown as PublicCorpus;
+    const referenceIndex = indexCorpus(reference);
+    const relations = getRelations(referenceIndex, "220");
+    const claim = getInteger(referenceIndex, "220").claims
+      .find((candidate) => candidate.propertySlug === "amicable-number")!;
+
+    expect(relations.map((relation) => relation.integer.value)).toEqual(["284", "1184", "1210"]);
+    expect(qualifierLabel(claim)).toBe("partner 284");
+  });
+
+  it("does not turn adjacent source-sequence terms or a singleton class into invented mutuals", () => {
+    const reference = referenceData as unknown as PublicCorpus;
+    const referenceIndex = indexCorpus(reference);
+
+    expect(explainRelationship(referenceIndex, "1806", "1807")).toEqual([]);
+    expect(referenceIndex.members.get("two-way-taxicab-number")?.map((integer) => integer.value))
+      .toEqual(["1729"]);
+    expect(getRelations(referenceIndex, "1729").flatMap((relation) => relation.reasons)
+      .filter((reason) => reason.property.slug === "two-way-taxicab-number"))
+      .toEqual([]);
+  });
 });
 
 function twinPrimeInteger(value: string, qualifier: Record<string, string>) {
@@ -198,6 +263,19 @@ function twinPrimeInteger(value: string, qualifier: Record<string, string>) {
         citations: [],
       },
     ],
+    profileEntries: [],
+  };
+}
+
+function amicableInteger(value: string, partner: string) {
+  return {
+    value,
+    claims: [{
+      propertySlug: "amicable-number",
+      qualifier: { partner },
+      witness: { kind: "amicable_pair", schemaVersion: 1, displayText: `s(${value}) = ${partner}` },
+      citations: [],
+    }],
     profileEntries: [],
   };
 }

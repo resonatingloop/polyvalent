@@ -114,10 +114,10 @@ export function getRelations(index: CorpusIndex, centerValue: string): IntegerRe
     const rightRarity = Math.min(...right.reasons.map((reason) => index.members.get(reason.property.slug)?.length ?? Infinity));
     const leftQualifierSalience = Math.max(...left.reasons.map((reason) => qualifierSalience(reason.relatedClaim)));
     const rightQualifierSalience = Math.max(...right.reasons.map((reason) => qualifierSalience(reason.relatedClaim)));
-    const leftDirectTwin = directTwinSalience(left.reasons, left.integer.value);
-    const rightDirectTwin = directTwinSalience(right.reasons, right.integer.value);
+    const leftDirectPartner = directPartnerSalience(left.reasons, left.integer.value);
+    const rightDirectPartner = directPartnerSalience(right.reasons, right.integer.value);
     return leftRarity - rightRarity
-      || rightDirectTwin - leftDirectTwin
+      || rightDirectPartner - leftDirectPartner
       || rightQualifierSalience - leftQualifierSalience
       || compareIntegers(left.integer.value, right.integer.value);
   });
@@ -138,14 +138,24 @@ export function qualifierLabel(claim: PublicClaim): string | null {
     return `twins with ${twins[0]} and ${twins[1]}`;
   }
 
+  if (claim.propertySlug === "amicable-number" && typeof claim.qualifier.partner === "string") {
+    return `partner ${claim.qualifier.partner}`;
+  }
+
   return null;
 }
 
-function directTwinSalience(reasons: RelationReason[], relatedValue: string): number {
-  return reasons.some((reason) =>
-    reason.property.slug === "twin-prime"
-    && (reason.centerClaim.qualifier.lowerTwin === relatedValue
-      || reason.centerClaim.qualifier.higherTwin === relatedValue)) ? 1 : 0;
+function directPartnerSalience(reasons: RelationReason[], relatedValue: string): number {
+  return reasons.some((reason) => {
+    if (reason.property.slug === "twin-prime") {
+      return reason.centerClaim.qualifier.lowerTwin === relatedValue
+        || reason.centerClaim.qualifier.higherTwin === relatedValue;
+    }
+    if (reason.property.slug === "amicable-number") {
+      return reason.centerClaim.qualifier.partner === relatedValue;
+    }
+    return false;
+  }) ? 1 : 0;
 }
 
 function qualifierSalience(claim: PublicClaim): number {

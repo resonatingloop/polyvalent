@@ -118,6 +118,83 @@ public static class InitialPropertyCatalog
             """
             {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["digit_expression"],"allowedQualifiers":{"orderly":[true,false]},"externalCitationRequired":true,"coverageKinds":["source-asserted-bounded"]}
             """),
+        new(
+            PropertySlugs.Carmichael,
+            "carmichael number",
+            "a composite squarefree positive integer n for which p - 1 divides n - 1 for every prime divisor p of n.",
+            [],
+            GraphMode.SharedMembership,
+            "carmichael/evidence-v1",
+            "carmichael/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["korselt_certificate"],"runMaySuffice":false,"externalComparison":"required","coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.Base2FermatPseudoprime,
+            "fermat pseudoprime to base 2",
+            "a composite positive integer n satisfying 2^(n - 1) congruent to 1 modulo n.",
+            ["sarrus number", "poulet number"],
+            GraphMode.SharedMembership,
+            "base-2-fermat-pseudoprime/evidence-v1",
+            "base-2-fermat-pseudoprime/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["modular_congruence"],"runMaySuffice":false,"externalComparison":"required","coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.Amicable,
+            "amicable number",
+            "a positive integer whose sum of positive proper divisors is a distinct integer whose own proper-divisor sum returns the first.",
+            ["amicable-pair member"],
+            GraphMode.SharedMembership,
+            "amicable/evidence-v1",
+            "amicable/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["amicable_pair"],"allowedQualifiers":{"partner":"integer text"},"runMaySuffice":false,"externalComparison":"required","coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.SylvesterSequenceMember,
+            "sylvester sequence member",
+            "a positive integer in the sequence beginning a(0) = 2 and continuing by a(n + 1) = a(n)^2 - a(n) + 1.",
+            [],
+            GraphMode.SharedMembership,
+            "sylvester-sequence/evidence-v1",
+            "sylvester-sequence/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["recurrence_term"],"runMaySuffice":false,"externalComparison":"required","coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.PrimaryPseudoperfect,
+            "primary pseudoperfect number",
+            "a positive integer n greater than one for which 1/n plus the sum of 1/p over its distinct prime divisors p equals 1.",
+            [],
+            GraphMode.SharedMembership,
+            "primary-pseudoperfect/evidence-v1",
+            "primary-pseudoperfect/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["reciprocal_identity"],"runMaySuffice":false,"externalComparison":"required","coverageKinds":["deterministic"]}
+            """),
+        new(
+            PropertySlugs.Heegner,
+            "heegner number",
+            "a positive squarefree integer n for which the imaginary quadratic field q(sqrt(-n)) has class number one.",
+            [],
+            GraphMode.SharedMembership,
+            "heegner/evidence-v1",
+            null,
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["source_sequence_term"],"runMaySuffice":false,"externalCitationRequired":true,"coverageKinds":["source-asserted-bounded"]}
+            """),
+        new(
+            PropertySlugs.TwoWayTaxicab,
+            "two-way taxicab number",
+            "a positive integer expressible as a sum of two positive cubes in at least two distinct unordered ways.",
+            ["taxi-cab number"],
+            GraphMode.SharedMembership,
+            "two-way-taxicab/evidence-v1",
+            "two-way-taxicab/deterministic",
+            """
+            {"version":1,"witnessRequired":true,"acceptedWitnessKinds":["cube_sum_representations"],"runMaySuffice":false,"externalComparison":"required","coverageKinds":["deterministic"]}
+            """),
     ];
 
     public static PropertyDefinition Get(string slug) =>
@@ -127,6 +204,11 @@ public static class InitialPropertyCatalog
 
 public static class EvidenceContractValidator
 {
+    private static readonly string[] HeegnerValues =
+    [
+        "1", "2", "3", "7", "11", "19", "43", "67", "163",
+    ];
+
     public static void Validate(
         PropertyDefinition property,
         IntegerValue integer,
@@ -197,6 +279,40 @@ public static class EvidenceContractValidator
 
             case PropertySlugs.DecimalFriedman:
                 ValidateFriedman(integer, qualifierJson, RequireWitness(property, witness, "digit_expression"));
+                return;
+
+            case PropertySlugs.Carmichael:
+                ValidateCarmichael(integer, RequireWitness(property, witness, "korselt_certificate"));
+                return;
+
+            case PropertySlugs.Base2FermatPseudoprime:
+                ValidateBase2FermatPseudoprime(
+                    integer,
+                    RequireWitness(property, witness, "modular_congruence"));
+                return;
+
+            case PropertySlugs.Amicable:
+                ValidateAmicable(integer, qualifierJson, RequireWitness(property, witness, "amicable_pair"));
+                return;
+
+            case PropertySlugs.SylvesterSequenceMember:
+                ValidateSylvester(integer, RequireWitness(property, witness, "recurrence_term"));
+                return;
+
+            case PropertySlugs.PrimaryPseudoperfect:
+                ValidatePrimaryPseudoperfect(
+                    integer,
+                    RequireWitness(property, witness, "reciprocal_identity"));
+                return;
+
+            case PropertySlugs.Heegner:
+                ValidateHeegner(integer, RequireWitness(property, witness, "source_sequence_term"));
+                return;
+
+            case PropertySlugs.TwoWayTaxicab:
+                ValidateTwoWayTaxicab(
+                    integer,
+                    RequireWitness(property, witness, "cube_sum_representations"));
                 return;
 
             default:
@@ -352,6 +468,244 @@ public static class EvidenceContractValidator
         }
     }
 
+    private static void ValidateCarmichael(IntegerValue integer, EvidenceWitness witness)
+    {
+        if (!IntegerArithmetic.IsCarmichael(integer.Value))
+        {
+            throw new InvalidOperationException($"{integer} does not satisfy korselt's criterion.");
+        }
+
+        using var payload = ParsePayload(witness);
+        var factors = IntegerArithmetic.Factor(integer.Value);
+        var factorNodes = RequiredArray(payload.RootElement, "factors").EnumerateArray().ToArray();
+        if (factorNodes.Length != factors.Count
+            || factorNodes.Where(node => node.ValueKind != JsonValueKind.String).Any()
+            || !factorNodes.Select(node => node.GetString()).SequenceEqual(
+                factors.Select(factor => factor.Prime.ToString(CultureInfo.InvariantCulture))))
+        {
+            throw new InvalidOperationException("the korselt witness does not contain the complete squarefree factorization.");
+        }
+
+        var checks = RequiredArray(payload.RootElement, "checks").EnumerateArray().ToArray();
+        if (checks.Length != factors.Count)
+        {
+            throw new InvalidOperationException("the korselt witness requires one divisibility check per prime factor.");
+        }
+
+        for (var index = 0; index < factors.Count; index++)
+        {
+            var prime = factors[index].Prime;
+            var expectedPrime = prime.ToString(CultureInfo.InvariantCulture);
+            var expectedQuotient = ((integer.Value - 1) / (prime - 1)).ToString(CultureInfo.InvariantCulture);
+            if (RequiredString(checks[index], "prime") != expectedPrime
+                || RequiredString(checks[index], "quotient") != expectedQuotient)
+            {
+                throw new InvalidOperationException("the korselt divisibility certificate is inconsistent.");
+            }
+        }
+
+        if (RequiredString(payload.RootElement, "result") != integer.ToString())
+        {
+            throw new InvalidOperationException("the korselt witness names the wrong result.");
+        }
+    }
+
+    private static void ValidateBase2FermatPseudoprime(IntegerValue integer, EvidenceWitness witness)
+    {
+        if (!IntegerArithmetic.IsBase2FermatPseudoprime(integer.Value))
+        {
+            throw new InvalidOperationException($"{integer} is not a fermat pseudoprime to base 2.");
+        }
+
+        using var payload = ParsePayload(witness);
+        if (RequiredString(payload.RootElement, "base") != "2"
+            || RequiredString(payload.RootElement, "exponent")
+                != (integer.Value - 1).ToString(CultureInfo.InvariantCulture)
+            || RequiredString(payload.RootElement, "modulus") != integer.ToString()
+            || RequiredString(payload.RootElement, "remainder") != "1")
+        {
+            throw new InvalidOperationException("the modular-congruence witness is inconsistent.");
+        }
+
+        var expectedFactors = IntegerArithmetic.Factor(integer.Value);
+        var factors = RequiredArray(payload.RootElement, "factors").EnumerateArray().ToArray();
+        if (factors.Length != expectedFactors.Count)
+        {
+            throw new InvalidOperationException("the modular-congruence witness requires a complete factorization.");
+        }
+
+        for (var index = 0; index < expectedFactors.Count; index++)
+        {
+            if (RequiredString(factors[index], "prime")
+                    != expectedFactors[index].Prime.ToString(CultureInfo.InvariantCulture)
+                || RequiredInt(factors[index], "exponent") != expectedFactors[index].Exponent)
+            {
+                throw new InvalidOperationException("the modular-congruence factorization is inconsistent.");
+            }
+        }
+    }
+
+    private static void ValidateAmicable(
+        IntegerValue integer,
+        string qualifierJson,
+        EvidenceWitness witness)
+    {
+        using var qualifiers = JsonDocument.Parse(qualifierJson);
+        using var payload = ParsePayload(witness);
+        var partnerText = RequiredString(qualifiers.RootElement, "partner");
+        var partner = IntegerValue.Parse(partnerText).Value;
+        var forward = IntegerArithmetic.SumProperDivisors(integer.Value);
+        var reverse = IntegerArithmetic.SumProperDivisors(partner);
+        if (integer.Value <= 0
+            || partner <= 0
+            || partner == integer.Value
+            || forward != partner
+            || reverse != integer.Value
+            || RequiredString(payload.RootElement, "partner") != partnerText
+            || RequiredString(payload.RootElement, "sumOfProperDivisors") != partnerText
+            || RequiredString(payload.RootElement, "partnerSumOfProperDivisors") != integer.ToString())
+        {
+            throw new InvalidOperationException("the amicable-pair witness does not prove the claimed integer.");
+        }
+    }
+
+    private static void ValidateSylvester(IntegerValue integer, EvidenceWitness witness)
+    {
+        using var payload = ParsePayload(witness);
+        var index = RequiredInt(payload.RootElement, "index");
+        if (index < 0)
+        {
+            throw new InvalidOperationException("the sylvester sequence index cannot be negative.");
+        }
+
+        var term = new BigInteger(2);
+        BigInteger? previous = null;
+        for (var position = 0; position < index; position++)
+        {
+            previous = term;
+            term = term * term - term + 1;
+            if (term > integer.Value && position + 1 < index)
+            {
+                throw new InvalidOperationException("the sylvester sequence index cannot produce the claimed integer.");
+            }
+        }
+
+        if (!payload.RootElement.TryGetProperty("previous", out var previousNode))
+        {
+            throw new InvalidOperationException("the recurrence-term witness requires field 'previous'.");
+        }
+
+        var expectedPrevious = previous?.ToString(CultureInfo.InvariantCulture);
+        var actualPrevious = previousNode.ValueKind switch
+        {
+            JsonValueKind.Null => null,
+            JsonValueKind.String => previousNode.GetString(),
+            _ => throw new InvalidOperationException("the sylvester preceding term must be a string or null."),
+        };
+        var expectedExpression = index == 0
+            ? "a(0) = 2"
+            : $"{expectedPrevious}^2 - {expectedPrevious} + 1 = {term.ToString(CultureInfo.InvariantCulture)}";
+        if (term != integer.Value
+            || actualPrevious != expectedPrevious
+            || RequiredString(payload.RootElement, "result") != integer.ToString()
+            || RequiredString(payload.RootElement, "expression") != expectedExpression)
+        {
+            throw new InvalidOperationException("the recurrence-term witness does not prove the claimed integer.");
+        }
+    }
+
+    private static void ValidatePrimaryPseudoperfect(IntegerValue integer, EvidenceWitness witness)
+    {
+        if (!IntegerArithmetic.IsPrimaryPseudoperfect(integer.Value))
+        {
+            throw new InvalidOperationException($"{integer} is not primary pseudoperfect.");
+        }
+
+        using var payload = ParsePayload(witness);
+        var primes = IntegerArithmetic.Factor(integer.Value).Select(factor => factor.Prime).ToArray();
+        var primeNodes = RequiredArray(payload.RootElement, "primeDivisors").EnumerateArray().ToArray();
+        if (primeNodes.Length != primes.Length
+            || primeNodes.Where(node => node.ValueKind != JsonValueKind.String).Any()
+            || !primeNodes.Select(node => node.GetString()).SequenceEqual(
+                primes.Select(prime => prime.ToString(CultureInfo.InvariantCulture))))
+        {
+            throw new InvalidOperationException("the reciprocal-identity witness has the wrong prime divisors.");
+        }
+
+        var denominators = new[] { integer.Value }.Concat(primes).ToArray();
+        var terms = RequiredArray(payload.RootElement, "terms").EnumerateArray().ToArray();
+        if (terms.Length != denominators.Length)
+        {
+            throw new InvalidOperationException("the reciprocal-identity witness has the wrong number of terms.");
+        }
+
+        for (var index = 0; index < terms.Length; index++)
+        {
+            if (RequiredString(terms[index], "numerator") != "1"
+                || RequiredString(terms[index], "denominator")
+                    != denominators[index].ToString(CultureInfo.InvariantCulture))
+            {
+                throw new InvalidOperationException("the reciprocal-identity terms are inconsistent.");
+            }
+        }
+
+        if (RequiredString(payload.RootElement, "result") != "1")
+        {
+            throw new InvalidOperationException("the reciprocal-identity witness names the wrong result.");
+        }
+    }
+
+    private static void ValidateHeegner(IntegerValue integer, EvidenceWitness witness)
+    {
+        using var payload = ParsePayload(witness);
+        var sourceIndex = RequiredInt(payload.RootElement, "sourceIndex");
+        if (RequiredString(payload.RootElement, "accession") != "A003173"
+            || sourceIndex < 1
+            || sourceIndex > HeegnerValues.Length
+            || HeegnerValues[sourceIndex - 1] != integer.ToString()
+            || RequiredString(payload.RootElement, "value") != integer.ToString())
+        {
+            throw new InvalidOperationException("the source-sequence witness does not match the heegner registry.");
+        }
+    }
+
+    private static void ValidateTwoWayTaxicab(IntegerValue integer, EvidenceWitness witness)
+    {
+        var expected = IntegerArithmetic.FindCubeSumRepresentations(integer.Value);
+        if (expected.Count < 2)
+        {
+            throw new InvalidOperationException($"{integer} does not have two positive cube-sum representations.");
+        }
+
+        using var payload = ParsePayload(witness);
+        var representations = RequiredArray(payload.RootElement, "representations").EnumerateArray().ToArray();
+        if (representations.Length != expected.Count)
+        {
+            throw new InvalidOperationException("the cube-sum witness is incomplete.");
+        }
+
+        var seen = new HashSet<(BigInteger Left, BigInteger Right)>();
+        for (var index = 0; index < representations.Length; index++)
+        {
+            var left = IntegerValue.Parse(RequiredString(representations[index], "left")).Value;
+            var right = IntegerValue.Parse(RequiredString(representations[index], "right")).Value;
+            if (left <= 0
+                || right < left
+                || BigInteger.Pow(left, 3) + BigInteger.Pow(right, 3) != integer.Value
+                || !seen.Add((left, right))
+                || left != expected[index].Left
+                || right != expected[index].Right)
+            {
+                throw new InvalidOperationException("the cube-sum witness contains an invalid representation.");
+            }
+        }
+
+        if (RequiredString(payload.RootElement, "result") != integer.ToString())
+        {
+            throw new InvalidOperationException("the cube-sum witness names the wrong result.");
+        }
+    }
+
     private static EvidenceWitness RequireWitness(
         PropertyDefinition property,
         EvidenceWitness? witness,
@@ -424,6 +778,7 @@ public static class EvidenceContractValidator
         {
             PropertySlugs.DecimalFriedman => new HashSet<string>(["orderly"], StringComparer.Ordinal),
             PropertySlugs.TwinPrime => new HashSet<string>(["lowerTwin", "higherTwin"], StringComparer.Ordinal),
+            PropertySlugs.Amicable => new HashSet<string>(["partner"], StringComparer.Ordinal),
             _ => [],
         };
         foreach (var field in document.RootElement.EnumerateObject())
@@ -469,5 +824,15 @@ public static class EvidenceContractValidator
         }
 
         return value;
+    }
+
+    private static JsonElement RequiredArray(JsonElement element, string name)
+    {
+        if (!element.TryGetProperty(name, out var node) || node.ValueKind != JsonValueKind.Array)
+        {
+            throw new InvalidOperationException($"the witness payload requires array field '{name}'.");
+        }
+
+        return node;
     }
 }

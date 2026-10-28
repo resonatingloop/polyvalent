@@ -17,7 +17,17 @@ public sealed record SeedResult(
 
 public sealed class CorpusSeeder
 {
-    public const string SeedVersion = "seed-v5";
+    public const string SeedVersion = "seed-v6";
+    private static readonly NetworkSequenceDefinition[] NetworkSequenceDefinitions =
+    [
+        new(PropertySlugs.Carmichael, "carmichael.json", "oeis-a002997", "A002997", "2465"),
+        new(PropertySlugs.Base2FermatPseudoprime, "base-2-fermat-pseudoprime.json", "oeis-a001567", "A001567", "2047"),
+        new(PropertySlugs.Amicable, "amicable.json", "oeis-a063990", "A063990", "2620"),
+        new(PropertySlugs.SylvesterSequenceMember, "sylvester.json", "oeis-a000058", "A000058", "3263443"),
+        new(PropertySlugs.PrimaryPseudoperfect, "primary-pseudoperfect.json", "oeis-a054377", "A054377", "47058"),
+        new(PropertySlugs.Heegner, "heegner.json", "oeis-a003173", "A003173", null),
+        new(PropertySlugs.TwoWayTaxicab, "two-way-taxicab.json", "oeis-a001235", "A001235", "4104"),
+    ];
     private static readonly ProfileSeed[] ReferenceProfiles =
     [
         new(
@@ -203,10 +213,10 @@ public sealed class CorpusSeeder
     ];
     private readonly SqliteDatabase _database;
     private readonly TimeProvider _timeProvider;
-    private readonly IReadOnlyList<string>? _narcissisticComparisonValuesOverride;
+    private readonly IReadOnlyDictionary<string, IReadOnlyList<string>> _comparisonValuesOverrides;
 
     public CorpusSeeder(SqliteDatabase database, TimeProvider? timeProvider = null)
-        : this(database, timeProvider, null)
+        : this(database, timeProvider, new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal))
     {
     }
 
@@ -214,18 +224,39 @@ public sealed class CorpusSeeder
         SqliteDatabase database,
         IReadOnlyList<string> narcissisticComparisonValuesOverride,
         TimeProvider? timeProvider = null)
-        : this(database, timeProvider, narcissisticComparisonValuesOverride)
+        : this(
+            database,
+            timeProvider,
+            new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal)
+            {
+                [PropertySlugs.DecimalNarcissistic] = narcissisticComparisonValuesOverride,
+            })
+    {
+    }
+
+    internal CorpusSeeder(
+        SqliteDatabase database,
+        string propertySlug,
+        IReadOnlyList<string> comparisonValuesOverride,
+        TimeProvider? timeProvider = null)
+        : this(
+            database,
+            timeProvider,
+            new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal)
+            {
+                [propertySlug] = comparisonValuesOverride,
+            })
     {
     }
 
     private CorpusSeeder(
         SqliteDatabase database,
         TimeProvider? timeProvider,
-        IReadOnlyList<string>? narcissisticComparisonValuesOverride)
+        IReadOnlyDictionary<string, IReadOnlyList<string>> comparisonValuesOverrides)
     {
         _database = database;
         _timeProvider = timeProvider ?? TimeProvider.System;
-        _narcissisticComparisonValuesOverride = narcissisticComparisonValuesOverride;
+        _comparisonValuesOverrides = comparisonValuesOverrides;
     }
 
     public async Task<SeedResult> SeedAsync(CancellationToken cancellationToken = default)
@@ -253,8 +284,16 @@ public sealed class CorpusSeeder
 
         var narcissisticSeed = ReadEmbeddedJson<NarcissisticSeed>("narcissistic.json");
         var friedmanSeed = ReadEmbeddedJson<FriedmanSeed>("friedman.json");
+        var networkSequenceSeeds = NetworkSequenceDefinitions.ToDictionary(
+            definition => definition.PropertySlug,
+            definition => ReadEmbeddedJson<SequenceSeed>(definition.Filename),
+            StringComparer.Ordinal);
         ValidateSeedEnvelope(narcissisticSeed.SchemaVersion, narcissisticSeed.RangeMinimum, narcissisticSeed.RangeMaximum);
         ValidateSeedEnvelope(friedmanSeed.SchemaVersion, friedmanSeed.RangeMinimum, friedmanSeed.RangeMaximum);
+        foreach (var definition in NetworkSequenceDefinitions)
+        {
+            ValidateSequenceSeed(definition, networkSequenceSeeds[definition.PropertySlug]);
+        }
 
         await using var transaction = await connection.BeginTransactionAsync(cancellationToken);
         var sqlTransaction = (SqliteTransaction)transaction;
@@ -268,6 +307,7 @@ public sealed class CorpusSeeder
             sources,
             narcissisticSeed,
             friedmanSeed,
+            networkSequenceSeeds,
             cancellationToken);
         var evaluators = await InsertEvaluatorsAsync(connection, sqlTransaction, cancellationToken);
         var properties = await InsertPropertiesAsync(
@@ -330,16 +370,37 @@ public sealed class CorpusSeeder
             var comparisonMatched = true;
             if (property.Slug == PropertySlugs.DecimalNarcissistic)
             {
-                comparisonMatched = await InsertNarcissisticComparisonAsync(
+                comparisonMatched = await InsertSequenceComparisonAsync(
                     connection,
                     sqlTransaction,
                     properties[property.Slug].VersionId,
                     runId,
                     captures["oeis-a005188"],
+                    property.Slug,
                     evaluations.Select(item => item.Integer.ToString()).ToArray(),
-                    _narcissisticComparisonValuesOverride ?? narcissisticSeed.Values,
+                    ComparisonValues(property.Slug, narcissisticSeed.Values),
                     now,
                     cancellationToken);
+            }
+            else
+            {
+                var sequenceDefinition = NetworkSequenceDefinitions.SingleOrDefault(
+                    definition => definition.PropertySlug == property.Slug);
+                if (sequenceDefinition is not null && property.Slug != PropertySlugs.Heegner)
+                {
+                    var sequenceSeed = networkSequenceSeeds[property.Slug];
+                    comparisonMatched = await InsertSequenceComparisonAsync(
+                        connection,
+                        sqlTransaction,
+                        properties[property.Slug].VersionId,
+                        runId,
+                        captures[sequenceDefinition.SourceSlug],
+                        property.Slug,
+                        evaluations.Select(item => item.Integer.ToString()).ToArray(),
+                        ComparisonValues(property.Slug, sequenceSeed.Values),
+                        now,
+                        cancellationToken);
+                }
             }
 
             if (comparisonMatched)
@@ -372,6 +433,18 @@ public sealed class CorpusSeeder
             now,
             cancellationToken);
         counts[PropertySlugs.DecimalFriedman] = friedmanCount;
+
+        var heegnerCount = await InsertHeegnerPopulationAsync(
+            connection,
+            sqlTransaction,
+            integerIds,
+            properties[PropertySlugs.Heegner],
+            sources,
+            captures,
+            networkSequenceSeeds[PropertySlugs.Heegner],
+            now,
+            cancellationToken);
+        counts[PropertySlugs.Heegner] = heegnerCount;
 
         var profileRevisionIds = await InsertReferenceProfilesAsync(
             connection,
@@ -427,6 +500,13 @@ public sealed class CorpusSeeder
             new SourceSeed("oeis-a005188", "OEIS A005188 — narcissistic numbers", "OEIS Foundation Inc.", "https://oeis.org/A005188", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a036057", "OEIS A036057 — Friedman numbers", "OEIS Foundation Inc.", "https://oeis.org/A036057", "source terms apply; attribution retained"),
             new SourceSeed("oeis-a080035", "OEIS A080035 — orderly Friedman numbers", "OEIS Foundation Inc.", "https://oeis.org/A080035", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a002997", "OEIS A002997 — Carmichael numbers", "OEIS Foundation Inc.", "https://oeis.org/A002997", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a001567", "OEIS A001567 — Fermat pseudoprimes to base 2", "OEIS Foundation Inc.", "https://oeis.org/A001567", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a063990", "OEIS A063990 — amicable numbers", "OEIS Foundation Inc.", "https://oeis.org/A063990", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a000058", "OEIS A000058 — Sylvester's sequence", "OEIS Foundation Inc.", "https://oeis.org/A000058", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a054377", "OEIS A054377 — primary pseudoperfect numbers", "OEIS Foundation Inc.", "https://oeis.org/A054377", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a003173", "OEIS A003173 — Heegner numbers", "OEIS Foundation Inc.", "https://oeis.org/A003173", "source terms apply; attribution retained"),
+            new SourceSeed("oeis-a001235", "OEIS A001235 — two-way taxicab numbers", "OEIS Foundation Inc.", "https://oeis.org/A001235", "source terms apply; attribution retained"),
             new SourceSeed("erich-friedman-2000", "Math Magic, August 2000", "Erich Friedman", "https://erich-friedman.github.io/mathmagic/0800.html", "copyright status not asserted; attribution retained"),
             new SourceSeed("nist-alphinv", "inverse fine-structure constant", "NIST", "https://physics.nist.gov/cgi-bin/cuu/Value?alphinv", "United States government reference; source terms apply"),
             new SourceSeed("mathworld-vesica-piscis", "Vesica Piscis", "Wolfram MathWorld", "https://mathworld.wolfram.com/VesicaPiscis.html", "copyright status not asserted; link and attribution retained"),
@@ -489,6 +569,7 @@ public sealed class CorpusSeeder
         IReadOnlyDictionary<string, long> sources,
         NarcissisticSeed narcissistic,
         FriedmanSeed friedman,
+        IReadOnlyDictionary<string, SequenceSeed> networkSequenceSeeds,
         CancellationToken cancellationToken)
     {
         var captures = new Dictionary<string, long>(StringComparer.Ordinal);
@@ -510,6 +591,22 @@ public sealed class CorpusSeeder
             EmbeddedBytes("friedman.json"),
             "bounded membership and witness extract for integers 1 through 2000",
             cancellationToken);
+        foreach (var definition in NetworkSequenceDefinitions)
+        {
+            var seed = networkSequenceSeeds[definition.PropertySlug];
+            captures[definition.SourceSlug] = await InsertCaptureAsync(
+                connection,
+                transaction,
+                sources[definition.SourceSlug],
+                seed.Source,
+                seed.RetrievedAtUtc,
+                EmbeddedBytes(definition.Filename),
+                definition.ExpectedFirstValueAboveRange is null
+                    ? "complete finite sequence registry and bounded extract for integers 1 through 2000"
+                    : "bounded sequence extract for integers 1 through 2000 with first following source term",
+                cancellationToken);
+        }
+
         return captures;
     }
 
@@ -947,12 +1044,13 @@ public sealed class CorpusSeeder
         await command.ExecuteNonQueryAsync(cancellationToken);
     }
 
-    private static async Task<bool> InsertNarcissisticComparisonAsync(
+    private static async Task<bool> InsertSequenceComparisonAsync(
         SqliteConnection connection,
         SqliteTransaction transaction,
         long propertyVersionId,
         string runId,
         long sourceCaptureId,
+        string propertySlug,
         IReadOnlyCollection<string> localValues,
         IReadOnlyCollection<string> sourceValues,
         string now,
@@ -988,7 +1086,7 @@ public sealed class CorpusSeeder
                 $unexpectedJson,
                 $status);
             """;
-        command.Parameters.AddWithValue("$id", $"{SeedVersion}-narcissistic-oeis-comparison");
+        command.Parameters.AddWithValue("$id", $"{SeedVersion}-{propertySlug}-oeis-comparison");
         command.Parameters.AddWithValue("$propertyVersionId", propertyVersionId);
         command.Parameters.AddWithValue("$runId", runId);
         command.Parameters.AddWithValue("$sourceCaptureId", sourceCaptureId);
@@ -1075,6 +1173,86 @@ public sealed class CorpusSeeder
             now,
             cancellationToken);
         return seed.Entries.Count;
+    }
+
+    private static async Task<int> InsertHeegnerPopulationAsync(
+        SqliteConnection connection,
+        SqliteTransaction transaction,
+        IReadOnlyDictionary<string, long> integerIds,
+        SeededProperty propertyIds,
+        IReadOnlyDictionary<string, long> sources,
+        IReadOnlyDictionary<string, long> captures,
+        SequenceSeed seed,
+        string now,
+        CancellationToken cancellationToken)
+    {
+        const string sourceSlug = "oeis-a003173";
+        var runId = $"{SeedVersion}-{PropertySlugs.Heegner}";
+        await InsertPopulationRunAsync(
+            connection,
+            transaction,
+            runId,
+            propertyIds.VersionId,
+            null,
+            "bounded-import",
+            JsonSerializer.Serialize(new
+            {
+                accession = seed.Accession,
+                source = seed.Source,
+                sourceCapture = captures[sourceSlug],
+                rangeMinimum = seed.RangeMinimum,
+                rangeMaximum = seed.RangeMaximum,
+            }),
+            now,
+            cancellationToken);
+
+        var property = InitialPropertyCatalog.Get(PropertySlugs.Heegner);
+        for (var index = 0; index < seed.Values.Count; index++)
+        {
+            var value = seed.Values[index];
+            var integer = IntegerValue.Parse(value);
+            var sourceIndex = index + 1;
+            var witness = new EvidenceWitness(
+                "source_sequence_term",
+                1,
+                JsonSerializer.Serialize(new
+                {
+                    accession = seed.Accession,
+                    sourceIndex,
+                    value,
+                }),
+                $"OEIS {seed.Accession} term {sourceIndex} = {value}");
+            EvidenceContractValidator.Validate(property, integer, "{}", witness);
+            await InsertAcceptedClaimAsync(
+                connection,
+                transaction,
+                integerIds[value],
+                propertyIds,
+                ClaimOrigin.Imported,
+                runId,
+                "{}",
+                witness,
+                [
+                    new SeedCitation(
+                        sources[sourceSlug],
+                        captures[sourceSlug],
+                        "membership",
+                        "OEIS A003173"),
+                ],
+                now,
+                cancellationToken);
+        }
+
+        await FinishPopulationRunAsync(connection, transaction, runId, now, cancellationToken);
+        await InsertCoverageAsync(
+            connection,
+            transaction,
+            propertyIds.VersionId,
+            runId,
+            "source-asserted-bounded",
+            now,
+            cancellationToken);
+        return seed.Values.Count;
     }
 
     private static async Task<IReadOnlyList<long>> InsertReferenceProfilesAsync(
@@ -1239,7 +1417,20 @@ public sealed class CorpusSeeder
             [PropertySlugs.DecimalPalindrome] = 118,
             [PropertySlugs.DecimalNarcissistic] = 14,
             [PropertySlugs.DecimalFriedman] = 27,
+            [PropertySlugs.Carmichael] = 3,
+            [PropertySlugs.Base2FermatPseudoprime] = 7,
+            [PropertySlugs.Amicable] = 4,
+            [PropertySlugs.SylvesterSequenceMember] = 5,
+            [PropertySlugs.PrimaryPseudoperfect] = 4,
+            [PropertySlugs.Heegner] = 9,
+            [PropertySlugs.TwoWayTaxicab] = 1,
         };
+        if (counts.Count != expected.Count)
+        {
+            throw new InvalidOperationException(
+                $"the corpus produced {counts.Count} property populations; expected {expected.Count}.");
+        }
+
         foreach (var pair in expected)
         {
             if (!counts.TryGetValue(pair.Key, out var count) || count != pair.Value)
@@ -1395,6 +1586,13 @@ public sealed class CorpusSeeder
         PropertySlugs.DecimalPalindrome => ["oeis-a002113"],
         PropertySlugs.DecimalNarcissistic => ["oeis-a005188"],
         PropertySlugs.DecimalFriedman => ["oeis-a036057", "oeis-a080035", "erich-friedman-2000"],
+        PropertySlugs.Carmichael => ["oeis-a002997"],
+        PropertySlugs.Base2FermatPseudoprime => ["oeis-a001567"],
+        PropertySlugs.Amicable => ["oeis-a063990"],
+        PropertySlugs.SylvesterSequenceMember => ["oeis-a000058"],
+        PropertySlugs.PrimaryPseudoperfect => ["oeis-a054377"],
+        PropertySlugs.Heegner => ["oeis-a003173"],
+        PropertySlugs.TwoWayTaxicab => ["oeis-a001235"],
         _ => throw new InvalidOperationException($"source routing is missing for property '{slug}'."),
     };
 
@@ -1411,6 +1609,13 @@ public sealed class CorpusSeeder
         "oeis-a005188" => "OEIS A005188",
         "oeis-a036057" => "OEIS A036057",
         "oeis-a080035" => "OEIS A080035",
+        "oeis-a002997" => "OEIS A002997",
+        "oeis-a001567" => "OEIS A001567",
+        "oeis-a063990" => "OEIS A063990",
+        "oeis-a000058" => "OEIS A000058",
+        "oeis-a054377" => "OEIS A054377",
+        "oeis-a003173" => "OEIS A003173",
+        "oeis-a001235" => "OEIS A001235",
         "erich-friedman-2000" => "Erich Friedman — Math Magic, August 2000",
         _ => slug,
     };
@@ -1434,13 +1639,52 @@ public sealed class CorpusSeeder
         new TwinPrimeEvaluator(),
         new DecimalPalindromeEvaluator(),
         new DecimalNarcissisticEvaluator(),
+        new CarmichaelEvaluator(),
+        new Base2FermatPseudoprimeEvaluator(),
+        new AmicableEvaluator(),
+        new SylvesterSequenceEvaluator(),
+        new PrimaryPseudoperfectEvaluator(),
+        new TwoWayTaxicabEvaluator(),
     ];
+
+    private IReadOnlyList<string> ComparisonValues(
+        string propertySlug,
+        IReadOnlyList<string> sourceValues) =>
+        _comparisonValuesOverrides.TryGetValue(propertySlug, out var values) ? values : sourceValues;
 
     private static void ValidateSeedEnvelope(int schemaVersion, string minimum, string maximum)
     {
         if (schemaVersion != 1 || minimum != "1" || maximum != "2000")
         {
             throw new InvalidOperationException("seed data does not describe schema 1 over range 1 through 2000.");
+        }
+    }
+
+    private static void ValidateSequenceSeed(
+        NetworkSequenceDefinition definition,
+        SequenceSeed seed)
+    {
+        ValidateSeedEnvelope(seed.SchemaVersion, seed.RangeMinimum, seed.RangeMaximum);
+        if (seed.Accession != definition.Accession
+            || seed.Source != $"https://oeis.org/{definition.Accession}")
+        {
+            throw new InvalidOperationException(
+                $"seed data for {definition.PropertySlug} names the wrong oeis source.");
+        }
+
+        var parsed = seed.Values.Select(value => IntegerValue.Parse(value).Value).ToArray();
+        if (parsed.Length == 0
+            || parsed.Any(value => value < 1 || value > 2000)
+            || parsed.Zip(parsed.Skip(1), (left, right) => left < right).Any(increasing => !increasing))
+        {
+            throw new InvalidOperationException(
+                $"seed data for {definition.PropertySlug} must be a strictly increasing bounded sequence.");
+        }
+
+        if (seed.FirstValueAboveRange != definition.ExpectedFirstValueAboveRange)
+        {
+            throw new InvalidOperationException(
+                $"seed data for {definition.PropertySlug} names the wrong first source term above 2000.");
         }
     }
 
@@ -1474,6 +1718,13 @@ public sealed class CorpusSeeder
         string Author,
         string Url,
         string LicenseMetadata);
+
+    private sealed record NetworkSequenceDefinition(
+        string PropertySlug,
+        string Filename,
+        string SourceSlug,
+        string Accession,
+        string? ExpectedFirstValueAboveRange);
 
     private sealed record SeededProperty(long PropertyId, long VersionId);
 
@@ -1517,4 +1768,14 @@ public sealed class CorpusSeeder
         IReadOnlyList<FriedmanSeedEntry> Entries);
 
     private sealed record FriedmanSeedEntry(string Value, string Expression, bool Orderly);
+
+    private sealed record SequenceSeed(
+        int SchemaVersion,
+        string Accession,
+        string Source,
+        string RetrievedAtUtc,
+        string RangeMinimum,
+        string RangeMaximum,
+        IReadOnlyList<string> Values,
+        string? FirstValueAboveRange);
 }

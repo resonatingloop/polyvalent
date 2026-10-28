@@ -1,8 +1,8 @@
 # polyvalent
 
 > **continuity role:** operational front door
-> **status:** reference-v5 live; suggestion inbox configured for a later reviewed deployment
-> **last verified:** 2026-10-19
+> **status:** reference-v6 prepared locally; reference-v5 remains live
+> **last verified:** 2026-10-27
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
 
@@ -48,9 +48,10 @@ to open the public reference release:
 npm --prefix web run dev
 ```
 
-then visit `http://localhost:5173`, `/integer/153`, `/integer/343`, or
-`/integer/137`. the sequence starter pack is visible at `/integer/1024` and
-`/property/power-of-two`. the home-page tip line deliberately renders dormant
+then visit `http://localhost:5173`, `/integer/1729`, `/integer/220`, or
+`/integer/2`. the network-ignition properties are visible at
+`/property/carmichael-number`, `/property/amicable-number`, and the other
+source-linked dossiers. the home-page tip line deliberately renders dormant
 without a configured formspree form id.
 
 to create a private development ledger and open the rolodex:
@@ -60,13 +61,13 @@ dotnet run --project src/Polyvalent.Publisher -c Release -- seed --data-dir ./va
 dotnet run --project src/Polyvalent.Desktop -c Release -- --data-dir ./var/local
 ```
 
-the current `seed-v5` corpus is idempotent on an unchanged matching ledger. it creates
-integers `1` through `2000`, ten versioned properties, `728` accepted positive
-claims, complete recorded coverage where warranted, attributed sources and
-captures, and twenty sourced profile entries across eighteen integers. it
-refuses to rewrite an
-older or divergent ledger; use a fresh data directory or an explicit revision
-workflow when existing authored research must be preserved.
+the current `seed-v6` corpus is idempotent on an unchanged matching ledger. it
+creates integers `1` through `2000`, seventeen versioned properties, `761`
+accepted positive claims, complete recorded coverage where warranted,
+attributed sources and captures, and twenty sourced profile entries across
+eighteen integers. it refuses to rewrite an older or divergent ledger; use a
+fresh data directory or an explicit revision workflow when existing authored
+research must be preserved.
 
 to generate a new local preview from exactly what is staged:
 
@@ -113,6 +114,13 @@ restore procedures.
 | decimal palindrome | 118 | deterministic evaluation | no |
 | decimal narcissistic number | 14 | deterministic evaluation, compared with oeis a005188 | yes |
 | decimal friedman number | 27 | source-asserted bounded import with locally validated expressions | yes |
+| carmichael number | 3 | deterministic evaluation, compared with oeis a002997 | yes |
+| fermat pseudoprime to base 2 | 7 | deterministic evaluation, compared with oeis a001567 | yes |
+| amicable number | 4 | deterministic evaluation, compared with oeis a063990 | yes |
+| sylvester sequence member | 5 | deterministic evaluation, compared with oeis a000058 | yes |
+| primary pseudoperfect number | 4 | deterministic evaluation, compared with oeis a054377 | yes |
+| heegner number | 9 | source-asserted bounded import from oeis a003173 | yes |
+| two-way taxicab number | 1 | deterministic evaluation, compared with oeis a001235 | yes |
 
 relations are derived by intersecting published membership claims; there is no
 pairwise-edge table. the reference release therefore explains
@@ -121,6 +129,10 @@ orderly/nice witness `(3 + 4) ^ 3` for `343`.
 it also gives `137` a prime and twin-prime social field, ranks its exact partner
 `139` first, shows `343` as the perfect cube `7^3`, and places `1` through
 `1024` in the source-linked power-of-two lineage with exact `2^n` witnesses.
+the network ignition gives `1729` overlapping carmichael, base-2 pseudoprime,
+and two-way taxicab memberships; gives `220` an exact amicable partner `284`
+without storing a pairwise edge; and keeps `1806` and `1807` unrelated despite
+their conspicuous adjacency in different source sequences.
 
 the graph is an interactive trace instrument rather than a decorative diagram.
 pointer contact or keyboard focus isolates the exact published route, conducts
@@ -161,8 +173,9 @@ leave the plate visibly dormant and make no request.
 
 ## public deployment
 
-the currently deployed reference-v5 site is
+the live manifest was rechecked on 2026-10-27 and still identifies reference-v5:
 [`https://resonatrix.tech/polyvalent/`](https://resonatrix.tech/polyvalent/).
+the reviewed local artifact is reference-v6; generation did not deploy it.
 
 [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) deploys the public site
 to github pages after relevant pushes to `main`, and also supports explicit
@@ -193,7 +206,7 @@ operator path and rollback boundary.
 | `DECISIONS.md` | historical | append-only | accepted choices and their consequences |
 | `specs/001-first-slice.md` | planning | accepted | active first-slice scope and acceptance criteria |
 | `specs/002-public-suggestion-inbox.md` | planning | accepted | public suggestion-to-inbox transition and activation boundary |
-| `specs/003-network-ignition.md` | planning | draft | proposed seven-property `seed-v6` and `reference-v6` transition |
+| `specs/003-network-ignition.md` | planning | accepted | active seven-property `seed-v6` and `reference-v6` transition |
 
 when documents disagree, identify which document owns the disputed fact rather
 than applying filename precedence.
