@@ -11,5 +11,6 @@
     <Project Path="tests/Polyvalent.Data.Tests/Polyvalent.Data.Tests.csproj" />
     <Project Path="tests/Polyvalent.Publication.Tests/Polyvalent.Publication.Tests.csproj" />
     <Project Path="tests/Polyvalent.Desktop.Tests/Polyvalent.Desktop.Tests.csproj" />
+    <Project Path="tests/Polyvalent.Publisher.Tests/Polyvalent.Publisher.Tests.csproj" />
   </Folder>
 </Solution>

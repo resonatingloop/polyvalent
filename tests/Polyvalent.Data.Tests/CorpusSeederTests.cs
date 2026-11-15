@@ -169,7 +169,7 @@ public sealed class CorpusSeederTests
             await command.ExecuteNonQueryAsync();
         }
 
-        var error = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+        var error = await Assert.ThrowsAsync<NonCurrentOrAuthoredLedgerException>(() =>
             new CorpusSeeder(fixture.Database).SeedAsync());
 
         Assert.Contains("left untouched", error.Message, StringComparison.Ordinal);

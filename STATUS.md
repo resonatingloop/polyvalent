@@ -2,7 +2,7 @@
 
 > **continuity role:** operational checkpoint
 > **status:** current
-> **last verified:** 2026-10-27
+> **last verified:** 2026-11-13
 > **owns:** verified current state, active work, known gaps, and next useful action
 > **update when:** a meaningful stopping point changes any of those facts
 
@@ -27,6 +27,14 @@ and public suggestion inbox:
   positions and citations are validated before insertion;
 - the private avalonia gui, private sqlite ledger, publisher, and public web ui
   continue to share domain truth without sharing private runtime custody;
+- publisher `inspect` now reports four explicit ledger orientations without
+  creating, migrating, repairing, or printing private row content;
+- one exact semantic `seed-v6` predicate now governs inspection, desktop
+  orientation, and seed idempotence, so additional authored corpus state is no
+  longer mistaken for an unchanged reference cabinet;
+- the desktop keeps a persistent accessible ledger-orientation plate while
+  retaining its existing initialize, migration, navigation, and authoring
+  behavior;
 - public output remains an explicit staged projection, and public suggestions
   remain untrusted proposals that cannot mutate the canonical corpus.
 
@@ -34,7 +42,7 @@ the tracked public artifact was reproduced by two independent fresh bootstrap
 runs. both produced `2000` ledger integers and byte-for-byte identical release
 bytes. neither run used networking, an existing ledger, or deployment.
 
-the project-owned complete local check passed on 2026-10-27:
+the project-owned complete local check passed on 2026-11-13:
 
 ```text
 ./scripts/check.sh
@@ -48,8 +56,8 @@ evidence:
 - pages workflow boundary: pinned actions, checked `web/dist`-only build, and
   isolated deployment job;
 - solution restore and release build: `0` warnings and `0` errors;
-- .net tests: `83` passed across domain (`52`), data (`20`), publication
-  (`10`), and desktop view-model (`1`) suites;
+- .net tests: `101` passed across domain (`52`), data (`34`), publication
+  (`10`), desktop view-model (`1`), and publisher command (`4`) suites;
 - .net formatting verification: succeeded;
 - web type checking: succeeded;
 - web tests: `38` passed across artifact, relation, graph trace, routing,
@@ -118,7 +126,8 @@ substitute for that review.
 - the live manifest at `https://resonatrix.tech/polyvalent/data/manifest.json`
   was rechecked on 2026-10-27 and still identifies `reference-v5` with digest
   `2c0b485abc1dbb025296743c525d1948080f31e84ed71438251c1866affae441`;
-- `reference-v6` has not been committed, pushed, deployed, or published;
+- `reference-v6` is tracked on `main`, which matched `origin/main` at the start
+  of this slice; no commit or push was performed by this slice;
 - no provider request or suggestion canary was made;
 - provider settings, recipient verification, actual delivery, and inbox receipt
   remain owner-controlled external proof;
@@ -126,6 +135,10 @@ substitute for that review.
 - actual owner-data privacy, a real wayland/native desktop session, and
   filesystem power-loss behavior remain unverified in their distinct
   environments;
+- access-time preservation remains filesystem-dependent; disposable proof
+  covers content digests, lengths, last-write times, and sidecar inventory;
+- owner-visible confirmation of the current and non-current desktop plates
+  remains distinct from automated and disposable-fixture proof;
 - because the private-to-public and deployment boundaries are red-risk,
   independent review remains required before promotion or deployment.
 
@@ -135,17 +148,20 @@ substitute for that review.
 - accepted spec: `specs/002-public-suggestion-inbox.md`;
 - accepted spec: `specs/003-network-ignition.md` governs `seed-v6` and
   `reference-v6`;
+- implemented spec: `specs/004-ledger-reentry.md` governs non-mutating
+  inspection, exact corpus orientation, and the desktop status plate;
 - implementation: complete locally against evaluator, persistence,
   publication, web, artifact, boundary, and render proof;
 - live site: still `reference-v5`;
-- blockers: none for local use or review.
+- blockers: none for local use; owner-visible native plate acceptance remains
+  before the ledger re-entry spec is sealed.
 
 ## Next useful action
 
-perform an independent release-boundary review and owner browser pass. if both
-are accepted, separately authorize commit, push, and deployment of
-`reference-v6`. any real suggestion-provider canary remains a distinct later
-authorization.
+run publisher `inspect` deliberately against the intended existing owner path,
+then open that same path and confirm the native ledger plate is calm and
+legible. inspection does not authorize seeding, migration, publication, or
+deployment.
 
 ## Re-entry notes
 

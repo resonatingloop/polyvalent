@@ -17,10 +17,17 @@ public sealed partial class App : Avalonia.Application
         {
             var database = new SqliteDatabase(Program.DatabasePath);
             database.InitializeAsync().GetAwaiter().GetResult();
+            var orientationReader = new LedgerInspector();
+            var orientation = orientationReader
+                .InspectAsync(Program.DatabasePath)
+                .GetAwaiter()
+                .GetResult();
             var store = new PolyvalentStore(database);
             var viewModel = new MainWindowViewModel(
                 new ResearchService(store),
-                Program.DatabasePath);
+                Program.DatabasePath,
+                orientationReader,
+                orientation);
             var window = new MainWindow { DataContext = viewModel };
             window.Opened += async (_, _) => await viewModel.InitializeAsync();
             desktop.MainWindow = window;

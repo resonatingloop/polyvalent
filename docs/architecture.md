@@ -47,9 +47,9 @@ the artifact or ledger.
 |---|---|---|
 | `Polyvalent.Domain` | canonical arbitrary-precision integer identity, evaluators, evidence contracts, bounded friedman expression validation | sqlite, ui, network, publication selection |
 | `Polyvalent.Application` | research-facing contracts and orchestration vocabulary | sql or renderer details |
-| `Polyvalent.Data` | migrations, repositories, population ledger, sources, coverage, staging, and public projection | desktop controls or web rendering |
+| `Polyvalent.Data` | migrations, repositories, population ledger, sources, coverage, staging, read-only ledger orientation, and public projection | desktop controls or web rendering |
 | `Polyvalent.Desktop` | private rolodex interaction over application services | graph spectacle, public artifact generation, deployment |
-| `Polyvalent.Publisher` | explicit command boundary for initialization, seed, and release generation | network access or deployment |
+| `Polyvalent.Publisher` | explicit command boundary for non-mutating inspection, initialization, seed, and release generation | network access or deployment |
 | `web` | static public search, profiles, property dossiers, relation derivation, accessible svg, and bounded suggestion correspondence | sqlite, private api, corpus authoring, mathematical evaluation, or automatic ingestion |
 | pages workflow | checked static build, public form-id injection, and github pages delivery | publisher execution, database access, repository secrets, recipient addresses, or non-web artifact upload |
 
@@ -254,6 +254,14 @@ private research tool. it presents a dense rolodex, positive/covered/unknown
 states, evidence, profile entries, authoring benches, and exact-revision staging.
 it contains no public graph or social card. collapsing research sections does
 not change the selected integer because selection lives in the view model.
+
+ledger orientation is application vocabulary implemented by the data layer.
+the publisher's `inspect` path uses an immutable sqlite connection and never
+initializes; ordinary desktop startup deliberately retains its write-capable
+initialize-and-migrate contract. one semantic corpus fingerprint governs both
+`seed-v6` idempotence and the desktop/terminal orientation label. immutable
+public-release history is an operational overlay and is excluded from corpus
+recipe identity.
 
 ## configuration and secrets
 

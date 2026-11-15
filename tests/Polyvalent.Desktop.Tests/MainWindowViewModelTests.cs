@@ -16,16 +16,29 @@ public sealed class MainWindowViewModelTests
         {
             var database = new SqliteDatabase(Path.Combine(directory, "test.sqlite3"));
             await new CorpusSeeder(database).SeedAsync();
+            var orientationReader = new LedgerInspector();
+            var orientation = await orientationReader.InspectAsync(database.Path);
             var viewModel = new MainWindowViewModel(
                 new ResearchService(new PolyvalentStore(database)),
-                database.Path);
+                database.Path,
+                orientationReader,
+                orientation);
 
             await viewModel.InitializeAsync();
 
             Assert.Equal("153", viewModel.SelectedInteger);
+            Assert.Equal("reference corpus · seed-v6", viewModel.LedgerOrientationLabel);
             Assert.Contains(viewModel.Claims, claim =>
                 claim.PropertySlug == PropertySlugs.DecimalFriedman
                 && claim.State == KnowledgeState.Positive);
+
+            viewModel.SourceSlug = "fictional-desktop-source";
+            viewModel.SourceTitle = "fictional desktop source";
+            viewModel.SourceUrl = "https://example.test/desktop-source";
+            await viewModel.CreateSourceCommand.ExecuteAsync(null);
+            Assert.Equal(
+                "non-current or authored ledger · automatic reseeding disabled",
+                viewModel.LedgerOrientationLabel);
 
             await viewModel.NextCommand.ExecuteAsync(null);
 
@@ -55,6 +68,9 @@ public sealed class MainWindowViewModelTests
             await viewModel.SaveSelectedProfileDraftCommand.ExecuteAsync(null);
 
             Assert.Equal("edited body", viewModel.ProfileEntries.Single().Body);
+            Assert.Equal(
+                "non-current or authored ledger · automatic reseeding disabled",
+                viewModel.LedgerOrientationLabel);
         }
         finally
         {

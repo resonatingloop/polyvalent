@@ -96,6 +96,10 @@ these numbers do not march in lockstep. a new corpus recipe may reuse the same
 database and extract schemas; a new release may reflect new selected data
 without a sql migration. accepted spec `specs/003-network-ignition.md` supplies
 `seed-v6` and `reference-v6` while deliberately requiring no database migration.
+ledger orientation adds no persisted version field: the current recipe is
+recognized from exact semantic corpus, provenance, and staging state. creation
+timestamps and immutable `public_releases` history are excluded from recipe
+identity; schema compatibility remains governed by the migration ledger.
 
 ## change rule
 

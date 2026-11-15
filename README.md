@@ -1,7 +1,7 @@
 # polyvalent
 
 > **continuity role:** operational front door
-> **status:** reference-v6 prepared locally; reference-v5 remains live
+> **status:** reference-v6 tracked on main; reference-v5 remains the last verified live release
 > **last verified:** 2026-10-27
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
@@ -54,11 +54,12 @@ then visit `http://localhost:5173`, `/integer/1729`, `/integer/220`, or
 source-linked dossiers. the home-page tip line deliberately renders dormant
 without a configured formspree form id.
 
-to create a private development ledger and open the rolodex:
+to create a fresh versioned reference ledger and open the rolodex only after
+seeding succeeds:
 
 ```text
-dotnet run --project src/Polyvalent.Publisher -c Release -- seed --data-dir ./var/local
-dotnet run --project src/Polyvalent.Desktop -c Release -- --data-dir ./var/local
+dotnet run --project src/Polyvalent.Publisher -c Release -- seed --data-dir ./var/reference/seed-v6 &&
+dotnet run --project src/Polyvalent.Desktop -c Release -- --data-dir ./var/reference/seed-v6
 ```
 
 the current `seed-v6` corpus is idempotent on an unchanged matching ledger. it
@@ -68,6 +69,26 @@ attributed sources and captures, and twenty sourced profile entries across
 eighteen integers. it refuses to rewrite an older or divergent ledger; use a
 fresh data directory or an explicit revision workflow when existing authored
 research must be preserved.
+
+to orient around a surviving owner ledger without creating, migrating, or
+repairing it, inspect first:
+
+```text
+dotnet run --project src/Polyvalent.Publisher -c Release -- inspect --data-dir ./var/local
+```
+
+`inspect` reports `missing`, `empty`, `current-reference`, or
+`non-current-or-authored` using bounded structural evidence only. it never
+prints private rows. opening an existing ledger remains a separate deliberate
+action:
+
+```text
+dotnet run --project src/Polyvalent.Desktop -c Release -- --data-dir ./var/local
+```
+
+ordinary desktop startup retains its existing initialize-and-migrate behavior;
+its persistent ledger plate identifies the selected cabinet without making an
+older or authored cabinet read-only.
 
 to generate a new local preview from exactly what is staged:
 
@@ -207,6 +228,7 @@ operator path and rollback boundary.
 | `specs/001-first-slice.md` | planning | accepted | active first-slice scope and acceptance criteria |
 | `specs/002-public-suggestion-inbox.md` | planning | accepted | public suggestion-to-inbox transition and activation boundary |
 | `specs/003-network-ignition.md` | planning | accepted | active seven-property `seed-v6` and `reference-v6` transition |
+| `specs/004-ledger-reentry.md` | planning | implemented; owner review pending | non-mutating orientation, exact recipe identity, and durable ledger re-entry |
 
 when documents disagree, identify which document owns the disputed fact rather
 than applying filename precedence.

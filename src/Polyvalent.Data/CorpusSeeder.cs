@@ -17,7 +17,7 @@ public sealed record SeedResult(
 
 public sealed class CorpusSeeder
 {
-    public const string SeedVersion = "seed-v6";
+    public const string SeedVersion = ReferenceCorpusShape.RecipeId;
     private static readonly NetworkSequenceDefinition[] NetworkSequenceDefinitions =
     [
         new(PropertySlugs.Carmichael, "carmichael.json", "oeis-a002997", "A002997", "2465"),
@@ -263,17 +263,16 @@ public sealed class CorpusSeeder
     {
         await _database.InitializeAsync(cancellationToken);
         await using var connection = await _database.OpenConnectionAsync(cancellationToken);
-        if (await CountAsync(connection, "properties", cancellationToken) > 0)
+        if (!await ReferenceCorpusShape.IsEmptyAsync(connection, cancellationToken))
         {
             var existing = await ReadExistingResultAsync(connection, cancellationToken);
             try
             {
-                AssertExpectedCounts(existing.PropertyCounts);
-                await AssertCurrentSeedShapeAsync(connection, cancellationToken);
+                await ReferenceCorpusShape.AssertCurrentAsync(connection, cancellationToken);
             }
-            catch (InvalidOperationException exception)
+            catch (ReferenceCorpusMismatchException exception)
             {
-                throw new InvalidOperationException(
+                throw new NonCurrentOrAuthoredLedgerException(
                     $"the existing ledger predates or diverges from {SeedVersion}; it was left untouched. "
                     + "create a fresh ledger for the reference corpus or use an explicit revision workflow to preserve authored research.",
                     exception);
@@ -1468,75 +1467,6 @@ public sealed class CorpusSeeder
             counts,
             await CountAsync(connection, "profile_entry_revisions", cancellationToken),
             await ReadDisagreementsAsync(connection, cancellationToken));
-    }
-
-    private static async Task AssertCurrentSeedShapeAsync(
-        SqliteConnection connection,
-        CancellationToken cancellationToken)
-    {
-        foreach (var property in InitialPropertyCatalog.Definitions)
-        {
-            await using var command = connection.CreateCommand();
-            command.CommandText = """
-                SELECT COUNT(*)
-                FROM population_runs run
-                JOIN property_versions version ON version.id = run.property_version_id
-                JOIN properties property ON property.id = version.property_id
-                WHERE run.id = $runId
-                  AND run.status = 'succeeded'
-                  AND property.slug = $slug
-                  AND version.status = 'accepted'
-                  AND version.graph_mode = $graphMode;
-                """;
-            command.Parameters.AddWithValue("$runId", $"{SeedVersion}-{property.Slug}");
-            command.Parameters.AddWithValue("$slug", property.Slug);
-            command.Parameters.AddWithValue(
-                "$graphMode",
-                property.GraphMode == GraphMode.SharedMembership ? "shared-membership" : "none");
-            var matches = Convert.ToInt32(
-                await command.ExecuteScalarAsync(cancellationToken),
-                CultureInfo.InvariantCulture);
-            if (matches != 1)
-            {
-                throw new InvalidOperationException(
-                    $"{property.Slug} is not backed by the expected successful {SeedVersion} run and graph policy.");
-            }
-        }
-
-        foreach (var profile in ReferenceProfiles)
-        {
-            await using var command = connection.CreateCommand();
-            command.CommandText = """
-                SELECT COUNT(*)
-                FROM profile_entry_revisions revision
-                JOIN profile_entries entry ON entry.id = revision.profile_entry_id
-                JOIN integers integer ON integer.id = entry.integer_id
-                JOIN publication_profile_selections selection
-                  ON selection.profile_entry_revision_id = revision.id
-                WHERE integer.canonical_value = $integerValue
-                  AND entry.slug = $slug
-                  AND revision.status = 'accepted'
-                  AND (
-                    SELECT COUNT(*)
-                    FROM publication_profile_citation_selections citation_selection
-                    JOIN profile_entry_revision_citations citation
-                      ON citation.id = citation_selection.citation_id
-                    WHERE citation_selection.profile_entry_revision_id = revision.id
-                      AND citation.public_safe = 1
-                  ) = $citationCount;
-                """;
-            command.Parameters.AddWithValue("$integerValue", profile.IntegerValue);
-            command.Parameters.AddWithValue("$slug", profile.Slug);
-            command.Parameters.AddWithValue("$citationCount", profile.Citations.Count);
-            var matches = Convert.ToInt32(
-                await command.ExecuteScalarAsync(cancellationToken),
-                CultureInfo.InvariantCulture);
-            if (matches != 1)
-            {
-                throw new InvalidOperationException(
-                    $"profile '{profile.Slug}' is not backed by the expected accepted and staged {SeedVersion} revision.");
-            }
-        }
     }
 
     private static async Task<IReadOnlyList<string>> ReadDisagreementsAsync(

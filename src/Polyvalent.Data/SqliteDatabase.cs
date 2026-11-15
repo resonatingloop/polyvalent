@@ -1,3 +1,4 @@
+using System.Buffers.Binary;
 using System.Globalization;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -15,6 +16,7 @@ public sealed record MigrationResult(
 public sealed class SqliteDatabase
 {
     private const string MigrationResourcePrefix = "Polyvalent.Data.Migrations.";
+    private const string ExpectedSchemaFingerprint = "509612ffeef5fe18a4c738a761a7f4ae4e726feb2a280cabb5adf48ba81a8772";
     private readonly TimeProvider _timeProvider;
 
     public SqliteDatabase(string path, TimeProvider? timeProvider = null)
@@ -108,6 +110,22 @@ public sealed class SqliteDatabase
         return connection;
     }
 
+    public async Task<SqliteConnection> OpenReadOnlyConnectionAsync(
+        CancellationToken cancellationToken = default)
+    {
+        var builder = new SqliteConnectionStringBuilder
+        {
+            DataSource = $"{new Uri(Path).AbsoluteUri}?immutable=1",
+            Mode = SqliteOpenMode.ReadOnly,
+            Cache = SqliteCacheMode.Private,
+            ForeignKeys = true,
+            Pooling = false,
+        };
+        var connection = new SqliteConnection(builder.ConnectionString);
+        await connection.OpenAsync(cancellationToken);
+        return connection;
+    }
+
     public async Task<int> GetSchemaVersionAsync(CancellationToken cancellationToken = default)
     {
         await using var connection = await OpenConnectionAsync(cancellationToken);
@@ -166,6 +184,82 @@ public sealed class SqliteDatabase
                     $"migration {item.Key} checksum does not match the recorded schema ledger.");
             }
         }
+    }
+
+    internal static async Task<int> ValidateCurrentSchemaAsync(
+        SqliteConnection connection,
+        CancellationToken cancellationToken = default)
+    {
+        var migrations = LoadMigrations();
+        var applied = await ReadAppliedMigrationsAsync(connection, cancellationToken);
+        ValidateAppliedMigrations(applied, migrations);
+        if (applied.Count != migrations.Count)
+        {
+            throw new InvalidOperationException(
+                $"database schema is incomplete: found {applied.Count} of {migrations.Count} migrations.");
+        }
+
+        var schemaFingerprint = await ComputeSchemaFingerprintAsync(connection, cancellationToken);
+        if (!string.Equals(schemaFingerprint, ExpectedSchemaFingerprint, StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("database schema objects do not match the current migration set.");
+        }
+
+        return migrations.Count == 0 ? 0 : migrations.Max(migration => migration.Version);
+    }
+
+    internal static async Task<string> ComputeSchemaFingerprintAsync(
+        SqliteConnection connection,
+        CancellationToken cancellationToken = default)
+    {
+        using var hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+        await using var command = connection.CreateCommand();
+        command.CommandText = """
+            SELECT type, name, tbl_name, COALESCE(sql, '')
+            FROM sqlite_schema
+            WHERE name NOT LIKE 'sqlite_%'
+            ORDER BY type, name, tbl_name;
+            """;
+        await using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            AppendFingerprintValue(hash, reader.GetString(0));
+            AppendFingerprintValue(hash, reader.GetString(1));
+            AppendFingerprintValue(hash, reader.GetString(2));
+            AppendFingerprintValue(hash, NormalizeSql(reader.GetString(3)));
+        }
+
+        return Convert.ToHexStringLower(hash.GetHashAndReset());
+    }
+
+    private static async Task<Dictionary<int, string>> ReadAppliedMigrationsAsync(
+        SqliteConnection connection,
+        CancellationToken cancellationToken)
+    {
+        await using var tableCommand = connection.CreateCommand();
+        tableCommand.CommandText = """
+            SELECT COUNT(*)
+            FROM sqlite_master
+            WHERE type = 'table' AND name = 'schema_migrations';
+            """;
+        var exists = Convert.ToInt32(
+            await tableCommand.ExecuteScalarAsync(cancellationToken),
+            CultureInfo.InvariantCulture) == 1;
+        if (!exists)
+        {
+            throw new InvalidOperationException("database does not contain the migration ledger.");
+        }
+
+        var applied = new Dictionary<int, string>();
+        await using var command = connection.CreateCommand();
+        command.CommandText = "SELECT version, sha256 FROM schema_migrations ORDER BY version;";
+        await using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            applied.Add(reader.GetInt32(0), reader.GetString(1));
+        }
+
+        return applied;
     }
 
     private async Task<string> CreateBackupAsync(CancellationToken cancellationToken)
@@ -241,6 +335,18 @@ public sealed class SqliteDatabase
         var sql = reader.ReadToEnd();
         var digest = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(sql)));
         return new Migration(version, filename, sql, digest);
+    }
+
+    private static string NormalizeSql(string sql) =>
+        string.Join(' ', sql.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
+
+    private static void AppendFingerprintValue(IncrementalHash hash, string value)
+    {
+        var bytes = Encoding.UTF8.GetBytes(value);
+        Span<byte> length = stackalloc byte[sizeof(int)];
+        BinaryPrimitives.WriteInt32LittleEndian(length, bytes.Length);
+        hash.AppendData(length);
+        hash.AppendData(bytes);
     }
 
     private string UtcNowText() =>

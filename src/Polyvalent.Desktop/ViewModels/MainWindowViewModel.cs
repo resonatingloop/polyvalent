@@ -11,14 +11,24 @@ namespace Polyvalent.Desktop.ViewModels;
 public sealed partial class MainWindowViewModel : ObservableObject
 {
     private readonly ResearchService _research;
+    private readonly ILedgerOrientationReader _orientationReader;
 
-    public MainWindowViewModel(ResearchService research, string databasePath)
+    public MainWindowViewModel(
+        ResearchService research,
+        string databasePath,
+        ILedgerOrientationReader orientationReader,
+        LedgerOrientation orientation)
     {
         _research = research;
+        _orientationReader = orientationReader;
         DatabasePath = databasePath;
+        LedgerOrientationLabel = orientation.DesktopLabel;
     }
 
     public string DatabasePath { get; }
+
+    [ObservableProperty]
+    private string _ledgerOrientationLabel;
 
     public ObservableCollection<ClaimView> Claims { get; } = [];
 
@@ -215,6 +225,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
             SourceUrl,
             EmptyToNull(SourceLicense)));
         CitationSourceId = id.ToString();
+        await RefreshOrientationAsync();
         StatusMessage = $"source {id} created; its id is loaded into the citation bench.";
     });
 
@@ -355,6 +366,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
 
     private async Task OpenCoreAsync()
     {
+        await RefreshOrientationAsync();
         var dossier = await _research.OpenAsync(SearchText);
         SelectedInteger = dossier.Integer.ToString();
         SearchText = SelectedInteger;
@@ -376,6 +388,9 @@ public sealed partial class MainWindowViewModel : ObservableObject
         StagingMessage = $"{staging.Claims} claims · {staging.ProfileEntries} profiles · {staging.Citations} citations staged";
         StatusMessage = $"record {SelectedInteger} open · {Claims.Count} property states · {ProfileEntries.Count} profile entries";
     }
+
+    private async Task RefreshOrientationAsync() =>
+        LedgerOrientationLabel = (await _orientationReader.InspectAsync(DatabasePath)).DesktopLabel;
 
     private async Task GuardAsync(Func<Task> operation)
     {

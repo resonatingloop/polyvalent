@@ -5,41 +5,51 @@ namespace Polyvalent.Publisher;
 
 internal static class Program
 {
-    public static async Task<int> Main(string[] args)
+    public static Task<int> Main(string[] args) => RunAsync(args, Console.Out, Console.Error);
+
+    internal static async Task<int> RunAsync(string[] args, TextWriter output, TextWriter error)
     {
+        string? databasePath = null;
         try
         {
             var options = CommandLine.Parse(args);
             if (options.Command == "help")
             {
-                Console.WriteLine(CommandLine.Usage);
+                await output.WriteLineAsync(CommandLine.Usage);
                 return 0;
             }
 
-            var databasePath = DatabasePathResolver.Resolve(options.DatabasePath, options.DataDirectory);
+            databasePath = DatabasePathResolver.Resolve(options.DatabasePath, options.DataDirectory);
+            if (options.Command == "inspect")
+            {
+                var orientation = await new LedgerInspector().InspectAsync(databasePath);
+                await WriteInspectionAsync(output, orientation);
+                return 0;
+            }
+
             var database = new SqliteDatabase(databasePath);
             if (options.Command is "init" or "seed" or "bootstrap")
             {
                 var migration = await database.InitializeAsync();
-                Console.WriteLine(
+                await output.WriteLineAsync(
                     $"database schema {migration.CurrentVersion}; applied {migration.AppliedVersions.Count} migration(s).");
                 if (migration.BackupPath is not null)
                 {
-                    Console.WriteLine($"migration backup: {migration.BackupPath}");
+                    await output.WriteLineAsync($"migration backup: {migration.BackupPath}");
                 }
             }
 
             if (options.Command is "seed" or "bootstrap")
             {
                 var seed = await new CorpusSeeder(database).SeedAsync();
-                Console.WriteLine(
+                await output.WriteLineAsync(
                     $"corpus {(seed.AlreadySeeded ? "already present" : "seeded")}: "
                     + $"{seed.IntegerCount} integers, "
                     + $"{seed.PropertyCounts.Values.Sum()} accepted claims, "
                     + $"{seed.ProfileEntryCount} profile {(seed.ProfileEntryCount == 1 ? "entry" : "entries")}.");
                 if (seed.Disagreements.Count > 0)
                 {
-                    Console.WriteLine(
+                    await output.WriteLineAsync(
                         $"publication held for disagreed properties: {string.Join(", ", seed.Disagreements)}.");
                 }
             }
@@ -51,26 +61,50 @@ internal static class Program
                     ?? throw new ArgumentException("publish requires --release-id.");
                 var generatedAt = options.GeneratedAtUtc
                     ?? DateTimeOffset.UtcNow;
-                var output = options.OutputDirectory
+                var outputDirectory = options.OutputDirectory
                     ?? Path.Combine(Environment.CurrentDirectory, "artifacts", "public", releaseId);
                 var result = await new PublicReleaseService(database).GenerateAsync(
-                    output,
+                    outputDirectory,
                     releaseId,
                     generatedAt);
-                Console.WriteLine(
+                await output.WriteLineAsync(
                     $"sealed {result.ReleaseId}: {result.PropertyCount} properties, "
                     + $"{result.IntegerCount} integers, {result.ClaimCount} claims, "
                     + $"sha-256 {result.DataSha256}.");
-                Console.WriteLine($"artifact: {result.OutputDirectory}");
+                await output.WriteLineAsync($"artifact: {result.OutputDirectory}");
             }
 
             return 0;
         }
-        catch (Exception exception)
+        catch (NonCurrentOrAuthoredLedgerException exception)
         {
-            Console.Error.WriteLine($"polyvalent publisher: {exception.Message}");
+            await error.WriteLineAsync($"polyvalent publisher: {exception.Message}");
+            await error.WriteLineAsync($"preserved path: {databasePath}");
+            await error.WriteLineAsync($"current recipe: {CorpusSeeder.SeedVersion}");
+            await error.WriteLineAsync(
+                "fresh reference: dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj "
+                + "-c Release -- seed --data-dir ./var/reference/seed-v6");
             return 1;
         }
+        catch (Exception exception)
+        {
+            await error.WriteLineAsync($"polyvalent publisher: {exception.Message}");
+            return 1;
+        }
+    }
+
+    private static async Task WriteInspectionAsync(TextWriter output, Polyvalent.Application.LedgerOrientation result)
+    {
+        await output.WriteLineAsync($"path: {result.DatabasePath}");
+        await output.WriteLineAsync($"schema: {result.SchemaVersion?.ToString(CultureInfo.InvariantCulture) ?? "not present"}");
+        await output.WriteLineAsync($"current recipe: {result.CurrentRecipe}");
+        await output.WriteLineAsync(
+            $"evidence: {result.PropertyCount} properties · {result.AcceptedClaimCount} accepted claims · "
+            + $"{result.ProfileEntryCount} profile entries");
+        await output.WriteLineAsync($"orientation: {result.Outcome}");
+        await output.WriteLineAsync($"meaning: {result.Meaning}");
+        await output.WriteLineAsync($"seed: {result.SeedDisposition}");
+        await output.WriteLineAsync($"next: {result.SafeNextAction}");
     }
 
     private sealed record CommandLine(
@@ -85,6 +119,7 @@ internal static class Program
             polyvalent publisher
 
             commands:
+              inspect    report ledger orientation without creating or modifying it
               init       migrate the canonical local database
               seed       migrate and reproducibly populate the first corpus
               publish    emit one immutable public release from staged records
@@ -106,7 +141,7 @@ internal static class Program
             }
 
             var command = args[0];
-            if (command is not ("init" or "seed" or "publish" or "bootstrap"))
+            if (command is not ("inspect" or "init" or "seed" or "publish" or "bootstrap"))
             {
                 throw new ArgumentException($"unknown command '{command}'.\n\n{Usage}");
             }

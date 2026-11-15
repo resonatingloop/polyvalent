@@ -66,6 +66,23 @@ application does not discover or parse `.env`.
 
 ## initialize and seed
 
+inspect any selected path before deciding whether to initialize, seed, or open
+it:
+
+```text
+dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- inspect --data-dir ./var/local
+```
+
+inspection uses an immutable sqlite connection, does not run initialization or
+migrations, and creates no missing directory, database, backup, journal, wal,
+or shm file. an active non-empty wal or rollback journal is refused until
+writers close, because ignoring recovery state could report stale corpus data
+and opening it normally could alter sidecars. database and sidecar metadata are
+checked again after inspection so a concurrent writer yields an error rather
+than a stale label. incompatible sqlite structure, unknown or altered schema
+objects, unknown migrations, and checksum drift are errors rather than
+orientation outcomes.
+
 create or migrate an empty development database:
 
 ```text
@@ -78,8 +95,11 @@ populate the deterministic first corpus and its publication staging:
 dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- seed --data-dir ./var/local
 ```
 
-`seed-v6` is idempotent when the existing ledger has its expected successful
-population runs, graph policy, claim counts, and twenty staged profile entries.
+`seed-v6` is idempotent only when the existing ledger exactly matches the
+current semantic corpus recipe. the shared predicate covers corpus,
+provenance, witnesses, profiles, and staging while excluding timestamps and
+immutable public-release history. any additional authored corpus state makes
+automatic reseeding refuse the cabinet.
 a clean result reports `2000`
 integers and `761` accepted claims distributed as
 `303` prime, `62` triangular, `44` perfect square, `12` perfect cube, `16`
@@ -94,11 +114,12 @@ the same seed stages twenty sourced profile entries across `36`, `86`, `88`,
 cited entries. profile entries remain narrative records rather than property
 claims, so the claim count and relation ontology do not change.
 
-the command deliberately refuses to rewrite a populated seed-v1 through
-seed-v5 or any divergent ledger. accepted property versions and claim revisions
+the command deliberately refuses to rewrite a populated non-current or authored
+ledger. accepted property versions and claim revisions
 are immutable, so upgrading authored research requires a separately reviewed
 revision workflow. use a fresh `--data-dir` when the desired result is the
-current reference corpus.
+current reference corpus. refusal reports the preserved path and a copy-ready
+fresh command for `./var/reference/seed-v6`.
 
 the narcissistic run and all six deterministic network-ignition populations are
 compared with their bounded oeis extracts. disagreement is retained in
@@ -110,11 +131,19 @@ theorem claim.
 
 ## private desktop
 
-after seeding, run:
+for a fresh demonstration cabinet, make launch conditional on successful seed:
 
 ```text
-dotnet run --project src/Polyvalent.Desktop/Polyvalent.Desktop.csproj -c Release -- --data-dir ./var/local
+dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- seed --data-dir ./var/reference/seed-v6 &&
+dotnet run --project src/Polyvalent.Desktop/Polyvalent.Desktop.csproj -c Release -- --data-dir ./var/reference/seed-v6
 ```
+
+to open an existing owner cabinet deliberately, inspect it first and then run
+the desktop as a separate command with that same `--db` or `--data-dir`. the
+desktop still initializes and migrates on ordinary startup. its persistent
+plate reads `reference corpus · seed-v6`, `empty ledger`, or
+`non-current or authored ledger · automatic reseeding disabled`; the label
+does not block navigation or authoring.
 
 the first-slice workflow can open canonical integers, inspect property states
 and evidence, create manual claim drafts, create sources and citations, create
