@@ -1,6 +1,6 @@
 # spec: network ignition — seven evidence-bearing circles
 
-status: accepted
+status: retired
 
 > **continuity role:** accepted transition
 > **owner:** repository owner
