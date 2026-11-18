@@ -16,7 +16,8 @@ public sealed record MigrationResult(
 public sealed class SqliteDatabase
 {
     private const string MigrationResourcePrefix = "Polyvalent.Data.Migrations.";
-    private const string ExpectedSchemaFingerprint = "509612ffeef5fe18a4c738a761a7f4ae4e726feb2a280cabb5adf48ba81a8772";
+    private const string PreviousSchemaFingerprintV1 = "509612ffeef5fe18a4c738a761a7f4ae4e726feb2a280cabb5adf48ba81a8772";
+    private const string ExpectedSchemaFingerprint = "48f2a3d23c09eb41c4583b27163e8edc87ec9b8779f7fabea2914401b1c87468";
     private readonly TimeProvider _timeProvider;
 
     public SqliteDatabase(string path, TimeProvider? timeProvider = null)
@@ -202,10 +203,39 @@ public sealed class SqliteDatabase
         var schemaFingerprint = await ComputeSchemaFingerprintAsync(connection, cancellationToken);
         if (!string.Equals(schemaFingerprint, ExpectedSchemaFingerprint, StringComparison.Ordinal))
         {
-            throw new InvalidOperationException("database schema objects do not match the current migration set.");
+            throw new InvalidOperationException(
+                $"database schema objects do not match the current migration set ({schemaFingerprint}).");
         }
 
         return migrations.Count == 0 ? 0 : migrations.Max(migration => migration.Version);
+    }
+
+    internal static async Task<int?> FindKnownPriorSchemaVersionAsync(
+        SqliteConnection connection,
+        CancellationToken cancellationToken = default)
+    {
+        Dictionary<int, string> applied;
+        try
+        {
+            applied = await ReadAppliedMigrationsAsync(connection, cancellationToken);
+        }
+        catch (InvalidOperationException)
+        {
+            return null;
+        }
+
+        var first = LoadMigrations().Single(migration => migration.Version == 1);
+        if (applied.Count != 1
+            || !applied.TryGetValue(1, out var checksum)
+            || !string.Equals(checksum, first.Sha256, StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        var fingerprint = await ComputeSchemaFingerprintAsync(connection, cancellationToken);
+        return string.Equals(fingerprint, PreviousSchemaFingerprintV1, StringComparison.Ordinal)
+            ? 1
+            : null;
     }
 
     internal static async Task<string> ComputeSchemaFingerprintAsync(

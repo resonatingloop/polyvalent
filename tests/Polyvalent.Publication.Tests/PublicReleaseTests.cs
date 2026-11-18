@@ -63,6 +63,62 @@ public sealed class PublicReleaseTests
     }
 
     [Fact]
+    public async Task Private_relational_research_is_silent_in_the_public_projection()
+    {
+        await using var baseline = TestDatabase.Create();
+        await using var authored = TestDatabase.Create();
+        await new CorpusSeeder(baseline.Database).SeedAsync();
+        await new CorpusSeeder(authored.Database).SeedAsync();
+
+        var store = new PolyvalentStore(authored.Database);
+        var relationId = await store.CreateDirectRelationDraftAsync(
+            new DirectRelationDraftInput(
+                "prime-index-137",
+                DirectRelationDirectionality.Directed,
+                "773 is the 137th prime",
+                "prime enumeration",
+                "computed",
+                "private research note",
+                new[]
+                {
+                    new DirectRelationParticipant(IntegerValue.Parse("137"), "index", 0),
+                    new DirectRelationParticipant(IntegerValue.Parse("773"), "prime", 1),
+                }));
+        await store.AcceptDirectRelationDraftAsync(relationId);
+        var constellationId = await store.CreateConstellationDraftAsync(
+            new ConstellationDraftInput(
+                "permutation-rehearsal",
+                "permutation rehearsal",
+                "a plainly fictional company for publication-silence proof",
+                "fictional fixture",
+                "fixture-only constellation note",
+                new[]
+                {
+                    new ConstellationMember(IntegerValue.Parse("137"), "member", null, 0),
+                    new ConstellationMember(IntegerValue.Parse("173"), "member", null, 1),
+                }));
+        await store.AcceptConstellationDraftAsync(constellationId);
+
+        var baselineOutput = Path.Combine(baseline.Directory, "release");
+        var authoredOutput = Path.Combine(authored.Directory, "release");
+        await new PublicReleaseService(baseline.Database).GenerateAsync(
+            baselineOutput,
+            "private-silence-v1",
+            ReleaseTime);
+        await new PublicReleaseService(authored.Database).GenerateAsync(
+            authoredOutput,
+            "private-silence-v1",
+            ReleaseTime);
+
+        Assert.Equal(
+            await File.ReadAllBytesAsync(Path.Combine(baselineOutput, "data.json")),
+            await File.ReadAllBytesAsync(Path.Combine(authoredOutput, "data.json")));
+        Assert.Equal(
+            await File.ReadAllBytesAsync(Path.Combine(baselineOutput, "manifest.json")),
+            await File.ReadAllBytesAsync(Path.Combine(authoredOutput, "manifest.json")));
+    }
+
+    [Fact]
     public async Task Release_contains_explained_153_to_343_friedman_relation()
     {
         await using var fixture = TestDatabase.Create();

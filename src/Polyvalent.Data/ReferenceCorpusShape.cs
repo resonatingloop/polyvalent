@@ -32,6 +32,14 @@ internal static class ReferenceCorpusShape
         "profile_entries",
         "profile_entry_revisions",
         "profile_entry_revision_citations",
+        "direct_relations",
+        "direct_relation_revisions",
+        "direct_relation_participants",
+        "direct_relation_revision_citations",
+        "constellations",
+        "constellation_revisions",
+        "constellation_members",
+        "constellation_revision_citations",
         "publication_property_selections",
         "publication_property_citation_selections",
         "publication_claim_selections",
@@ -41,7 +49,7 @@ internal static class ReferenceCorpusShape
         "privacy_sentinels",
     ];
 
-    private const string ExpectedFingerprint = "1260b634c7387a4fe6db2d5edf6f4566da893f7fbf7c7ed2b9a20e5b882f9570";
+    private const string ExpectedFingerprint = "92865b34153bfe588805e715a1f6fa09a2ce7ef85f243d0e978a33d51b388803";
 
     public static async Task<bool> IsEmptyAsync(
         SqliteConnection connection,
@@ -67,7 +75,7 @@ internal static class ReferenceCorpusShape
         if (!string.Equals(fingerprint, ExpectedFingerprint, StringComparison.Ordinal))
         {
             throw new ReferenceCorpusMismatchException(
-                $"ledger does not exactly match the {RecipeId} semantic corpus shape.");
+                $"ledger does not exactly match the {RecipeId} semantic corpus shape ({fingerprint}).");
         }
     }
 

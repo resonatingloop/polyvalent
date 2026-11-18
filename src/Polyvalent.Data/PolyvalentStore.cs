@@ -6,7 +6,7 @@ using Polyvalent.Domain;
 
 namespace Polyvalent.Data;
 
-public sealed class PolyvalentStore : IResearchRepository
+public sealed partial class PolyvalentStore : IResearchRepository
 {
     private readonly SqliteDatabase _database;
     private readonly TimeProvider _timeProvider;
@@ -69,7 +69,13 @@ public sealed class PolyvalentStore : IResearchRepository
         var profiles = integerId is null
             ? []
             : await ReadProfilesAsync(connection, integerId.Value, cancellationToken);
-        return new IntegerDossier(integer, claims, profiles);
+        var directRelations = integerId is null
+            ? []
+            : await ReadDirectRelationsForIntegerAsync(connection, integerId.Value, cancellationToken);
+        var constellations = integerId is null
+            ? []
+            : await ReadConstellationsForIntegerAsync(connection, integerId.Value, cancellationToken);
+        return new IntegerDossier(integer, claims, profiles, directRelations, constellations);
     }
 
     public async Task<IReadOnlyList<PropertyOption>> GetPropertiesAsync(

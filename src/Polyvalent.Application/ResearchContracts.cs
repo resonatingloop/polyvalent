@@ -53,7 +53,9 @@ public sealed record ProfileEntryView(
 public sealed record IntegerDossier(
     IntegerValue Integer,
     IReadOnlyList<ClaimView> Claims,
-    IReadOnlyList<ProfileEntryView> ProfileEntries);
+    IReadOnlyList<ProfileEntryView> ProfileEntries,
+    IReadOnlyList<DirectRelationView> DirectRelations,
+    IReadOnlyList<ConstellationView> Constellations);
 
 public sealed record PropertyOption(
     long PropertyVersionId,
@@ -150,4 +152,72 @@ public interface IResearchRepository
     Task StageProfileAsync(long revisionId, CancellationToken cancellationToken = default);
 
     Task<StagingSummary> GetStagingSummaryAsync(CancellationToken cancellationToken = default);
+
+    Task<DirectRelationView> GetDirectRelationAsync(
+        string slug,
+        CancellationToken cancellationToken = default);
+
+    Task<ConstellationView> GetConstellationAsync(
+        string slug,
+        CancellationToken cancellationToken = default);
+
+    Task<long> CreateDirectRelationDraftAsync(
+        DirectRelationDraftInput input,
+        CancellationToken cancellationToken = default);
+
+    Task UpdateDirectRelationDraftAsync(
+        long revisionId,
+        DirectRelationDraftInput input,
+        CancellationToken cancellationToken = default);
+
+    Task<long> PrepareDirectRelationRevisionAsync(
+        long acceptedRevisionId,
+        CancellationToken cancellationToken = default);
+
+    Task AcceptDirectRelationDraftAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default);
+
+    Task WithdrawDirectRelationDraftAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default);
+
+    Task<long> CiteDirectRelationAsync(
+        long revisionId,
+        long sourceId,
+        long? sourceCaptureId,
+        string role,
+        string label,
+        string? locator,
+        CancellationToken cancellationToken = default);
+
+    Task<long> CreateConstellationDraftAsync(
+        ConstellationDraftInput input,
+        CancellationToken cancellationToken = default);
+
+    Task UpdateConstellationDraftAsync(
+        long revisionId,
+        ConstellationDraftInput input,
+        CancellationToken cancellationToken = default);
+
+    Task<long> PrepareConstellationRevisionAsync(
+        long acceptedRevisionId,
+        CancellationToken cancellationToken = default);
+
+    Task AcceptConstellationDraftAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default);
+
+    Task WithdrawConstellationDraftAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default);
+
+    Task<long> CiteConstellationAsync(
+        long revisionId,
+        long sourceId,
+        long? sourceCaptureId,
+        string role,
+        string label,
+        string? locator,
+        CancellationToken cancellationToken = default);
 }

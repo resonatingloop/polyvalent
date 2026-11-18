@@ -1,8 +1,8 @@
 # development and recovery
 
 > **continuity role:** operational runbook
-> **status:** current for the first slice, pages delivery, seed-v6, and suggestion inbox
-> **last verified:** 2026-10-27
+> **status:** current through the private relational foundation
+> **last verified:** 2026-11-17
 > **owns:** setup, local data, seed, launch, publication preview, validation, and recovery
 > **update when:** any command, path, prerequisite, migration, or recovery step changes
 
@@ -83,6 +83,12 @@ than a stale label. incompatible sqlite structure, unknown or altered schema
 objects, unknown migrations, and checksum drift are errors rather than
 orientation outcomes.
 
+an exact schema-v1 ledger is the deliberate known-prior case: inspection
+reports `migration-required` without changing it. `init` or ordinary desktop
+startup then creates a sibling sqlite-consistent backup before applying
+additive `002_private_relational_foundation.sql`. a merely similar or drifted
+schema remains an error.
+
 create or migrate an empty development database:
 
 ```text
@@ -142,7 +148,8 @@ to open an existing owner cabinet deliberately, inspect it first and then run
 the desktop as a separate command with that same `--db` or `--data-dir`. the
 desktop still initializes and migrates on ordinary startup. its persistent
 plate reads `reference corpus · seed-v6`, `empty ledger`, or
-`non-current or authored ledger · automatic reseeding disabled`; the label
+`non-current or authored ledger · automatic reseeding disabled`; preflight
+inspection may also report `known prior ledger · migration required`. the label
 does not block navigation or authoring.
 
 the first-slice workflow can open canonical integers, inspect property states
@@ -150,6 +157,12 @@ and evidence, create manual claim drafts, create sources and citations, create
 or revise profile entries, accept or withdraw drafts, and stage exact accepted
 revisions. the staging count is visible in the top bar. none of these operations
 generates a release.
+
+the current private room can also open an authored direct relation or
+constellation. its held-object rail and visit trail are process-local and clear
+on exit. both objects support aggregate draft edit, citation, acceptance,
+withdrawal, and explicit superseding revision; accepted content and child rows
+are immutable. neither object has a publication control or public projection.
 
 generated and imported claims are read-only. a new manual claim for the same
 integer and property becomes an explicit superseding draft; when the accepted
@@ -279,24 +292,34 @@ generation does not copy output into `web/public/data`, contact a host, or
 deploy. review the new manifest, digest, data, source attribution, and privacy
 scan before any later artifact-promotion or deployment change.
 
-## reproduce the committed reference artifact
+## reproduce the committed reference data after schema v2
 
 use a fresh database and fresh output outside the tracked tree:
 
 ```text
 dotnet run --project src/Polyvalent.Publisher/Polyvalent.Publisher.csproj -c Release -- bootstrap --db /tmp/polyvalent-reference-v6.sqlite3 --output /tmp/polyvalent-reference-v6 --release-id reference-v6 --generated-at 2026-10-27T00:00:00Z
-diff -ru web/public/data /tmp/polyvalent-reference-v6
+cmp web/public/data/data.json /tmp/polyvalent-reference-v6/data.json
 ```
 
-both `/tmp` targets must be absent before the command. an empty `diff` proves
-byte-for-byte reproduction. refreshing the tracked artifact is an explicit,
-reviewed change; do not make a development publish overwrite it.
+both `/tmp` targets must be absent before the command. a silent `cmp` proves
+the public research projection is unchanged. the newly generated manifest
+truthfully records source database schema `2`, while the tracked
+`reference-v6` manifest records the schema `1` ledger from which that immutable
+release was generated; whole-manifest equality is therefore neither expected
+nor claimed. refreshing the tracked artifact is an explicit, reviewed change;
+do not make a development publish overwrite it.
 
 ## migrations and backups
 
 ordered sql migrations are embedded in `Polyvalent.Data`. every applied version
 and sha-256 checksum is recorded in `schema_migrations`; reopening rejects an
 unknown version or changed checksum.
+
+schema version `2` adds private direct-relation and constellation lineages,
+revisions, participants or members, citations, indexes, and lifecycle guards.
+it does not change `seed-v6`, source-extract schema `1`, or `reference-v6`.
+implementation proof migrates disposable v1 fixtures only; running `init` or
+the desktop against an owner ledger remains a deliberate owner operation.
 
 before applying any pending migration to a nonempty database, initialization
 creates a sqlite-consistent sibling backup named:

@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Polyvalent.Desktop.ViewModels"
         xmlns:app="using:Polyvalent.Application"
+        xmlns:domain="using:Polyvalent.Domain"
         x:Class="Polyvalent.Desktop.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="polyvalent · private research ledger"
@@ -14,7 +15,7 @@
       <Grid Margin="20,0" ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
           <TextBlock Classes="display" FontSize="22" Text="polyvalent" />
-          <TextBlock Classes="eyebrow" VerticalAlignment="Center" Text="PRIVATE LEDGER / ROLODEX" />
+          <TextBlock Classes="eyebrow" VerticalAlignment="Center" Text="PRIVATE RELATIONAL CABINET" />
         </StackPanel>
         <TextBlock Grid.Column="2" Classes="mono" FontSize="11" Text="{Binding StagingMessage}" />
       </Grid>
@@ -23,7 +24,7 @@
     <Grid Grid.Row="1" Margin="16" ColumnDefinitions="236,12,*,12,344">
       <Border Grid.Column="0" Classes="plate">
         <Grid RowDefinitions="Auto,Auto,18,Auto,*,Auto">
-          <TextBlock Classes="eyebrow" Text="INDEX / INTEGER" />
+          <TextBlock Classes="eyebrow" Text="OPEN AN INTEGER" />
           <Grid Grid.Row="1" Margin="0,10,0,0" ColumnDefinitions="*,Auto">
             <TextBox Text="{Binding SearchText}" PlaceholderText="canonical integer" AutomationProperties.Name="integer search" />
             <Button Grid.Column="1" Margin="8,0,0,0" Command="{Binding OpenCommand}" Content="open" />
@@ -36,20 +37,40 @@
                         Margin="0,22,0,0"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
-            <StackPanel Spacing="8">
-              <TextBlock Classes="eyebrow" Text="PROPERTY VOCABULARY" />
-              <ItemsControl ItemsSource="{Binding Properties}">
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate x:DataType="app:PropertyOption">
+            <StackPanel Spacing="10">
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Classes="eyebrow" Text="HELD IN THIS ROOM" />
+                <Button Grid.Column="1" Command="{Binding HoldActiveCommand}" Content="+ hold" />
+              </Grid>
+              <ListBox ItemsSource="{Binding HeldObjects}" SelectedItem="{Binding SelectedHeldObject}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate x:DataType="app:ResearchObjectRef">
                     <Border Classes="inset" Padding="9" Margin="0,0,0,5">
                       <StackPanel>
-                        <TextBlock FontWeight="SemiBold" Text="{Binding DisplayName}" />
-                        <TextBlock Classes="mono" FontSize="10" Text="{Binding Slug}" />
+                        <TextBlock Classes="eyebrow" Text="{Binding TypeLabel}" />
+                        <TextBlock FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding Label}" />
                       </StackPanel>
                     </Border>
                   </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+              <Grid ColumnDefinitions="*,8,*">
+                <Button Command="{Binding OpenHeldCommand}" Content="return" />
+                <Button Grid.Column="2" Command="{Binding RemoveHeldCommand}" Content="release" />
+              </Grid>
+              <Border Height="1" Background="#2D303B" Margin="0,8" />
+              <TextBlock Classes="eyebrow" Text="VISIT TRAIL / SESSION ONLY" />
+              <ItemsControl ItemsSource="{Binding VisitTrail}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="app:ResearchObjectRef">
+                    <TextBlock Classes="mono" FontSize="10" Margin="0,2" TextWrapping="Wrap" Text="{Binding Label}" />
+                  </DataTemplate>
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
+              <Grid ColumnDefinitions="*,8,*">
+                <Button Command="{Binding TrailBackCommand}" Content="← back" />
+                <Button Grid.Column="2" Command="{Binding TrailForwardCommand}" Content="forward →" />
+              </Grid>
             </StackPanel>
           </ScrollViewer>
           <Border Grid.Row="5" Classes="inset" Padding="8" Margin="0,10,0,0">
@@ -67,21 +88,25 @@
 
       <Border Grid.Column="2" Classes="plate" Padding="22">
         <Grid RowDefinitions="Auto,18,*">
-          <Grid ColumnDefinitions="*,Auto">
-            <StackPanel>
-              <TextBlock Classes="eyebrow" Text="RESEARCH OBJECT / ACTIVE RECORD" />
-              <TextBlock Classes="display" FontSize="82" LineHeight="78" Text="{Binding SelectedInteger}" />
-            </StackPanel>
-            <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
-              <TextBlock Classes="mono" FontSize="10" HorizontalAlignment="Right" Text="OPEN WORLD" />
-              <TextBlock Foreground="#7FC9A5" Text="positive · covered negative · unknown" />
-            </StackPanel>
+          <Grid RowDefinitions="Auto,Auto">
+            <Grid ColumnDefinitions="*,Auto">
+              <StackPanel>
+                <TextBlock Classes="eyebrow" Text="RESEARCH OBJECT / ACTIVE RECORD" />
+                <TextBlock Classes="mono" FontSize="11" Foreground="#A78BFA" Text="{Binding ActiveObjectSubtitle}" />
+              </StackPanel>
+              <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+                <TextBlock Classes="mono" FontSize="10" HorizontalAlignment="Right" Text="ONE ROOM / THREE OCCUPANTS" />
+                <TextBlock Foreground="#7FC9A5" HorizontalAlignment="Right" Text="identity · company · warrant" />
+              </StackPanel>
+            </Grid>
+            <TextBlock Grid.Row="1" Classes="display" FontSize="58" LineHeight="60" TextWrapping="Wrap" Text="{Binding ActiveObjectTitle}" />
           </Grid>
 
           <ScrollViewer Grid.Row="2"
                         HorizontalScrollBarVisibility="Disabled"
                         HorizontalContentAlignment="Stretch">
-            <StackPanel HorizontalAlignment="Stretch" Spacing="12">
+            <Grid>
+            <StackPanel IsVisible="{Binding IsIntegerActive}" HorizontalAlignment="Stretch" Spacing="12">
               <Expander HorizontalAlignment="Stretch" IsExpanded="True" Header="property states &amp; evidence">
                 <ListBox ItemsSource="{Binding Claims}" SelectedItem="{Binding SelectedClaim}">
                   <ListBox.ItemTemplate>
@@ -126,6 +151,51 @@
                     </DataTemplate>
                   </ListBox.ItemTemplate>
                 </ListBox>
+              </Expander>
+
+              <Expander HorizontalAlignment="Stretch" IsExpanded="True" Header="authored direct relations">
+                <StackPanel Spacing="8">
+                  <ListBox ItemsSource="{Binding DirectRelations}" SelectedItem="{Binding SelectedDirectRelation}">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="app:DirectRelationView">
+                        <Border Classes="inset">
+                          <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Spacing="4">
+                              <TextBlock Classes="display" FontSize="20" TextWrapping="Wrap" Text="{Binding Proposition}" />
+                              <TextBlock Classes="mono" FontSize="10" Text="{Binding ParticipantLine}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                              <TextBlock Classes="eyebrow" Text="{Binding DirectionalityLabel}" />
+                              <TextBlock Classes="mono" FontSize="10" Text="{Binding ActiveLabel}" />
+                            </StackPanel>
+                          </Grid>
+                        </Border>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                  <Button HorizontalAlignment="Left" Command="{Binding OpenSelectedDirectRelationCommand}" Content="open selected relation →" />
+                </StackPanel>
+              </Expander>
+
+              <Expander HorizontalAlignment="Stretch" IsExpanded="True" Header="constellation memberships">
+                <StackPanel Spacing="8">
+                  <ListBox ItemsSource="{Binding Constellations}" SelectedItem="{Binding SelectedConstellation}">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="app:ConstellationView">
+                        <Border Classes="inset">
+                          <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Spacing="4">
+                              <TextBlock Classes="display" FontSize="20" TextWrapping="Wrap" Text="{Binding Name}" />
+                              <TextBlock Classes="mono" FontSize="10" Text="{Binding MemberLine}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" Classes="mono" FontSize="10" Margin="14,0,0,0" Text="{Binding ActiveLabel}" />
+                          </Grid>
+                        </Border>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                  <Button HorizontalAlignment="Left" Command="{Binding OpenSelectedConstellationCommand}" Content="open selected constellation →" />
+                </StackPanel>
               </Expander>
 
               <Expander HorizontalAlignment="Stretch" IsExpanded="True" Header="profile entries / contextual lore">
@@ -183,6 +253,103 @@
                 </Border>
               </Expander>
             </StackPanel>
+
+            <StackPanel IsVisible="{Binding IsDirectRelationActive}" Spacing="16">
+              <Border Classes="inset" Padding="22">
+                <StackPanel Spacing="12">
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Classes="eyebrow" Text="AUTHORED PROPOSITION" />
+                    <TextBlock Grid.Column="1" Classes="mono" Text="{Binding ActiveDirectRelation.ActiveLabel}" />
+                  </Grid>
+                  <TextBlock Classes="display" FontSize="34" TextWrapping="Wrap" Text="{Binding ActiveDirectRelation.Proposition}" />
+                  <ListBox ItemsSource="{Binding ActiveDirectRelation.Participants}" SelectedItem="{Binding SelectedDirectRelationParticipant}">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate x:DataType="domain:DirectRelationParticipant">
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,4">
+                          <TextBlock Classes="display" FontSize="26" Text="{Binding Integer}" />
+                          <TextBlock Grid.Column="1" Margin="16,0" VerticalAlignment="Center" Text="{Binding Role}" />
+                        </Grid>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                  <Button HorizontalAlignment="Left" Command="{Binding OpenSelectedDirectRelationParticipantCommand}" Content="open selected integer →" />
+                </StackPanel>
+              </Border>
+              <Border Classes="inset" Padding="22">
+                <StackPanel Spacing="10">
+                  <TextBlock Classes="eyebrow" Text="WARRANT" />
+                  <TextBlock FontSize="17" TextWrapping="Wrap" Text="{Binding ActiveDirectRelation.Warrant}" />
+                  <TextBlock Classes="eyebrow" Margin="0,12,0,0" Text="PRIVATE NOTE" />
+                  <TextBlock Classes="mono" TextWrapping="Wrap" Foreground="#8E91A0" Text="{Binding ActiveDirectRelation.PrivateNotes}" />
+                </StackPanel>
+              </Border>
+              <ItemsControl ItemsSource="{Binding ActiveDirectRelation.Citations}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="app:AuthoredCitationView">
+                    <Border Classes="inset" Margin="0,0,0,7">
+                      <StackPanel Spacing="3">
+                        <TextBlock FontWeight="SemiBold" Text="{Binding SourceTitle}" />
+                        <TextBlock Text="{Binding Label}" />
+                        <TextBlock Classes="mono" FontSize="10" Text="{Binding Role}" />
+                        <TextBlock Classes="mono" FontSize="10" Text="{Binding Locator}" />
+                        <TextBlock Classes="mono" FontSize="10" Text="{Binding SourceCaptureId}" />
+                        <TextBlock Classes="mono" FontSize="10" Foreground="#79B9AD" TextWrapping="Wrap" Text="{Binding SourceUrl}" />
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </StackPanel>
+
+            <StackPanel IsVisible="{Binding IsConstellationActive}" Spacing="16">
+              <Border Classes="inset" Padding="22">
+                <StackPanel Spacing="12">
+                  <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Classes="eyebrow" Text="AUTHORED COMPANY" />
+                    <TextBlock Grid.Column="1" Classes="mono" Text="{Binding ActiveConstellation.ActiveLabel}" />
+                  </Grid>
+                  <TextBlock Classes="display" FontSize="34" TextWrapping="Wrap" Text="{Binding ActiveConstellation.Name}" />
+                  <TextBlock FontSize="17" TextWrapping="Wrap" Text="{Binding ActiveConstellation.Account}" />
+                </StackPanel>
+              </Border>
+              <ListBox ItemsSource="{Binding ActiveConstellation.Members}" SelectedItem="{Binding SelectedConstellationMember}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate x:DataType="domain:ConstellationMember">
+                    <Border Classes="inset" Margin="0,0,0,7">
+                      <Grid ColumnDefinitions="Auto,*,Auto">
+                        <TextBlock Classes="display" FontSize="28" Text="{Binding Integer}" />
+                        <TextBlock Grid.Column="1" Margin="16,0" VerticalAlignment="Center" Text="{Binding Role}" />
+                        <TextBlock Grid.Column="2" Classes="mono" FontSize="10" VerticalAlignment="Center" Text="{Binding MemberNotes}" />
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+              <Button HorizontalAlignment="Left" Command="{Binding OpenSelectedConstellationMemberCommand}" Content="open selected integer →" />
+              <Border Classes="inset" Padding="22">
+                <StackPanel>
+                  <TextBlock Classes="eyebrow" Text="PRIVATE NOTE" />
+                  <TextBlock Classes="mono" TextWrapping="Wrap" Foreground="#8E91A0" Text="{Binding ActiveConstellation.PrivateNotes}" />
+                </StackPanel>
+              </Border>
+              <ItemsControl ItemsSource="{Binding ActiveConstellation.Citations}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="app:AuthoredCitationView">
+                    <Border Classes="inset" Margin="0,0,0,7">
+                      <StackPanel Spacing="3">
+                        <TextBlock FontWeight="SemiBold" Text="{Binding SourceTitle}" />
+                        <TextBlock Text="{Binding Label}" />
+                        <TextBlock Classes="mono" FontSize="10" Text="{Binding Role}" />
+                        <TextBlock Classes="mono" FontSize="10" Text="{Binding Locator}" />
+                        <TextBlock Classes="mono" FontSize="10" Text="{Binding SourceCaptureId}" />
+                        <TextBlock Classes="mono" FontSize="10" Foreground="#79B9AD" TextWrapping="Wrap" Text="{Binding SourceUrl}" />
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </StackPanel>
+            </Grid>
           </ScrollViewer>
         </Grid>
       </Border>
@@ -190,7 +357,9 @@
       <Border Grid.Column="4" Classes="plate" Padding="14">
         <ScrollViewer>
           <StackPanel Spacing="12">
-            <TextBlock Classes="eyebrow" Text="AUTHORING BENCH / PRIVATE" />
+            <TextBlock Classes="eyebrow" Text="EPISTEMIC MARGIN / PRIVATE" />
+
+            <StackPanel IsVisible="{Binding IsIntegerActive}" Spacing="12">
 
             <Expander IsExpanded="True" Header="new property claim draft">
               <StackPanel Margin="0,8,0,0" Spacing="7">
@@ -242,6 +411,123 @@
                 </WrapPanel>
               </StackPanel>
             </Expander>
+            <Expander Header="new direct relation draft">
+              <StackPanel Margin="0,8,0,0" Spacing="7">
+                <TextBox Text="{Binding DirectRelationSlug}" PlaceholderText="stable relation slug" />
+                <ComboBox ItemsSource="{Binding DirectionalityOptions}" SelectedItem="{Binding DirectRelationDirectionality}" />
+                <Grid ColumnDefinitions="*,8,*">
+                  <TextBox Text="{Binding DirectRelationFirstInteger}" PlaceholderText="first integer" />
+                  <TextBox Grid.Column="2" Text="{Binding DirectRelationFirstRole}" PlaceholderText="first role" />
+                </Grid>
+                <Grid ColumnDefinitions="*,8,*">
+                  <TextBox Text="{Binding DirectRelationSecondInteger}" PlaceholderText="second integer" />
+                  <TextBox Grid.Column="2" Text="{Binding DirectRelationSecondRole}" PlaceholderText="second role" />
+                </Grid>
+                <TextBox Text="{Binding DirectRelationProposition}" PlaceholderText="rendered proposition" />
+                <TextBox MinHeight="78" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding DirectRelationWarrant}" PlaceholderText="warrant / account" />
+                <TextBox Text="{Binding DirectRelationRegister}" PlaceholderText="epistemic register" />
+                <TextBox MinHeight="58" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding DirectRelationPrivateNotes}" PlaceholderText="private notes" />
+                <Button Command="{Binding CreateDirectRelationDraftCommand}" Content="write direct-relation draft" />
+              </StackPanel>
+            </Expander>
+
+            <Expander Header="new constellation draft">
+              <StackPanel Margin="0,8,0,0" Spacing="7">
+                <TextBox Text="{Binding ConstellationSlug}" PlaceholderText="stable constellation slug" />
+                <TextBox Text="{Binding ConstellationName}" PlaceholderText="name" />
+                <TextBox MinHeight="78" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ConstellationAccount}" PlaceholderText="collective account" />
+                <TextBox Text="{Binding ConstellationRegister}" PlaceholderText="epistemic register" />
+                <TextBox MinHeight="90" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ConstellationMembers}" PlaceholderText="integer | role | optional note (one per line)" />
+                <TextBox MinHeight="58" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ConstellationPrivateNotes}" PlaceholderText="private notes" />
+                <Button Command="{Binding CreateConstellationDraftCommand}" Content="write constellation draft" />
+              </StackPanel>
+            </Expander>
+            </StackPanel>
+
+            <StackPanel IsVisible="{Binding IsDirectRelationActive}" Spacing="12">
+              <Border Classes="inset">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="eyebrow" Text="DIRECT RELATION" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveDirectRelation.ActiveLabel}" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveDirectRelation.Revision, StringFormat='revision {0}'}" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveDirectRelation.SupersedesRevisionId, StringFormat='supersedes {0}'}" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveDirectRelation.EpistemicRegister}" TextWrapping="Wrap" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveDirectRelation.DirectionalityLabel}" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveDirectRelation.ParticipantLine}" TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+              <Button IsVisible="{Binding IsActiveDirectRelationAccepted}" HorizontalAlignment="Left" Command="{Binding PrepareActiveDirectRelationRevisionCommand}" Content="prepare superseding draft" />
+              <WrapPanel IsVisible="{Binding IsActiveDirectRelationDraft}">
+                <Button Margin="0,0,7,7" Command="{Binding LoadActiveDirectRelationDraftCommand}" Content="reload draft" />
+                <Button Margin="0,0,7,7" Command="{Binding AcceptActiveDirectRelationCommand}" Content="accept" />
+                <Button Margin="0,0,7,7" Command="{Binding WithdrawActiveDirectRelationCommand}" Content="withdraw" />
+              </WrapPanel>
+              <StackPanel IsVisible="{Binding IsActiveDirectRelationDraft}" Spacing="12">
+              <TextBox IsReadOnly="True" Text="{Binding DirectRelationSlug}" PlaceholderText="stable relation slug" />
+              <ComboBox ItemsSource="{Binding DirectionalityOptions}" SelectedItem="{Binding DirectRelationDirectionality}" />
+              <Grid ColumnDefinitions="*,8,*">
+                <TextBox Text="{Binding DirectRelationFirstInteger}" PlaceholderText="first integer" />
+                <TextBox Grid.Column="2" Text="{Binding DirectRelationFirstRole}" PlaceholderText="first role" />
+              </Grid>
+              <Grid ColumnDefinitions="*,8,*">
+                <TextBox Text="{Binding DirectRelationSecondInteger}" PlaceholderText="second integer" />
+                <TextBox Grid.Column="2" Text="{Binding DirectRelationSecondRole}" PlaceholderText="second role" />
+              </Grid>
+              <TextBox Text="{Binding DirectRelationProposition}" PlaceholderText="proposition" />
+              <TextBox MinHeight="90" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding DirectRelationWarrant}" PlaceholderText="warrant" />
+              <TextBox Text="{Binding DirectRelationRegister}" PlaceholderText="epistemic register" />
+              <TextBox MinHeight="60" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding DirectRelationPrivateNotes}" PlaceholderText="private notes" />
+              <Button Classes="accent" Command="{Binding SaveActiveDirectRelationDraftCommand}" Content="save draft aggregate" />
+              <Expander Header="cite this draft">
+                <StackPanel Margin="0,8,0,0" Spacing="7">
+                  <TextBox Text="{Binding CitationSourceId}" PlaceholderText="source id" />
+                  <TextBox Text="{Binding CitationCaptureId}" PlaceholderText="optional capture id" />
+                  <TextBox Text="{Binding CitationLabel}" PlaceholderText="citation label" />
+                  <TextBox Text="{Binding CitationRole}" PlaceholderText="role" />
+                  <TextBox Text="{Binding CitationLocator}" PlaceholderText="locator" />
+                  <Button Command="{Binding CiteActiveDirectRelationCommand}" Content="attach citation" />
+                </StackPanel>
+              </Expander>
+              </StackPanel>
+            </StackPanel>
+
+            <StackPanel IsVisible="{Binding IsConstellationActive}" Spacing="12">
+              <Border Classes="inset">
+                <StackPanel Spacing="6">
+                  <TextBlock Classes="eyebrow" Text="CONSTELLATION" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveConstellation.ActiveLabel}" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveConstellation.Revision, StringFormat='revision {0}'}" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveConstellation.SupersedesRevisionId, StringFormat='supersedes {0}'}" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveConstellation.EpistemicRegister}" TextWrapping="Wrap" />
+                  <TextBlock Classes="mono" Text="{Binding ActiveConstellation.MemberLine}" TextWrapping="Wrap" />
+                </StackPanel>
+              </Border>
+              <Button IsVisible="{Binding IsActiveConstellationAccepted}" HorizontalAlignment="Left" Command="{Binding PrepareActiveConstellationRevisionCommand}" Content="prepare superseding draft" />
+              <WrapPanel IsVisible="{Binding IsActiveConstellationDraft}">
+                <Button Margin="0,0,7,7" Command="{Binding LoadActiveConstellationDraftCommand}" Content="reload draft" />
+                <Button Margin="0,0,7,7" Command="{Binding AcceptActiveConstellationCommand}" Content="accept" />
+                <Button Margin="0,0,7,7" Command="{Binding WithdrawActiveConstellationCommand}" Content="withdraw" />
+              </WrapPanel>
+              <StackPanel IsVisible="{Binding IsActiveConstellationDraft}" Spacing="12">
+              <TextBox IsReadOnly="True" Text="{Binding ConstellationSlug}" PlaceholderText="stable constellation slug" />
+              <TextBox Text="{Binding ConstellationName}" PlaceholderText="name" />
+              <TextBox MinHeight="90" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ConstellationAccount}" PlaceholderText="collective account" />
+              <TextBox Text="{Binding ConstellationRegister}" PlaceholderText="epistemic register" />
+              <TextBox MinHeight="110" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ConstellationMembers}" PlaceholderText="integer | role | optional note" />
+              <TextBox MinHeight="60" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ConstellationPrivateNotes}" PlaceholderText="private notes" />
+              <Button Classes="accent" Command="{Binding SaveActiveConstellationDraftCommand}" Content="save collective draft" />
+              <Expander Header="cite this draft">
+                <StackPanel Margin="0,8,0,0" Spacing="7">
+                  <TextBox Text="{Binding CitationSourceId}" PlaceholderText="source id" />
+                  <TextBox Text="{Binding CitationCaptureId}" PlaceholderText="optional capture id" />
+                  <TextBox Text="{Binding CitationLabel}" PlaceholderText="citation label" />
+                  <TextBox Text="{Binding CitationRole}" PlaceholderText="role" />
+                  <TextBox Text="{Binding CitationLocator}" PlaceholderText="locator" />
+                  <Button Command="{Binding CiteActiveConstellationCommand}" Content="attach citation" />
+                </StackPanel>
+              </Expander>
+              </StackPanel>
+            </StackPanel>
           </StackPanel>
         </ScrollViewer>
       </Border>

@@ -47,37 +47,54 @@ public sealed class LedgerInspector : ILedgerOrientationReader
             LedgerOrientation result;
             await using (var connection = await database.OpenReadOnlyConnectionAsync(cancellationToken))
             {
-                var schemaVersion = await SqliteDatabase.ValidateCurrentSchemaAsync(connection, cancellationToken);
-                var propertyCount = await ReferenceCorpusShape.CountPropertiesAsync(connection, cancellationToken);
-                var claimCount = await ReferenceCorpusShape.CountAcceptedClaimsAsync(connection, cancellationToken);
-                var profileCount = await ReferenceCorpusShape.CountProfileEntriesAsync(connection, cancellationToken);
-
-                LedgerOrientationKind kind;
-                if (await ReferenceCorpusShape.IsEmptyAsync(connection, cancellationToken))
+                var priorVersion = await SqliteDatabase.FindKnownPriorSchemaVersionAsync(
+                    connection,
+                    cancellationToken);
+                if (priorVersion is not null)
                 {
-                    kind = LedgerOrientationKind.Empty;
+                    result = new LedgerOrientation(
+                        LedgerOrientationKind.MigrationRequired,
+                        path,
+                        priorVersion,
+                        ReferenceCorpusShape.RecipeId,
+                        await ReferenceCorpusShape.CountPropertiesAsync(connection, cancellationToken),
+                        await ReferenceCorpusShape.CountAcceptedClaimsAsync(connection, cancellationToken),
+                        await ReferenceCorpusShape.CountProfileEntriesAsync(connection, cancellationToken));
                 }
                 else
                 {
-                    try
-                    {
-                        await ReferenceCorpusShape.AssertCurrentAsync(connection, cancellationToken);
-                        kind = LedgerOrientationKind.CurrentReference;
-                    }
-                    catch (ReferenceCorpusMismatchException)
-                    {
-                        kind = LedgerOrientationKind.NonCurrentOrAuthored;
-                    }
-                }
+                    var schemaVersion = await SqliteDatabase.ValidateCurrentSchemaAsync(connection, cancellationToken);
+                    var propertyCount = await ReferenceCorpusShape.CountPropertiesAsync(connection, cancellationToken);
+                    var claimCount = await ReferenceCorpusShape.CountAcceptedClaimsAsync(connection, cancellationToken);
+                    var profileCount = await ReferenceCorpusShape.CountProfileEntriesAsync(connection, cancellationToken);
 
-                result = new LedgerOrientation(
-                    kind,
-                    path,
-                    schemaVersion,
-                    ReferenceCorpusShape.RecipeId,
-                    propertyCount,
-                    claimCount,
-                    profileCount);
+                    LedgerOrientationKind kind;
+                    if (await ReferenceCorpusShape.IsEmptyAsync(connection, cancellationToken))
+                    {
+                        kind = LedgerOrientationKind.Empty;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            await ReferenceCorpusShape.AssertCurrentAsync(connection, cancellationToken);
+                            kind = LedgerOrientationKind.CurrentReference;
+                        }
+                        catch (ReferenceCorpusMismatchException)
+                        {
+                            kind = LedgerOrientationKind.NonCurrentOrAuthored;
+                        }
+                    }
+
+                    result = new LedgerOrientation(
+                        kind,
+                        path,
+                        schemaVersion,
+                        ReferenceCorpusShape.RecipeId,
+                        propertyCount,
+                        claimCount,
+                        profileCount);
+                }
             }
 
             var after = InspectionFileSnapshot.Capture(path);

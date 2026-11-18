@@ -2,7 +2,7 @@
 
 > **continuity role:** normative invariants
 > **status:** current
-> **last verified:** 2026-10-27
+> **last verified:** 2026-11-17
 > **owns:** confirmed promises implementation must not drift from casually
 > **update when:** an authorized decision changes an invariant or its proof
 
@@ -18,7 +18,7 @@ not, by itself, authorization to weaken the contract.
 | normative epistemic and privacy behavior | `CONTRACTS.md` | explicit contract review |
 | accepted rationale and supersession | `DECISIONS.md` | append-only decision entries |
 | active transition | `specs/001-first-slice.md` | accepted 2026-10-18 |
-| active corpus transition | `specs/003-network-ignition.md` | accepted 2026-10-27 |
+| active private relational transition | `specs/005-private-relational-foundation.md` | accepted 2026-11-17 |
 
 the accepted first slice, explicitly authorized pages-delivery follow-up, and
 bounded seed-v6 corpus enrichment now supply implementation and project-owned
@@ -44,8 +44,12 @@ until a later accepted slice gives them a representation.
 | `history-001` | accepted revisions, source captures, terminal runs, and successful releases are immutable; correction preserves lineage through explicit supersession. | schema constraints and lifecycle services | mutation rejection, checksum drift, and staged-supersession tests |
 | `narrative-001` | sourced contextual lore is represented as a revisioned profile entry attached to one integer and creates no graph relation unless a later explicit model says otherwise. | narrative model and projection | twenty seeded profiles including multiple biographies for one integer and claimless public profiles, release projection, and relation derivation that consults claims only |
 | `relation-001` | published shared membership remains a graph fact even when its degree is high; the visual graph may show a declared bounded slice, but the semantic list remains complete and exact partner qualifiers may determine salience. | public relation query and renderers | twin and amicable partner-ordering tests, bounded graph component, complete relation list, and public artifact checks |
+| `relation-002` | an authored direct relation preserves its two distinct canonical participants, explicit roles, directionality, proposition, warrant, epistemic register, provenance, and revision history as distinguishable data. | direct-relation domain and private persistence | domain cardinality proof, aggregate repository tests, and database lifecycle guards |
+| `relation-003` | an authored constellation preserves its collective account, distinct member roles, provenance, and revision history and never implies every possible pairwise relation among its members. | constellation domain and private persistence | collective aggregate tests, integer-neighborhood queries, and absence of pairwise projection code |
+| `relation-004` | authored direct relations, authored constellations, and published shared-property relations are separate representations; overlap, traversal, or presentation never creates another representation automatically. | application boundaries and private room state | typed active-object and visit-trail tests, publication-silence proof, and dependency scan |
 | `publication-002` | private edits and staging never change public state; only an explicit successful generation creates a complete immutable release, and generation never implies deployment. | publisher and release ledger | deterministic, fail-closed, overwrite, exact citation-item, and immutable-release tests |
 | `publication-003` | the public runtime consumes research data only from a versioned public artifact and has no canonical-database, desktop, private-api, corpus-write, or publication-write capability. | web data adapter and dependency inventory | runtime digest check, artifact scan, and public-boundary check |
+| `publication-004` | authored direct relations and constellations remain private unless a later explicit publication model selects an exact accepted revision and safe evidence. | absence of publication representation and publisher dependency | byte-identical release comparison with and without authored relational rows |
 | `delivery-001` | public deployment builds only from tracked, reviewed public inputs and uploads only the checked static web output; it never opens the private ledger or runs the publisher. | github pages workflow | private git-boundary check, public artifact/runtime checks, `check-pages-workflow.mjs`, and pages artifact scope |
 
 ## conceptual data boundary
@@ -59,7 +63,8 @@ the durable conceptual objects are:
 - evaluator, population run, comparison run, and coverage claim;
 - source identity, immutable source capture, and contextual citation;
 - revisioned profile entry attached to one integer;
-- authored constellation and its member roles;
+- authored direct-relation lineage and exact two-participant revisions;
+- authored constellation lineage and collective member revisions;
 - mutable publication selection, immutable release, and public projection.
 
 these terms do not require one table per object. sqlite is the accepted
@@ -116,7 +121,7 @@ attestation, constellation, or public record.
 - `.env` files, credentials, inbox addresses requiring concealment, and private
   datasets are never read casually, committed, copied into fixtures, or emitted
   in public builds;
-- private properties, notes, sources, and constellations remain local unless an
+- private properties, notes, sources, direct relations, and constellations remain local unless an
   explicit, reviewed publication selection says otherwise;
 - configuration intent, generated public data, deployed behavior, and received
   email are separate representations and require separate proof;
@@ -149,7 +154,7 @@ from this local suite.
 ## intentionally unspecified
 
 - custom domain, email provider, and anti-abuse mechanism;
-- private constellation representation and any public lens vocabulary;
+- public direct-relation, constellation, or lens vocabulary;
 - automatic source synchronization or general evaluator plugin system;
 - application-level database encryption;
 - production monitoring, analytics, and public artifact promotion mechanics.

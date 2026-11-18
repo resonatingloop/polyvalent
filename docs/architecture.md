@@ -1,8 +1,8 @@
 # architecture
 
 > **continuity role:** implemented representation map
-> **status:** current for the first slice, pages delivery, seed-v6, and suggestion inbox
-> **last verified:** 2026-10-27
+> **status:** current through the private relational foundation
+> **last verified:** 2026-11-17
 > **owns:** dependency direction, data boundaries, lifecycle, and publication seam
 > **update when:** a layer, durable representation, or trust boundary changes
 
@@ -250,10 +250,20 @@ disabled by the reduced-motion media contract.
 ## private desktop boundary
 
 the avalonia surface opens the canonical ledger directly because it is the
-private research tool. it presents a dense rolodex, positive/covered/unknown
-states, evidence, profile entries, authoring benches, and exact-revision staging.
-it contains no public graph or social card. collapsing research sections does
-not change the selected integer because selection lives in the view model.
+private research tool. one tagged active-object field can hold an integer,
+direct relation, or constellation. the integer keeps positive/covered/unknown
+property states, evidence, profile workflows, and exact-revision staging;
+authored relations foreground their two roles and warrant; constellations
+foreground their collective account and member roles. a session-local held
+rail and bounded visit trail store tagged stable identities only and create no
+research fact.
+
+direct relations and constellations share revision and provenance grammar but
+not tables, ids, or inference. integer-neighborhood queries return only exact
+authored records. they never call the public shared-membership algorithm,
+synthesize reciprocal or transitive relations, expand constellations into
+pairs, or create covered negatives. the public artifact has no dto, selection,
+release item, or runtime path for either private object.
 
 ledger orientation is application vocabulary implemented by the data layer.
 the publisher's `inspect` path uses an immutable sqlite connection and never
@@ -280,6 +290,6 @@ therefore part of the privacy model.
 ## deferred boundaries
 
 the following require later accepted slices rather than opportunistic schema or
-ui growth: session-held integers, thematic lenses, private constellations,
-arbitrary property-definition authoring, analytics, and encrypted local
-storage.
+ui growth: persisted workspaces, thematic lenses, public relational
+publication, correspondence ingestion, arbitrary property-definition
+authoring, analytics, and encrypted local storage.

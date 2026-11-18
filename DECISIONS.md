@@ -779,3 +779,57 @@ evidence:
   honeypots, domain restriction, storage, and account limits;
 - component, validation, fixed-endpoint, workflow-boundary, built-artifact,
   and responsive render proof.
+
+## d-019 — authored relations and constellations are private cousins, not aliases
+
+- date: 2026-11-17
+- status: accepted
+- supersedes: none
+- related spec: `specs/005-private-relational-foundation.md`
+
+context:
+
+the private instrument could describe an integer and the public projection
+could derive shared-property relations, but the ledger had no representation
+for an owner-authored proposition between two integers or an authored company
+of integers. treating both as generic graph edges would erase the difference
+between what passes between two participants and why several members belong in
+one room.
+
+decision:
+
+model a direct relation and a constellation as distinct first-class private
+lineages. both use draft, immutable accepted, withdrawn, and explicit
+superseding revisions with revision-scoped citations. a direct relation has
+exactly two role-bearing participants, directionality, a proposition, and a
+warrant. a constellation has two or more role-bearing members and a collective
+account. neither representation is inferred from overlap or converted into
+the other, and neither has a public staging or release representation.
+
+alternatives considered:
+
+- one generic relation table with type and cardinality flags: rejected because
+  the semantic distinction would become a presentation convention;
+- storing constellations as every possible pairwise edge: rejected because it
+  manufactures claims the collective account does not assert;
+- extending the current public shared-membership relation: rejected because
+  that relation is a derived public view with a different warrant and privacy
+  boundary.
+
+consequences:
+
+- schema version `2` adds private relational capacity without changing
+  `seed-v6`, source-extract schema `1`, or public `reference-v6`;
+- integer dossiers can return authored direct relations and constellation
+  memberships while absence remains unknown and never becomes coverage;
+- the native room can hold and revisit typed objects in session memory without
+  persisting navigation or creating research state;
+- later correspondence or publication work requires its own accepted model
+  and cannot treat these tables as an automatic ingestion or projection seam.
+
+evidence:
+
+- owner acceptance of `specs/005-private-relational-foundation.md` on
+  2026-11-17;
+- domain, migration, aggregate lifecycle, native navigation, and
+  byte-identical publication-silence tests.

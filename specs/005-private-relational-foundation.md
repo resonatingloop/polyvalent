@@ -1,17 +1,18 @@
 # spec: private relational foundation — the company integers keep
 
-status: draft
+status: accepted
 
-> **continuity role:** proposed transition
+> **continuity role:** accepted transition
 > **owner:** repository owner
 > **created:** 2026-11-15
+> **accepted:** 2026-11-17
 > **supersedes:** none
 > **related decisions:** `d-001`, `d-003`, `d-006`, `d-008`, `d-011`, `d-012`, `d-018`
 
-this draft records a bounded private relational foundation. it does not
-authorize implementation, migration of any ledger, inspection of owner data,
-discord or other provider access, publication, commit, push, or deployment.
-only the repository owner may mark this exact revision accepted.
+accepted by the repository owner on 2026-11-17. this spec authorizes the
+bounded local implementation and verification described below. it does not
+authorize migration of the owner's ledger, inspection of owner data, discord
+or other provider access, publication, commit, push, or deployment.
 
 ## context
 
@@ -38,7 +39,7 @@ relation may motivate a constellation, but neither representation is generated
 from the other.
 
 `d-003` and `epistemic-002` already protect constellations from being flattened
-into properties or unexplained pairwise edges. this draft extends that
+into properties or unexplained pairwise edges. this accepted transition extends that
 protection to first-class direct relations while preserving the current
 property, coverage, publication, and public-relation systems unchanged.
 
@@ -66,7 +67,7 @@ public relation
   -> derived from shared published property membership
 ```
 
-proposed:
+accepted target:
 
 ```text
 private active object
@@ -87,12 +88,12 @@ public artifact and public relation derivation
 
 **authority:** `CONTRACTS.md` continues to own epistemic, privacy, history, and
 publication invariants; executable migrations remain schema authority;
-`DECISIONS.md` owns accepted rationale; this draft owns only the proposed
-transition. accepting it would authorize the listed local implementation and
+`DECISIONS.md` owns accepted rationale; this spec owns the bounded
+transition. owner acceptance authorizes the listed local implementation and
 the explicit contract and decision additions described below, but no use of
 the resulting migration against the owner's ledger.
 
-## owner decisions proposed by this draft
+## accepted owner decisions
 
 | decision | recommendation | alternative | consequence of recommendation |
 |---|---|---|---|
@@ -107,9 +108,7 @@ the resulting migration against the owner's ledger.
 | session navigation | keep held objects and the visit trail in memory only for this slice | persist workspace sessions immediately | provides roaming and return without adding another recovery, migration, or privacy lifecycle |
 | migration boundary | add one additive migration and prove it only against disposable or copied fixtures during implementation | mutate an owner ledger as implementation proof | permits an exact schema transition while keeping owner data outside the development and verification boundary |
 
-accepting this spec accepts the recommendations in this table. enthusiasm,
-discussion, viewing generated review artifacts, or provisional review marks do
-not accept it.
+the owner's 2026-11-17 acceptance selected the recommendations in this table.
 
 ## scope
 
@@ -200,7 +199,7 @@ accepted rationale retained:
 - `d-018` keeps the current formspree path as public correspondence delivered
   for human review, never canonical ingestion.
 
-acceptance of this draft would authorize one new decision recording that:
+acceptance authorizes one new decision recording that:
 
 1. an authored direct relation and an authored constellation are distinct
    first-class private research objects;
@@ -227,8 +226,8 @@ weakening any existing contract:
   private unless a later explicit publication model selects an exact accepted
   revision and safe evidence.
 
-these additions are proposed, not current contracts, while this spec remains
-draft.
+these additions became current contracts with owner acceptance and bounded
+implementation.
 
 ## conceptual model
 
@@ -498,7 +497,7 @@ or external repository should require a behavioral change.
 ## implementation by invariant
 
 1. **seal the meanings before the tables:** record the accepted direct-relation
-   and constellation distinction, add the proposed contracts, and define
+   and constellation distinction, add the accepted contracts, and define
    canonical roles, directionality, revision states, and acceptance rules in
    renderer-independent domain proof.
 2. **prove the migration without owner data:** add the relational schema,
@@ -531,12 +530,12 @@ or external repository should require a behavioral change.
 | identifiers, secrets or privacy | yes | canonical integer ids, new private lineages, publication exclusion | identity round trips, private sentinels, dependency scan, artifact byte comparison, no-secret inventory |
 | lifecycle or terminal states | yes | relation and constellation revision services plus database guards | transition, immutability, supersession, withdrawal, and failure-rollback tests |
 | setup, operation or recovery | yes | database initialization plus development and recovery documentation | disposable old-schema rehearsal, automatic backup proof, restore exercise, owner-ledger exclusion review |
-| normative contract or decision | yes | proposed `relation-002` through `relation-004`, `publication-004`, and one new accepted decision | owner acceptance, contract trace, decision entry, documentation check |
+| normative contract or decision | yes | accepted `relation-002` through `relation-004`, `publication-004`, and `d-019` | owner acceptance, contract trace, decision entry, documentation check |
 | cross-repository dependency | no | solution and project references | cold full check with no other resonance checkout available |
 
 ## risk route and review obligations
 
-the planning artifact is green, but the proposed implementation is red-risk
+the planning artifact is green, but the accepted implementation is red-risk
 because it introduces a schema migration, canonical private persistence,
 immutable lifecycle transitions, and a privacy boundary adjacent to
 publication.
@@ -550,7 +549,7 @@ before implementation, an independently scoped semantic preflight must:
   shared membership and keep them separate from authored direct relations;
 - enumerate the do-not-disturb publication, coverage, seed idempotence,
   ledger-orientation, and owner-data boundaries;
-- attack the proposed cardinality, immutability, supersession, and transaction
+- attack the accepted cardinality, immutability, supersession, and transaction
   rules with counterexamples;
 - fingerprint the reviewed source revision and retain unresolved ambiguity
   rather than converting it into implementation authority.
@@ -660,6 +659,38 @@ rendered native inspection is additional proof. automated view-model tests,
 headless x11 captures, or screenshots do not establish owner comfort or an
 actual owner-ledger migration.
 
+## implementation receipt
+
+implemented locally on 2026-11-17 without owner-ledger access, commit, push,
+provider call, publication, or deployment:
+
+- migration `002_private_relational_foundation.sql` adds the two distinct
+  lineage families, database-enforced draft entry, immutable revision identity,
+  terminal content and child immutability, current-revision supersession,
+  globally unique authored lineage slugs, source-matched captures, and integer
+  lookup indexes;
+- domain, application, repository, and native view-model layers now carry
+  exact authored aggregates and tagged integer, direct-relation, and
+  constellation identities without calling public relation derivation;
+- populated exact-v1 disposable migration proof compares every legacy table
+  with the automatic backup, verifies restored-byte identity, and reopens the
+  backup as `migration-required`;
+- controlled v2 ledgers with and without accepted private relational records
+  generate byte-identical public `data.json` and `manifest.json`;
+- the fresh independent diff adversary's confirmed terminal-insert,
+  draft-reopen, reparenting, cross-type slug, traversal, fixture,
+  lifecycle-margin, and reproduction-runbook findings were reconciled and
+  covered by focused proof;
+- `./scripts/check.sh` passes with `118` .net tests and `38` web tests; the
+  documentation continuity checker reports zero errors and zero warnings;
+- disposable native inspection covered integer, accepted direct-relation, and
+  accepted constellation states at `1600×1000` and the `1060×700` minimum.
+
+owner-visible native comfort, enlarged-text and actual keyboard-only tactile
+review, and any deliberate owner-ledger migration remain unclaimed. because
+those acceptance boundaries remain open, this spec stays `accepted` rather
+than being retired.
+
 ## rollback
 
 - before any owner-operated migration, revert the bounded domain,
@@ -703,21 +734,21 @@ actual owner-ledger migration.
 - a future correspondence spool may want to refer to numbers not yet present
   in the canonical ledger. this slice does not let that future requirement
   distort manual research authoring or create a hidden ingestion path;
-- this draft does not establish whether authored direct relations or
+- this spec does not establish whether authored direct relations or
   constellations will ever become public. later publication may require a
   different safe vocabulary rather than exposing private records directly.
 
 ## open questions
 
-none inside the proposed slice. accepting this draft accepts the cousin model,
+none inside the accepted slice. acceptance selects the cousin model,
 private-only boundary, non-taxonomic register, additive migration, session-only
 navigation, contextual native room, explicit contract additions, semantic
 preflight, diff adversary, and listed deferrals.
 
 ## authorization boundary
 
-if the repository owner marks this exact spec revision accepted, it authorizes
-the bounded local implementation and verification described above, including
+the repository owner's acceptance authorizes the bounded local implementation
+and verification described above, including
 the additive migration against disposable or copied fixtures and the explicit
 contract and decision additions. it does not authorize inspection, copy,
 backup, migration, repair, or mutation of the owner's actual ledger; discord

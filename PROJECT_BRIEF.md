@@ -129,17 +129,20 @@ reference-v5. the accepted suggestion-inbox slice is implemented locally as a
 fail-closed formspree correspondence path, and its public form id is configured
 for the github pages build. provider settings, recipient verification,
 reference-v6 deployment, and a live inbox canary remain explicit owner-visible
-transitions. session-held integers, lenses, and private constellations remain
-later slices rather than hidden extensions of this one.
+transitions. the accepted private-relational foundation is implemented locally:
+authored direct relations and constellations remain private, while a
+session-local held rail and visit trail let all three research-object types
+occupy one native room. owner-visible native comfort and any owner-ledger
+migration remain explicit transitions.
 
 ## future apertures
 
-- session-held integers that can recognize and announce a newly encountered
-  relation during one visitor's exploration;
+- persisted workspaces and encounter pings built on the current session-only
+  held-object vocabulary;
 - optional thematic lenses, such as an occult lens, that surface selected
   public significance without fabricating edges among every marked integer;
-- private constellations and direct authored integer relations once their
-  authoring and publication boundaries receive a dedicated slice.
+- an explicit safe publication vocabulary for authored direct relations or
+  constellations, if the owner ever chooses to make either public.
 
 ## success
 

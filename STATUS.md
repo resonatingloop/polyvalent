@@ -2,11 +2,46 @@
 
 > **continuity role:** operational checkpoint
 > **status:** current
-> **last verified:** 2026-11-13
+> **last verified:** 2026-11-17
 > **owns:** verified current state, active work, known gaps, and next useful action
 > **update when:** a meaningful stopping point changes any of those facts
 
 ## Verified checkpoint
+
+the accepted private-relational-foundation slice is implemented locally and
+awaits owner-visible native review:
+
+- schema version `2` adds distinct private direct-relation and constellation
+  lineages, immutable accepted revisions, exact participant or member rows,
+  revision citations, active-revision pointers, lookup indexes, and database
+  lifecycle guards;
+- exact schema-v1 inspection now reports `migration-required`; disposable
+  upgrade proof creates an automatic backup, preserves every legacy table,
+  reopens v2, and reopens a restored backup as exact v1;
+- renderer-independent services support draft creation and aggregate editing,
+  citation attachment, acceptance, withdrawal, explicit current-revision
+  supersession, stable lookup, and integer neighborhoods without inference;
+- the avalonia room has tagged integer, direct-relation, and constellation
+  occupants, a session-local held-object rail, a bounded visit trail, complete
+  textual accounts, and contextual authoring margins;
+- a controlled two-ledger comparison produces byte-identical `data.json` and
+  `manifest.json` before and after private relational records are accepted;
+- `seed-v6`, source-extract schema `1`, `reference-v6`, the public shared-
+  membership relation algorithm, web runtime, formspree seam, and deployment
+  path remain behaviorally unchanged.
+
+no owner ledger was opened, copied, inspected, backed up, or migrated. no
+commit, push, provider call, artifact promotion, publication, or deployment was
+performed. a fresh independent diff adversary found and the implementation
+reconciled terminal-insert, draft-reopen, reparenting, cross-type slug,
+traversal, fixture, lifecycle-margin, and reproduction-runbook defects.
+disposable native renders at `1600×1000` and the `1060×700` minimum showed the
+integer, direct-relation, and constellation states without document-wide
+horizontal overflow; owner comfort remains separate and the spec is not
+retired.
+
+the earlier reference-v6 checkpoint remains valid beneath this additive
+private slice:
 
 the accepted network-ignition slice is implemented locally on top of the
 accepted first slice, public-delivery follow-up, bounded corpus enrichments,
@@ -42,7 +77,7 @@ the tracked public artifact was reproduced by two independent fresh bootstrap
 runs. both produced `2000` ledger integers and byte-for-byte identical release
 bytes. neither run used networking, an existing ledger, or deployment.
 
-the project-owned complete local check passed on 2026-11-13:
+the project-owned complete local check passed on 2026-11-17:
 
 ```text
 ./scripts/check.sh
@@ -56,8 +91,8 @@ evidence:
 - pages workflow boundary: pinned actions, checked `web/dist`-only build, and
   isolated deployment job;
 - solution restore and release build: `0` warnings and `0` errors;
-- .net tests: `101` passed across domain (`52`), data (`34`), publication
-  (`10`), desktop view-model (`1`), and publisher command (`4`) suites;
+- .net tests: `118` passed across domain (`60`), data (`41`), publication
+  (`11`), desktop view-model (`2`), and publisher command (`4`) suites;
 - .net formatting verification: succeeded;
 - web type checking: succeeded;
 - web tests: `38` passed across artifact, relation, graph trace, routing,
@@ -150,18 +185,24 @@ substitute for that review.
   `reference-v6`;
 - implemented spec: `specs/004-ledger-reentry.md` governs non-mutating
   inspection, exact corpus orientation, and the desktop status plate;
-- implementation: complete locally against evaluator, persistence,
-  publication, web, artifact, boundary, and render proof;
+- accepted, implemented-locally spec: `specs/005-private-relational-foundation.md`
+  governs private authored direct relations, constellations, and the
+  multi-object native room;
+- implementation: complete locally against domain, populated disposable
+  migration/restore, persistence, publication-silence, application,
+  view-model, rendered native, full repository, and reconciled diff-adversary
+  proof;
 - live site: still `reference-v5`;
-- blockers: none for local use; owner-visible native plate acceptance remains
-  before the ledger re-entry spec is sealed.
+- blockers: none for local proof; owner-visible native comfort remains distinct
+  from automated acceptance and both specs remain unretired until their manual
+  review boundary is satisfied.
 
 ## Next useful action
 
-run publisher `inspect` deliberately against the intended existing owner path,
-then open that same path and confirm the native ledger plate is calm and
-legible. inspection does not authorize seeding, migration, publication, or
-deployment.
+render and exercise the three active-object states against a disposable
+fixture, reconcile the fresh diff adversary, and then present the native room
+for owner-visible comfort review. do not point `init` or the desktop at an owner
+ledger as part of this implementation close.
 
 ## Re-entry notes
 

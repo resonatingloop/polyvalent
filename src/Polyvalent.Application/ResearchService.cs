@@ -118,4 +118,100 @@ public sealed class ResearchService(IResearchRepository repository)
 
     public Task<StagingSummary> GetStagingSummaryAsync(CancellationToken cancellationToken = default) =>
         repository.GetStagingSummaryAsync(cancellationToken);
+
+    public Task<DirectRelationView> OpenDirectRelationAsync(
+        string slug,
+        CancellationToken cancellationToken = default) =>
+        repository.GetDirectRelationAsync(ResearchLineageSlug.Parse(slug).ToString(), cancellationToken);
+
+    public Task<ConstellationView> OpenConstellationAsync(
+        string slug,
+        CancellationToken cancellationToken = default) =>
+        repository.GetConstellationAsync(ResearchLineageSlug.Parse(slug).ToString(), cancellationToken);
+
+    public Task<long> CreateDirectRelationDraftAsync(
+        DirectRelationDraftInput input,
+        CancellationToken cancellationToken = default) =>
+        repository.CreateDirectRelationDraftAsync(input, cancellationToken);
+
+    public Task UpdateDirectRelationDraftAsync(
+        long revisionId,
+        DirectRelationDraftInput input,
+        CancellationToken cancellationToken = default) =>
+        repository.UpdateDirectRelationDraftAsync(revisionId, input, cancellationToken);
+
+    public Task<long> PrepareDirectRelationRevisionAsync(
+        long acceptedRevisionId,
+        CancellationToken cancellationToken = default) =>
+        repository.PrepareDirectRelationRevisionAsync(acceptedRevisionId, cancellationToken);
+
+    public Task AcceptDirectRelationAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default) =>
+        repository.AcceptDirectRelationDraftAsync(revisionId, cancellationToken);
+
+    public Task WithdrawDirectRelationAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default) =>
+        repository.WithdrawDirectRelationDraftAsync(revisionId, cancellationToken);
+
+    public Task<long> CiteDirectRelationAsync(
+        long revisionId,
+        long sourceId,
+        long? sourceCaptureId,
+        string role,
+        string label,
+        string? locator,
+        CancellationToken cancellationToken = default) =>
+        repository.CiteDirectRelationAsync(
+            revisionId,
+            sourceId,
+            sourceCaptureId,
+            role,
+            label,
+            locator,
+            cancellationToken);
+
+    public Task<long> CreateConstellationDraftAsync(
+        ConstellationDraftInput input,
+        CancellationToken cancellationToken = default) =>
+        repository.CreateConstellationDraftAsync(input, cancellationToken);
+
+    public Task UpdateConstellationDraftAsync(
+        long revisionId,
+        ConstellationDraftInput input,
+        CancellationToken cancellationToken = default) =>
+        repository.UpdateConstellationDraftAsync(revisionId, input, cancellationToken);
+
+    public Task<long> PrepareConstellationRevisionAsync(
+        long acceptedRevisionId,
+        CancellationToken cancellationToken = default) =>
+        repository.PrepareConstellationRevisionAsync(acceptedRevisionId, cancellationToken);
+
+    public Task AcceptConstellationAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default) =>
+        repository.AcceptConstellationDraftAsync(revisionId, cancellationToken);
+
+    public Task WithdrawConstellationAsync(
+        long revisionId,
+        CancellationToken cancellationToken = default) =>
+        repository.WithdrawConstellationDraftAsync(revisionId, cancellationToken);
+
+    public Task<long> CiteConstellationAsync(
+        long revisionId,
+        long sourceId,
+        long? sourceCaptureId,
+        string role,
+        string label,
+        string? locator,
+        CancellationToken cancellationToken = default) =>
+        repository.CiteConstellationAsync(
+            revisionId,
+            sourceId,
+            sourceCaptureId,
+            role,
+            label,
+            locator,
+            cancellationToken);
 }

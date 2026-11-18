@@ -2,7 +2,7 @@
 
 > **continuity role:** operational front door
 > **status:** reference-v6 tracked on main; reference-v5 remains the last verified live release
-> **last verified:** 2026-10-27
+> **last verified:** 2026-11-17
 > **owns:** the shortest successful use and the map to deeper documentation
 > **update when:** setup, primary use, maturity, or document authority changes
 
@@ -10,8 +10,9 @@ polyvalent is a social network(ing graph) for integers with a deliberately
 unsocial private back room. one canonical sqlite provenance ledger feeds two
 different surfaces:
 
-- a private avalonia rolodex for evidence, sources, revisions, profile entries,
-  and explicit publication staging;
+- a private avalonia relational cabinet for integer dossiers, authored direct
+  relations, constellations, evidence, sources, revisions, and explicit
+  publication staging;
 - a public react site that reads one immutable json release and renders integer
   profiles, property dossiers, complete explained relation lists, and a bounded
   bipartite graph.
@@ -77,7 +78,7 @@ repairing it, inspect first:
 dotnet run --project src/Polyvalent.Publisher -c Release -- inspect --data-dir ./var/local
 ```
 
-`inspect` reports `missing`, `empty`, `current-reference`, or
+`inspect` reports `missing`, `empty`, `migration-required`, `current-reference`, or
 `non-current-or-authored` using bounded structural evidence only. it never
 prints private rows. opening an existing ledger remains a separate deliberate
 action:
@@ -143,8 +144,10 @@ restore procedures.
 | heegner number | 9 | source-asserted bounded import from oeis a003173 | yes |
 | two-way taxicab number | 1 | deterministic evaluation, compared with oeis a001235 | yes |
 
-relations are derived by intersecting published membership claims; there is no
-pairwise-edge table. the reference release therefore explains
+public relations are derived by intersecting published membership claims;
+there is no public pairwise-edge table. the private ledger separately supports
+revisioned owner-authored direct relations and constellations, but neither is
+reachable from staging or release bytes. the reference release therefore explains
 `153 → decimal friedman number → 343`, including `3 × 51` for `153` and the
 orderly/nice witness `(3 + 4) ^ 3` for `343`.
 it also gives `137` a prime and twin-prime social field, ranks its exact partner
@@ -229,6 +232,7 @@ operator path and rollback boundary.
 | `specs/002-public-suggestion-inbox.md` | planning | accepted | public suggestion-to-inbox transition and activation boundary |
 | `specs/003-network-ignition.md` | planning | accepted | active seven-property `seed-v6` and `reference-v6` transition |
 | `specs/004-ledger-reentry.md` | planning | implemented; owner review pending | non-mutating orientation, exact recipe identity, and durable ledger re-entry |
+| `specs/005-private-relational-foundation.md` | planning | implemented locally; owner review pending | private authored direct relations, constellations, and the multi-object native room |
 
 when documents disagree, identify which document owns the disputed fact rather
 than applying filename precedence.
@@ -236,9 +240,9 @@ than applying filename precedence.
 ## intentionally absent
 
 - analytics and production monitoring;
-- session-held integers and encounter pings;
+- persisted held-object workspaces and encounter pings;
 - public thematic lenses;
-- private constellations and arbitrary new property definitions;
+- public authored-relation or constellation projection and arbitrary new property definitions;
 - application-level database encryption.
 
 headless browser and x11 renders exist as implementation evidence, but final
